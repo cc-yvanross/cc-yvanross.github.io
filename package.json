@@ -9,7 +9,7 @@
         "test": "mocha --reporter spec --require ts-node/register 'test/**/*.ts' --exit",
         "build": "gulp scripts",
         "coverage": "nyc npm run test",
-        "coverage:coveralls": "nyc --reporter=lcov --reporter=text-lcov npm run test | coveralls"
+        "coverage:coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
     },
     "keywords": [],
     "author": "",

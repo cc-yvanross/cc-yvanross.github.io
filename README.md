@@ -1,9 +1,6 @@
-# Squelette pour un API simple dans Node, Express et TypeScript
+# Système de gestion des bordereau utilisé dans le cadre du cours de LOG210 et développé avec Node, Express et TypeScript
 
-[![Build Status](https://travis-ci.org/profcfuhrmanets/log210-jeu-de-des-node-express-ts.svg?branch=master)](https://travis-ci.org/profcfuhrmanets/log210-jeu-de-des-node-express-ts)
-[![Coverage Status](https://coveralls.io/repos/github/profcfuhrmanets/log210-jeu-de-des-node-express-ts/badge.svg?branch=master)](https://coveralls.io/github/profcfuhrmanets/log210-jeu-de-des-node-express-ts?branch=master)
-
-Ce squelette est proposé pour commencer les projets en LOG210. Il possède les qualités suivantes:
+Ce système doit être utilisé pour obtenir l'information de base à la réalisation de votre laboratoire en LOG210. Il possède les qualités suivantes:
 
  - il est simple pour les débutants en LOG210
    - il n'y a pas de framework pour le front-end ni pour la persistance, mais ça n'empêche pas d'ajouter ces dimensions.
@@ -11,23 +8,8 @@ Ce squelette est proposé pour commencer les projets en LOG210. Il possède les 
  - il est orienté objet (avec TypeScript)
  - il contient des tests pour l'API (avec Mocha)
  - il fait une séparation entre les couches présentation et domaine, selon la méthodologie de conception du cours LOG210 (Larman)
- - il fonctionne sur Windows 10 (et probablement d'autres systèmes d'exploitation avec Node)
 
-> **NB**: Il existe également [une variante de ce squelette pour Python/Flask](https://github.com/profcfuhrmanets/log210-jeu-de-des-python-flask).
-
-## D'où vient l'idée de base pour ce squelette?
-
-Le code original a été expliqué dans ce [blog post](http://mherman.org/blog/2016/11/05/developing-a-restful-api-with-node-and-typescript/#.WB3zyeErJE4).
-
-Dans le cadre du cours [LOG210 de l'ÉTS](https://www.etsmtl.ca/Programmes-Etudes/1er-cycle/Fiche-de-cours?Sigle=log210), nous utilisons la méthodologie documentée par [Craig Larman dans son livre *Applying UML and Patterns*](http://www.craiglarman.com/wiki/index.php?title=Book_Applying_UML_and_Patterns). Ce livre documente beaucoup de principes avec des exemples en Java, qui n'est plus à la mode comme à l'époque où le livre a été écrit. 
-
-Pourtant, il est encore possible de suivre cette méthodologie avec des technologies modernes comme JavaScript, Node.js, surtout en utilisant TypeScript. Cependant, il n'est pas évident de trouver des exemples de ces technologies qui respectent les éléments clés de la méthodologie de Larman: la séparation des couches (présentation, domaine) avec les opérations système et les classes du domaine. 
-
-Ce squelette montre ces aspects importants, dans le contexte du *Jeu de dés*, qui est l'exemple utilisé dans le chapitre 1 du livre du cours. Nous avons modifié l'exemple pour le rendre un peu plus complexe (plusieurs opérations système). Les diagrammes (faits avec [PlantUML](https://stackoverflow.com/questions/32203610/how-to-integrate-uml-diagrams-into-gitlab-or-github)) sont présentés plus bas dans la partie Artefacts.
-
-L'éditeur [Visual Studio Code](https://code.visualstudio.com/) est très utile mais n'est pas nécessaire avec ce squelette.
-
-## Voulez-vous utiliser ce squelette?
+## Voulez-vous utiliser ce serveur?
 
 1. (Créer une fork et) Cloner
 2. Installer les dépendences node - `npm install`
@@ -39,7 +21,7 @@ L'éditeur [Visual Studio Code](https://code.visualstudio.com/) est très utile 
 
 Dans un bon design (selon Larman), on évite que la couche Présentation ait la responsabilité de gérer les évènements système (opérations système). Larman présente dans son livre un exemple avec un JFrame (en Java Swing) à la figure F16.24. On l'adapte ici au contexte d'un service Web dans le framework Express (Node.js):
 
-![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/figure-f16.24-web.puml?cacheinc=5)
+![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/figure-f16.24-web.puml?cacheinc=5)
 
 Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la couche présentation) reçoit l'opération système `demarrerJeu(nom)` selon le principe GRASP Contrôleur. Ce squelette respecte cette séparation.
 
@@ -47,34 +29,43 @@ Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la 
 
 ### Cas d'utilisation
 
-#### Jouer aux dés.
+#### Sauvegarder un résultat de devoir
 
-1. Le Joueur demande à démarrer le jeu en s'identifiant. 
-1. Le Joueur demande à lancer les dés. 
-1. Le Système affiche le nom du joueur et le résultat du lancer des dés, ainsi que le nombre de lancers et le nombre de fois que le Joueur a gagné. Pour un lancer, si le total est égal à sept, le Joueur a gagné. Dans tous les autres cas, il a perdu. 
+1. Le système authentifie l'étudiant
+2. Le système retourne la clé d'authentification qui devra être utilisé pour toutes les requêtes subséquentes.
+3. Le système sauvegarde le résultat d'un devoir
 
-*Le Joueur répète l’étape 3 jusqu’à ce qu’il ait fini.*
+*L'application cliente répète l’étape 3 jusqu’à ce qu’il ait fini.*
 
-4. Le Joueur demande à terminer le jeu.
-1. ~~Le Système affiche un tableau de bord avec les noms des joueurs et le ratio des parties gagnées (nombre de fois gagné / nombre de lancers).~~
+4. Le système déconnecte l'étudiant
+
+#### Sauvegarder un résultat d'un questionnaire
+
+1. Le système authentifie l'étudiant
+2. Le système retourne la clé d'authentification qui devra être utilisé pour toutes les requêtes subséquentes.
+3. Le système sauvegarde le résultat d'un questionnaire
+
+*L'application cliente répète l’étape 3 jusqu’à ce qu’il ait fini.*
+
+4. Le système déconnecte l'étudiant
 
 ### Diagramme de cas d’utilisation
 
-![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/dcu.puml?cacheinc=5)
+![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/dcu.puml?cacheinc=5)
 
 ### Modèle du domaine
 
-![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/mdd.puml?cacheinc=5)
+![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/mdd.puml?cacheinc=5)
 
 ### Diagramme de séquence système (DSS)
 
-![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/dss-jouer.puml?cacheinc=5)
+![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/dss-jouer.puml?cacheinc=5)
 
 ### Réalisations de cas d'utilisation (RDCU)
 
-![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/rdcu-demarrerJeu.puml?cacheinc=5)
+![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/rdcu-demarrerJeu.puml?cacheinc=5)
 
-![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/rdcu-jouer.puml?cacheinc=5)
+![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/rdcu-jouer.puml?cacheinc=5)
 
-![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/rdcu-terminerJeu.puml?cacheinc=5)
+![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/src/master/docs/rdcu-terminerJeu.puml?cacheinc=5)
 

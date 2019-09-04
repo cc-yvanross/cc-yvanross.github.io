@@ -4,9 +4,13 @@ skinparam style strictuml
 skinparam packageStyle rect
 skinparam backgroundcolor transparent
 skinparam defaultfontname Verdana
-actor Joueur as J
+actor "Application Client" as C
 rectangle "Système" {
-  (Jouer aux dés) as JP #powderblue
-  J -- JP
+  (Sauvegarder un résultat de devoir) as SRD #powderblue
+  (Sauvegarder un résultat de questionnaire) as SRQ #powderblue
+  (Récupérer les résultats d'un étudiant) as RRE #powderblue
+  C -- SRD
+  C -- SRQ
+  C -- RRE
 }
 @enduml
