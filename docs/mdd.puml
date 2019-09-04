@@ -4,16 +4,28 @@ skinparam defaultfontname Verdana
 left to right direction
 hide empty members
 'skinparam linetype ortho
-title Modèle du domaine pour le Jeu de dés du Ch. 1 de Larman
-class Joueur {
-  nom : String
+title Modèle du domaine pour le système de gestion des bordereau Ch. 1 de Larman
+class Course {
+  sigle : String
+  groupe : String
+  titre : String
+  nb_max_student: String
+  date_debut: Date
+  date_fin: Date
 }
-class Dé {
-  valeur : int
+class Student {
+  first_name: String
+  last_name: String
+  email: String
+  permanent_code: String
 }
-class JeuDeDés
 
-JeuDeDés "1" -- "2" Dé : inclut > 
-Joueur "1" -l- "1" JeuDeDés : joue > 
-Joueur "1" -- "2" Dé : lance > 
+class Note {
+   type: String
+   type_id: Integer
+   note: Float
+}
+Note "*"  -- "1"  Course: sont obtenu dans le cadre >
+Student "1" -- "*" Course : est inscrit > 
+Student "1" -- "*" Note: obtient
 @enduml
