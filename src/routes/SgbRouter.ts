@@ -20,9 +20,11 @@ export class SgbRouter {
    */
   public courses(req: Request, res: Response, next: NextFunction) {
     console.log("courses called")
+    let filename = req.params.filename;
+
     try {
       // Invoquer l'opération système (du DSS) dans le contrôleur GRASP
-      let courses = this.controller.courses();
+      let courses = this.controller.courses(filename);
 
       res.status(200)
         .send({
@@ -32,19 +34,20 @@ export class SgbRouter {
         });
     } catch (error) {
       let code = 500; // internal server error
-      if (error.message.indexOf("existe déjà")) {
+      let message = "Cannot read filename: " + filename; // error.toString();
+      if (error.message.indexOf("Cannot find module 'invalid'") == 0) {
         code = 400; // bad request }
       }
-      res.status(code).json({ error: error.toString() });
-
+      res.status(code).json({ error: message });
     }
   }
 
  public students(req: Request, res: Response, next: NextFunction) {
     console.log("students called")
+    let filename = req.params.filename;
     try {
       // Invoquer l'opération système (du DSS) dans le contrôleur GRASP
-      let data = this.controller.students();
+      let data = this.controller.students(filename);
       res.status(200)
         .send({
           message: 'Success',
@@ -53,11 +56,11 @@ export class SgbRouter {
         });
     } catch (error) {
       let code = 500; // internal server error
-      if (error.message.indexOf("existe déjà")) {
+      let message = "Cannot read filename: " + filename; // error.toString();
+      if (error.message.indexOf("Cannot find module 'invalid'") == 0) {
         code = 400; // bad request }
       }
-      res.status(code).json({ error: error.toString() });
-
+      res.status(code).json({ error: message });
     }
   }
 
@@ -68,7 +71,9 @@ export class SgbRouter {
      * endpoints.
      */
   init() {
+    this.router.get('/courses/:filename', this.courses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
     this.router.get('/courses', this.courses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+    this.router.get('/students/:filename', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
     this.router.get('/students', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
   }
 

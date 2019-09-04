@@ -10,13 +10,23 @@ export class SgbController {
      *  opérations systèmes
      */
 
-    public courses() {
-        var data = require('../courses.json');
+    public courses(filename: string) {
+        let data
+        if(filename == undefined)
+            data = require('../courses.json');
+        else
+            data = require(filename);
+            
         return data;
     }
 
-   public students() {
-        var data = require('../students.json');
+   public students(filename: string) {
+        let data;
+        if(filename == undefined)
+            data = require('../students.json');
+        else
+            data = require(filename);
+
         return data;
     }
 
