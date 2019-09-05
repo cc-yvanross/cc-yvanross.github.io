@@ -10,8 +10,6 @@ class Course {
   groupe : String
   titre : String
   nb_max_student: String
-  date_debut: Date
-  date_fin: Date
 }
 class Student {
   first_name: String
