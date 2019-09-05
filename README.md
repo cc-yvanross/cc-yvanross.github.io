@@ -21,7 +21,7 @@ Ce système doit être utilisé pour obtenir l'information de base à la réalis
 
 Dans un bon design (selon Larman), on évite que la couche Présentation ait la responsabilité de gérer les évènements système (opérations système). Larman présente dans son livre un exemple avec un JFrame (en Java Swing) à la figure F16.24. On l'adapte ici au contexte d'un service Web dans le framework Express (Node.js):
 
-![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/806fc65d790386345667e552c33b9a2a2e30182a/docs/figure-f16.24-web.puml?cacheinc=5)
+![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/master/docs/figure-f16.24-web.puml?cacheinc=5)
 
 Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la couche présentation) reçoit l'opération système `demarrerJeu(nom)` selon le principe GRASP Contrôleur. Ce squelette respecte cette séparation.
 
@@ -31,9 +31,9 @@ Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la 
 
 ### Diagramme de cas d’utilisation
 
-![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/806fc65d790386345667e552c33b9a2a2e30182a/docs/dcu.puml?cacheinc=5)
+![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/master/docs/dcu.puml?cacheinc=5)
 
 ### Modèle du domaine
 
-![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/806fc65d790386345667e552c33b9a2a2e30182a/docs/mdd.puml?cacheinc=5)
+![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/master/docs/mdd.puml?cacheinc=5)
 
