@@ -21,7 +21,7 @@ Ce système doit être utilisé pour obtenir l'information de base à la réalis
 
 Dans un bon design (selon Larman), on évite que la couche Présentation ait la responsabilité de gérer les évènements système (opérations système). Larman présente dans son livre un exemple avec un JFrame (en Java Swing) à la figure F16.24. On l'adapte ici au contexte d'un service Web dans le framework Express (Node.js):
 
-![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/figure-f16.24-web.puml?cacheinc=5)
+![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/fdfc4026412a8baadcd2d1130bc34eeb3288c6c9/docs/figure-f16.24-web.puml?cacheinc=5)
 
 Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la couche présentation) reçoit l'opération système `demarrerJeu(nom)` selon le principe GRASP Contrôleur. Ce squelette respecte cette séparation.
 
@@ -29,35 +29,15 @@ Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la 
 
 ### Cas d'utilisation
 
-#### Sauvegarder un résultat de devoir
-
-1. Le système authentifie l'étudiant
-2. Le système retourne la clé d'authentification qui devra être utilisé pour toutes les requêtes subséquentes.
-3. Le système sauvegarde le résultat d'un devoir
-
-*L'application cliente répète l’étape 3 jusqu’à ce qu’il ait fini.*
-
-4. Le système déconnecte l'étudiant
-
-#### Sauvegarder un résultat d'un questionnaire
-
-1. Le système authentifie l'étudiant
-2. Le système retourne la clé d'authentification qui devra être utilisé pour toutes les requêtes subséquentes.
-3. Le système sauvegarde le résultat d'un questionnaire
-
-*L'application cliente répète l’étape 3 jusqu’à ce qu’il ait fini.*
-
-4. Le système déconnecte l'étudiant
-
 ### Diagramme de cas d’utilisation
 
-![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/dcu.puml?cacheinc=5)
+![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/fdfc4026412a8baadcd2d1130bc34eeb3288c6c9/docs/dcu.puml?cacheinc=5)
 
 ### Modèle du domaine
 
-![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/mdd.puml?cacheinc=5)
+![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/fdfc4026412a8baadcd2d1130bc34eeb3288c6c9/docs/mdd.puml?cacheinc=5)
 
 '### Diagramme de séquence système (DSS)
 
-'![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/dss-jouer.puml?cacheinc=5)
+'![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/fdfc4026412a8baadcd2d1130bc34eeb3288c6c9/docs/dss-jouer.puml?cacheinc=5)
 
