@@ -20,11 +20,11 @@ rectangle "Système" {
   S -- L
   S -- SRD
   S -- SRQ
-  E -- RRE
+  T -- RRE
   T -- RRC
-  E -- EN
-  E -- RLC
-  E -- RLE
+  T -- EN
+  T -- RLC
+  T -- RLE
 }
 @enduml
 
