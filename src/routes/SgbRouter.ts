@@ -148,7 +148,6 @@ export class SgbRouter {
 	}
 
 
-
 	/**
 	* Take each handler, and attach to one of the Express.Router's
 	* endpoints.
@@ -162,7 +161,6 @@ export class SgbRouter {
 		this.router.get('/course/:course/notes', this.courseNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		this.router.get('/students', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 	}
-
 }
 
 // exporter its configured Express.Router
