@@ -37,7 +37,3 @@ Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la 
 
 ![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/806fc65d790386345667e552c33b9a2a2e30182a/docs/mdd.puml?cacheinc=5)
 
-'### Diagramme de séquence système (DSS)
-
-'![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/806fc65d790386345667e552c33b9a2a2e30182a/docs/dss-jouer.puml?cacheinc=5)
-
