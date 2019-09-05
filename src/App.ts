@@ -3,9 +3,7 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
-import { jeuRoutes } from './routes/JeuRouter';
 import { sgbRoutes } from './routes/SgbRouter';
-//import jeuRoutes from './routes/JeuRouter';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -40,8 +38,6 @@ class App {
     });
 
     this.express.use('/', router);  // routage de base
-
-    this.express.use('/api/v1/jeu', jeuRoutes.router);  // tous les URI pour le scénario jeu (DSS) commencent ainsi
     this.express.use('/api/v1/sgb', sgbRoutes.router);  // tous les URI pour le scénario du système de gestion des bordereau commencent ainsi
   }
 

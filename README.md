@@ -57,15 +57,7 @@ Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la 
 
 ![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/mdd.puml?cacheinc=5)
 
-### Diagramme de séquence système (DSS)
+'### Diagramme de séquence système (DSS)
 
-![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/dss-jouer.puml?cacheinc=5)
-
-### Réalisations de cas d'utilisation (RDCU)
-
-![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/rdcu-demarrerJeu.puml?cacheinc=5)
-
-![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/rdcu-jouer.puml?cacheinc=5)
-
-![Diagramme de séquence, demarrerJeu](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/rdcu-terminerJeu.puml?cacheinc=5)
+'![Diagramme de séquence système](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/976c9e5d46cbf156778a32924f951cf2305ed37f/docs/dss-jouer.puml?cacheinc=5)
 
