@@ -206,6 +206,18 @@ describe('course notes',()=>{
 			expect(res.body.data[1]).to.deep.equal({"course": "2","student": "3","note": "88.88","type": "questionnaire","type_id": "7"})
 		});		
 	});
+
+	it('responds with and error when trying to get notes for a course without authentification', () => {
+		return chai.request(app).get('/api/v1/sgb/course/2/notes')
+		.set('token','')
+		.then(res => {
+			expect(res.status).to.equal(500);
+			expect(res).to.be.json;
+			expect(res.body.error).to.equal('allo')
+		});		
+	});
+
+
 });
 
 describe('test utility',()=>{
@@ -224,6 +236,16 @@ describe('test utility',()=>{
 		
 		
 	});	
+
+it('respond with error if trying to clear notes without login', () => {
+		 return chai.request(app).get('/api/v1/sgb/notes/clear')
+		.set('token','')
+		.then(res => {
+			expect(res.status).to.equal(500);
+			expect(res).to.be.json;
+			expect(res.body.error).to.equal(undefined)
+		});	
+	});
 
 	it('clear all notes', () => {
 		chai.request(app).get('/api/v1/sgb/login?email=teacher%2B3%40gmail.com&password=1234')
