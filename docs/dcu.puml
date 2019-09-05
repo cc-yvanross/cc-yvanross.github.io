@@ -4,13 +4,27 @@ skinparam style strictuml
 skinparam packageStyle rect
 skinparam backgroundcolor transparent
 skinparam defaultfontname Verdana
-actor "Application Client" as C
+actor "Enseignant" as T
+actor "Étudiant" as S
+
 rectangle "Système" {
   (Sauvegarder un résultat de devoir) as SRD #powderblue
   (Sauvegarder un résultat de questionnaire) as SRQ #powderblue
   (Récupérer les résultats d'un étudiant) as RRE #powderblue
-  C -- SRD
-  C -- SRQ
-  C -- RRE
+  (Récupérer les résultats d'un cour) as RRC #powderblue
+  (Effacer toute les notes) as EN #powderblue
+  (Récupérer la liste des cours) as RLC #powderblue
+  (Récupérer la liste des étudiants) as RLE #powderblue
+  (Login) as L
+  T -- L
+  S -- L
+  S -- SRD
+  S -- SRQ
+  E -- RRE
+  T -- RRC
+  E -- EN
+  E -- RLC
+  E -- RLE
 }
 @enduml
+
