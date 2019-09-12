@@ -17,6 +17,11 @@ Ce système doit être utilisé pour obtenir l'information de base à la réalis
 4. Lancer serveur de développement - `npm start`
 5. Lancer les tests (pas besoin de lancer le serveur d'abord) - `npm test`
 
+## Exécution des test
+npm run test -- -g "nom ou partie du nom d'un test"
+npm run test
+npm run coverage
+
 ## Couplage souhaitable entre la couche Présentation et la couche Domaine
 
 Dans un bon design (selon Larman), on évite que la couche Présentation ait la responsabilité de gérer les évènements système (opérations système). Larman présente dans son livre un exemple avec un JFrame (en Java Swing) à la figure F16.24. On l'adapte ici au contexte d'un service Web dans le framework Express (Node.js):
