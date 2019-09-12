@@ -13,14 +13,14 @@ let courses = require('../src/data/courses.json');
 let students = require('../src/data/students.json');
 
 function loginTeacher(){
-	chai.request(app).get('/api/v1/sgb/login?email=teacher%2B3%40gmail.com&password=1234')
+	chai.request(app).get('/api/v1/login?email=teacher%2B3%40gmail.com&password=1234')
 	.then(res => {
 		expect(res.body.token).to.eq(md5('teacher+3@gmail.com'))
 	});
 }
 
 function loginStudent(){
-	chai.request(app).get('/api/v1/sgb/login?email=student%2B3%40gmail.com&password=1234')
+	chai.request(app).get('/api/v1/login?email=student%2B3%40gmail.com&password=1234')
 	.then(res => { 
 		expect(res.status).to.equal(200);
 		expect(res).to.be.json;
@@ -29,7 +29,7 @@ function loginStudent(){
 }
 
 function insertNote(course:number,type:string,type_id:number,note:number){
-	chai.request(app).get('/api/v1/sgb/student/note?course='+course.toString()+'&type='+type+'&type_id='+type_id.toString()+'&note='+note.toString())
+	chai.request(app).get('/api/v1/student/note?course='+course.toString()+'&type='+type+'&type_id='+type_id.toString()+'&note='+note.toString())
 	.set('token',md5('student+3@gmail.com'))
 	.then(res => {
 		expect(res.status).to.equal(200);
@@ -47,7 +47,7 @@ describe('Login',()=>{
 	});
 
 	it('Login with invalid email',()=>{
-		return chai.request(app).get('/api/v1/sgb/login?email=invalid%2B3%40gmail.com&password=1234')
+		return chai.request(app).get('/api/v1/login?email=invalid%2B3%40gmail.com&password=1234')
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
@@ -63,7 +63,7 @@ describe('Teacher', ()=>{
 
 	describe('Get Courses', () => {
 		it('responds with successful call for courses with valid teacher token ', () => {
-			return chai.request(app).get('/api/v1/sgb/courses')
+			return chai.request(app).get('/api/v1/courses')
 			.set('token',md5('teacher+3@gmail.com'))
 			.then(res => {
 				expect(res.status).to.equal(200);
@@ -74,7 +74,7 @@ describe('Teacher', ()=>{
 		});
 
 		it('responds with error if call for courses with invalid teacher token ', () => {
-			return chai.request(app).get('/api/v1/sgb/courses')
+			return chai.request(app).get('/api/v1/courses')
 			//.set('token',)
 			.then(res => {
 				expect(res.status).to.equal(500);
@@ -86,7 +86,7 @@ describe('Teacher', ()=>{
 
 	describe('get Students', () => {
 		it('responds with successful call for students with valid teacher token ', () => {
-			return chai.request(app).get('/api/v1/sgb/students')
+			return chai.request(app).get('/api/v1/students')
 			.set('token',md5('teacher+3@gmail.com'))
 			.then(res => { 
 				expect(res.status).to.equal(200);
@@ -96,7 +96,7 @@ describe('Teacher', ()=>{
 		});
 
 		it('responds with error if call for students with invali teacher token ', () => {
-			return chai.request(app).get('/api/v1/sgb/students')
+			return chai.request(app).get('/api/v1/students')
 			.set('token','invalid_token')
 			.then(res => { 
 				expect(res.status).to.equal(500);
@@ -114,7 +114,7 @@ describe('Student notes', () => {
 	})
 
 	it('responds with error if call for note is done without authentification token', () => {
-		return chai.request(app).get('/api/v1/sgb/student/note?course=12&type=devoir&type_id=13&note=65.02')
+		return chai.request(app).get('/api/v1/student/note?course=12&type=devoir&type_id=13&note=65.02')
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
@@ -127,7 +127,7 @@ describe('Student notes', () => {
 		insertNote(1,"devoir",2,33.33);
 		insertNote(4,"devoir",5,66.66);
 
-		return chai.request(app).get('/api/v1/sgb/student/notes/')
+		return chai.request(app).get('/api/v1/student/notes/')
 		.set('token',md5('student+3@gmail.com'))
 		.then(res => {
 			expect(res.status).to.equal(200);
@@ -143,7 +143,7 @@ describe('Student notes', () => {
 	it('responds with error on call for notes with invalid authentification', () => {
 		insertNote(1,'devoir',2,33.33)
 
-		return chai.request(app).get('/api/v1/sgb/student/notes/')
+		return chai.request(app).get('/api/v1/student/notes/')
 		.set('token',md5('invalid@gmail.com'))
 		.then(res => {
 			expect(res.status).to.equal(500);
@@ -165,7 +165,7 @@ describe('course notes',()=>{
 	});	
 
 	it('responds with all notes for a course', () => {
-		return chai.request(app).get('/api/v1/sgb/course/2/notes')
+		return chai.request(app).get('/api/v1/course/2/notes')
 		.set('token',md5('teacher+3@gmail.com'))
 		.then(res => {
 			expect(res.status).to.equal(200);
@@ -176,7 +176,7 @@ describe('course notes',()=>{
 	});
 
 	it('responds with and error when trying to get notes for a course without authentification', () => {
-		return chai.request(app).get('/api/v1/sgb/course/2/notes')
+		return chai.request(app).get('/api/v1/course/2/notes')
 		.set('token','')
 		.then(res => {
 			expect(res.status).to.equal(500);
@@ -195,8 +195,17 @@ describe('test utility',()=>{
 		insertNote(1,'devoir',2,33.33)
 	});	
 
+	it('respond successfuly when changing server latency', () => {
+		return chai.request(app).get('/api/v1/latency?value=1.1')
+		.then(res => {
+			expect(res.status).to.equal(200);
+			expect(res).to.be.json;
+			expect(res.body.data).to.equal('1.1')
+		});	
+	});
+
 	it('respond with error if trying to clear notes without login', () => {
-		return chai.request(app).get('/api/v1/sgb/notes/clear')
+		return chai.request(app).get('/api/v1/notes/clear')
 		.set('token','')
 		.then(res => {
 			expect(res.status).to.equal(500);
@@ -208,7 +217,7 @@ describe('test utility',()=>{
 	it('clear all notes', () => {
 		loginTeacher()
 
-		chai.request(app).get('/api/v1/sgb/notes/clear')
+		chai.request(app).get('/api/v1/notes/clear')
 		.set('token',md5('teacher+3@gmail.com'))
 		.then(res => {
 			expect(res.status).to.equal(200);
@@ -216,7 +225,7 @@ describe('test utility',()=>{
 			expect(res.body.data).to.equal(undefined)
 		});	
 
-		return chai.request(app).get('/api/v1/sgb/course/1/notes')
+		return chai.request(app).get('/api/v1/course/1/notes')
 		.set('token',md5('teacher+3@gmail.com'))
 		.then(res => {
 			expect(res.status).to.equal(200);

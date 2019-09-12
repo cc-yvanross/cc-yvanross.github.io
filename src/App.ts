@@ -38,7 +38,7 @@ class App {
     });
 
     this.express.use('/', router);  // routage de base
-    this.express.use('/api/v1/sgb', sgbRoutes.router);  // tous les URI pour le scénario du système de gestion des bordereau commencent ainsi
+    this.express.use('/api/v1', sgbRoutes.router);  // tous les URI pour le scénario du système de gestion des bordereau commencent ainsi
   }
 
 }

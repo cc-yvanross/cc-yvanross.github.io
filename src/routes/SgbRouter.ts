@@ -4,11 +4,13 @@ import { SgbController } from '../core/SgbController';
 export class SgbRouter {
 	router: Router;
 	controller: SgbController;  // contrôleur GRASP
+	router_latency: number;
 
 	/**
 	* Initialize the Router
 	*/
 	constructor() {
+		this.router_latency = 0;
 		this.controller = new SgbController();  // init contrôleur GRASP
 		this.router = Router();
 		this.init();
@@ -22,6 +24,7 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			let courses = this.controller.courses(token);
+			this.generate_latency();
 
 			res.status(200)
 			.send({
@@ -40,6 +43,8 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			let data = this.controller.students(token);
+			this.generate_latency();
+
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -62,6 +67,7 @@ export class SgbRouter {
 				req.query.type,
 				req.query.type_id,
 				req.query.note);
+			this.generate_latency();
 
 			res.status(200)
 			.send({
@@ -82,6 +88,7 @@ export class SgbRouter {
 			let token = req.headers.token as string
 			let data = this.controller.studentNotes(token);
 
+			this.generate_latency();
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -100,7 +107,7 @@ export class SgbRouter {
 			let token = req.headers.token as string
 			let course = req.params.course
 			let data = this.controller.courseNotes(token,course);
-
+			this.generate_latency();
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -116,7 +123,7 @@ export class SgbRouter {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = this.controller.login(req.query.email,req.query.password);
-
+			this.generate_latency();
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -135,7 +142,7 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			this.controller.clearNotes(token);
-
+			this.generate_latency();
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -147,12 +154,39 @@ export class SgbRouter {
 		}
 	}
 
+	public latency(req: Request, res: Response, next: NextFunction) { 
+		try {		
+			this.router_latency = req.query.value			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
+			this.generate_latency()
+			res.status(200)
+			.send({
+				message: 'Success',
+				status: res.status,
+				data: this.router_latency
+			});
+		} catch(error) {
+			console.log(error)
+			let code = 500; // internal server error
+			res.status(code).json({ error: error.toString() });
+		}
+	}
+
+	public generate_latency() {
+		var sleep = require('system-sleep');
+		let latency:number = this.router_latency
+		let random:number = Math.random()
+		let delay:number  = +(random * latency * 1000).toFixed();
+		console.log("Use a latency of", delay, ' milliseconds')
+		sleep(delay)
+	}
+
 
 	/**
 	* Take each handler, and attach to one of the Express.Router's
 	* endpoints.
 	*/
 	init() {
+		this.router.get('/latency', this.latency.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		this.router.get('/notes/clear', this.clearNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		this.router.get('/login', this.login.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		this.router.get('/student/note', this.studentNote.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
