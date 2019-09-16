@@ -24,37 +24,37 @@ npm run coverage
 
 ## définition de l'API
 
-  #### Ajuster la latence pour modifier la performance du serveur SGB.  
-  **value:float**, valeur de la latence en secondes.
-    `/api/v1/latency?value=1.1`
+#### Ajuster la latence pour modifier la performance du serveur SGB.  
+**value:float**, valeur de la latence en secondes.
+`/api/v1/latency?value=1.1`
 
-  #### Effacter toutes les notes dans le serveur SGB.  Pour vous faciliter la tâche et ne pas avoir à redémarrer le serveur à chaque fois qu'on veut nettoyer les données.  Peut aussi être très utile pour la réalisation des tests automatisées.
-    `/api/v1//notes/clear`
+#### Effacter toutes les notes dans le serveur SGB.  Pour vous faciliter la tâche et ne pas avoir à redémarrer le serveur à chaque fois qu'on veut nettoyer les données.  Peut aussi être très utile pour la réalisation des tests automatisées.
+`/api/v1//notes/clear`
 
-  #### Authentification de l'usager et récupération du token d'authentification
-  **email:string**, courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
-  password: string, non vérifier.  
-    `/api/v1/login?email=teacher%2B3%40gmail.com&password=1234`
+#### Authentification de l'usager et récupération du token d'authentification
+**email:string**, courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
+password: string, non vérifier.  
+`/api/v1/login?email=teacher%2B3%40gmail.com&password=1234`
 
-  #### Ajout d'une note dans le dossier de l'étudiant
-  **course:integer**, id du cours
-  **type:string**,  devoir ou Questionnaire
-  **type_id:integer**, id du devoir ou du questionnaire
-  **note:float**, node de l'étudiant à enregistrer
-      `/api/v1/student/note?course=1&type=devoir&type_id=3&note=75.23`
+#### Ajout d'une note dans le dossier de l'étudiant
+**course:integer**, id du cours
+**type:string**,  devoir ou Questionnaire
+**type_id:integer**, id du devoir ou du questionnaire
+**note:float**, node de l'étudiant à enregistrer
+`/api/v1/student/note?course=1&type=devoir&type_id=3&note=75.23`
 
-  #### Récupération de toutes les notes d'un étudiant
-  **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
-  `/api/v1//student/notes`
+#### Récupération de toutes les notes d'un étudiant
+**token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+`/api/v1//student/notes`
 
-  #### Récupération de tous les cours possible
-  **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
-    `/api/v1//courses`
+#### Récupération de tous les cours possible
+**token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+`/api/v1//courses`
 
-  #### Récupération de toutes les notes d'un étudiant
-  **token:string** à mettre dans le header pour pouvoir identifier l'édutiant et récupérer ses notes.
-    `/api/v1//course/:course/notes`
+#### Récupération de toutes les notes d'un étudiant
+**token:string** à mettre dans le header pour pouvoir identifier l'édutiant et récupérer ses notes.
+`/api/v1//course/:course/notes`
 
-  ####   Récupération de tous les étudiants possible
-  **token:string* à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
-    `/api/v1//students`
+####   Récupération de tous les étudiants possible
+**token:string* à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+`/api/v1//students`
