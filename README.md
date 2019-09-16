@@ -22,23 +22,39 @@ npm run test -- -g "nom ou partie du nom d'un test"
 npm run test
 npm run coverage
 
-## Couplage souhaitable entre la couche Présentation et la couche Domaine
+## définition de l'API
 
-Dans un bon design (selon Larman), on évite que la couche Présentation ait la responsabilité de gérer les évènements système (opérations système). Larman présente dans son livre un exemple avec un JFrame (en Java Swing) à la figure F16.24. On l'adapte ici au contexte d'un service Web dans le framework Express (Node.js):
+  ####Ajuster la latence pour modifier la performance du serveur SGB.  
+  **value:float**, valeur de la latence en secondes.
+    `/api/v1/latency?value=1.1`
 
-![Diagramme de séparation des couches avec une opération système envoyée au contrôleur GRASP](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/master/docs/figure-f16.24-web.puml?cacheinc=5)
+  ####Effacter toutes les notes dans le serveur SGB.  Pour vous faciliter la tâche et ne pas avoir à redémarrer le serveur à chaque fois qu'on veut nettoyer les données.  Peut aussi être très utile pour la réalisation des tests automatisées.
+    `/api/v1//notes/clear`
 
-Dans la figure ci-dessus, l'objet `:JeuDeDes` (qui est un objet en dehors de la couche présentation) reçoit l'opération système `demarrerJeu(nom)` selon le principe GRASP Contrôleur. Ce squelette respecte cette séparation.
+  ####Authentification de l'usager et récupération du token d'authentification
+  **email:string**, courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
+  password: string, non vérifier.  
+    `/api/v1/login?email=teacher%2B3%40gmail.com&password=1234`
 
-## Artefacts d'analyse et de conception
+  ####Ajout d'une note dans le dossier de l'étudiant
+  **course:integer**, id du cours
+  **type:string**,  devoir ou Questionnaire
+  **type_id:integer**, id du devoir ou du questionnaire
+  **note:float**, node de l'étudiant à enregistrer
+      `/api/v1/student/note?course=1&type=devoir&type_id=3&note=75.23`
 
-### Cas d'utilisation
+  ####Récupération de toutes les notes d'un étudiant
+  **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+  `/api/v1//student/notes`
 
-### Diagramme de cas d’utilisation
+  ####Récupération de tous les cours possible
+  **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+    `/api/v1//courses`
 
-![Diagramme de cas d'utilisation](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/master/docs/dcu.puml?cacheinc=5)
+  ####Récupération de toutes les notes d'un étudiant
+  **token:string** à mettre dans le header pour pouvoir identifier l'édutiant et récupérer ses notes.
+    `/api/v1//course/:course/notes`
 
-### Modèle du domaine
-
-![Diagramme de classe du Modèle du domaine](http://www.plantuml.com/plantuml/proxy?fmt=svg&src=https://bitbucket.org/yvanross/log210-systeme-gestion-bordereau-node-express-ts/raw/master/docs/mdd.puml?cacheinc=5)
-
+  ####Récupération de tous les étudiants possible
+  **token:string* à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+    `/api/v1//students`
