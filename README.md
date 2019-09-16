@@ -29,14 +29,17 @@ npm run coverage
 **value:float**, valeur de la latence en secondes.
 
 
+
 ```/api/v1//notes/clear```
 #### Effacter toutes les notes dans le serveur SGB.  Pour vous faciliter la tâche et ne pas avoir à redémarrer le serveur à chaque fois qu'on veut nettoyer les données.  Peut aussi être très utile pour la réalisation des tests automatisées.
+
 
 
 ```/api/v1/login?email=teacher%2B3%40gmail.com&password=1234```
 #### Authentification de l'usager et récupération du token d'authentification
 **email:string**, courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
 password: string, non vérifier. 
+
 
 
 ```/api/v1/student/note?course=1&type=devoir&type_id=3&note=75.23```
@@ -47,9 +50,11 @@ password: string, non vérifier.
 **note:float**, node de l'étudiant à enregistrer
 
 
+
 ```/api/v1//student/notes```
 #### Récupération de toutes les notes d'un étudiant
 **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+
 
 
 ```/api/v1//courses```
@@ -57,9 +62,11 @@ password: string, non vérifier.
 **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
 
 
+
 ```/api/v1//course/:course/notes```
 #### Récupération de toutes les notes d'un étudiant
 **token:string** à mettre dans le header pour pouvoir identifier l'édutiant et récupérer ses notes.
+
 
 
 ```/api/v1//students```
