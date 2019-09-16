@@ -12,10 +12,10 @@ Ce système doit être utilisé pour obtenir l'information de base à la réalis
 ## Voulez-vous utiliser ce serveur?
 
 1. (Créer une fork et) Cloner
-2. Installer les dépendences node - `npm install`
-3. Compiler - `npm run build`
-4. Lancer serveur de développement - `npm start`
-5. Lancer les tests (pas besoin de lancer le serveur d'abord) - `npm test`
+2. Installer les dépendences node - ```npm install```
+3. Compiler - ```npm run build```
+4. Lancer serveur de développement - ```npm start```
+5. Lancer les tests (pas besoin de lancer le serveur d'abord) - ```npm test```
 
 ## Exécution des test
 npm run test -- -g "nom ou partie du nom d'un test"
@@ -26,35 +26,35 @@ npm run coverage
 
 #### Ajuster la latence pour modifier la performance du serveur SGB.  
 **value:float**, valeur de la latence en secondes.
-`/api/v1/latency?value=1.1`
+```/api/v1/latency?value=1.1```
 
 #### Effacter toutes les notes dans le serveur SGB.  Pour vous faciliter la tâche et ne pas avoir à redémarrer le serveur à chaque fois qu'on veut nettoyer les données.  Peut aussi être très utile pour la réalisation des tests automatisées.
-`/api/v1//notes/clear`
+```/api/v1//notes/clear```
 
 #### Authentification de l'usager et récupération du token d'authentification
 **email:string**, courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
 password: string, non vérifier.  
-`/api/v1/login?email=teacher%2B3%40gmail.com&password=1234`
+```/api/v1/login?email=teacher%2B3%40gmail.com&password=1234```
 
 #### Ajout d'une note dans le dossier de l'étudiant
 **course:integer**, id du cours
 **type:string**,  devoir ou Questionnaire
 **type_id:integer**, id du devoir ou du questionnaire
 **note:float**, node de l'étudiant à enregistrer
-`/api/v1/student/note?course=1&type=devoir&type_id=3&note=75.23`
+```/api/v1/student/note?course=1&type=devoir&type_id=3&note=75.23```
 
 #### Récupération de toutes les notes d'un étudiant
 **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
-`/api/v1//student/notes`
+```/api/v1//student/notes```
 
 #### Récupération de tous les cours possible
 **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
-`/api/v1//courses`
+```/api/v1//courses```
 
 #### Récupération de toutes les notes d'un étudiant
 **token:string** à mettre dans le header pour pouvoir identifier l'édutiant et récupérer ses notes.
-`/api/v1//course/:course/notes`
+```/api/v1//course/:course/notes```
 
 ####   Récupération de tous les étudiants possible
 **token:string* à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
-`/api/v1//students`
+```/api/v1//students```
