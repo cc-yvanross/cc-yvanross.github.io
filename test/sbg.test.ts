@@ -79,7 +79,7 @@ describe('Teacher', ()=>{
 			.then(res => {
 				expect(res.status).to.equal(500);
 				expect(res).to.be.json;
-				expect(res.body.error).to.equal("Error: Authentification error, token do not match current logged in teacher")
+				expect(res.body.error).to.equal("Error: Authentification error, token do not match any teacher")
 			});
 		});
 	});
@@ -101,7 +101,7 @@ describe('Teacher', ()=>{
 			.then(res => { 
 				expect(res.status).to.equal(500);
 				expect(res).to.be.json;
-				expect(res.body.error).to.equal('Error: Authentification error, token do not match current logged in teacher')
+				expect(res.body.error).to.equal('Error: Authentification error, token do not match any teacher')
 			});
 		});
 	});
@@ -118,7 +118,7 @@ describe('Student notes', () => {
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match current logged in student')
+			expect(res.body.error).to.equal('Error: Authentification error, token do not match any student')
 
 		});
 	});
@@ -181,7 +181,7 @@ describe('course notes',()=>{
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match current logged in teacher')
+			expect(res.body.error).to.equal('Error: Authentification error, token do not match any teacher')
 		});		
 	});
 
@@ -210,7 +210,7 @@ describe('test utility',()=>{
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match current logged in teacher')
+			expect(res.body.error).to.equal('Error: Authentification error, token do not match any teacher')
 		});	
 	});
 
