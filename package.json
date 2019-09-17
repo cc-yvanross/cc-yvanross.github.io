@@ -4,11 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "watch": "npm-watch --filter 'src/**/*.ts'",
         "start": "node dist/index.js",
         "test": "mocha --reporter spec --require ts-node/register 'test/**/*.ts' --exit",
-        "tw": "mocha --reporter spec --require ts-node/register 'test/**/*.ts' --watch",
-        "tl": "mocha --reporter spec --require ts-node/register 'test/**/*.ts' -g 'login' --exit",
+        "watch": "mocha --reporter spec --require ts-node/register 'test/**/*.ts' --watch",
         "build": "gulp scripts",
         "coverage": "nyc npm run test",
         "coverage:coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"

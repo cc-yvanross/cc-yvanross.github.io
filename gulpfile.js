@@ -21,3 +21,4 @@ gulp.task('assets', function() {
 });
 
 gulp.task('default', gulp.parallel('watch', 'assets'));
+gulp.task('build', gulp.series('scripts', 'assets'));
