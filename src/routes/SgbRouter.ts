@@ -24,6 +24,7 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			let courses = this.controller.courses(token);
+			console.log("courses called with token", token)
 			this.generate_latency();
 
 			res.status(200)
@@ -42,6 +43,7 @@ export class SgbRouter {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
+			console.log("students called with token", token)
 			let data = this.controller.students(token);
 			this.generate_latency();
 
@@ -106,6 +108,7 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			let course = req.params.course
+			console.log("coursesNotes called with token", token, " and course ", course)
 			let data = this.controller.courseNotes(token,course);
 			this.generate_latency();
 			res.status(200)
@@ -123,6 +126,7 @@ export class SgbRouter {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = this.controller.login(req.query.email,req.query.password);
+			console.log("login called with email: " + req.query.email + " and password")
 			this.generate_latency();
 			res.status(200)
 			.send({
@@ -141,6 +145,7 @@ export class SgbRouter {
 		try {		
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
+			console.log("clearNotes called with token ", token)
 			this.controller.clearNotes(token);
 			this.generate_latency();
 			res.status(200)
@@ -157,6 +162,7 @@ export class SgbRouter {
 	public latency(req: Request, res: Response, next: NextFunction) { 
 		try {		
 			this.router_latency = req.query.value			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
+			console.log("latency called with value of ", this.router_latency)
 			this.generate_latency()
 			res.status(200)
 			.send({
