@@ -22,6 +22,9 @@ npm run test -- -g "nom ou partie du nom d'un test"
 npm run test
 npm run coverage
 
+## Pour exécuter un test unitaire
+**npm run test** -- -g 'responds with successful call for students with valid teacher token'
+
 ## définition de l'API
 
 ### api/v1/latency?value=1.1
@@ -38,7 +41,7 @@ npm run coverage
 ### api/v1/login?email=teacher%2B3%40gmail.com&password=1234
 #### Authentification de l'usager et récupération du token d'authentification
 **email:string**, courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
-password: string, non vérifier. 
+**password:string**, non vérifier. 
 
 
 
@@ -58,17 +61,18 @@ password: string, non vérifier.
 
 
 ### api/v1//courses
-#### Récupération de tous les cours possible
+#### Récupération de tous les cours enseigner par un enseignant
 **token:string** à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
 
 
 
 ### api/v1//course/:course/notes
-#### Récupération de toutes les notes d'un étudiant
+#### Récupération de toutes les notes des étudiants d'un cours
 **token:string** à mettre dans le header pour pouvoir identifier l'édutiant et récupérer ses notes.
 
 
 
-### api/v1//students
-####   Récupération de tous les étudiants possible
+### api/v1/course/:course/students
+####   Récupération de tous les étudiants inscrit a un cours
 **token:string* à mettre dans le header pour pouvoir identifier l'enseignant et récupérer les cours.
+**course:integer** numéro du cour

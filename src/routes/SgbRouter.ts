@@ -43,10 +43,11 @@ export class SgbRouter {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
-			console.log("students called with token", token)
-			let data = this.controller.students(token);
+			let course = req.params.course
+			let data = this.controller.students(token,course);
 			this.generate_latency();
-
+			console.log("Router students XXXXXXXXXXXX")
+			console.log(data)
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -54,6 +55,7 @@ export class SgbRouter {
 				data: data
 			});
 		} catch (error) {
+			//console.log(error)
 			let code = 500; // internal server error
 			res.status(code).json({ error: error.toString() });
 		}
@@ -199,7 +201,7 @@ export class SgbRouter {
 		this.router.get('/student/notes', this.studentNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		this.router.get('/courses', this.courses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		this.router.get('/course/:course/notes', this.courseNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
-		this.router.get('/students', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+		this.router.get('/course/:course/students', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 	}
 }
 

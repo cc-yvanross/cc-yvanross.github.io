@@ -36,17 +36,53 @@ export class SgbController {
 	}
 
 	public courses(token: string) {
-		this.teacherFromToken(token); // will generate an error if token is invalid
-		let   data = require('../data/courses.json');
+		let teacher = this.teacherFromToken(token); // will generate an error if token is invalid
+		let   course = require('../data/courses.json');
+		let   course_teacher = require('../data/course_teacher.json');
+		let data = []
+		try {
+			for(let i in course_teacher){
+				if(teacher.id == course_teacher[i].teacher_id){
+					for(let c in course){
+						if (course[c].id == course_teacher[i].course_id)
+							data.push(course[c])
+					}
+				}
+			}
+		} catch(error){
+			console.log("XXXXX",error);
+		}
 		return data;
 
 	}
 
-	public students(token: string) {
-		this.teacherFromToken(token); // will generate an error if token is invalid
-		let  data = require('../data/students.json');
+	public students(token: string,course_id:number) {
+		let teacher = this.teacherFromToken(token); // will generate an error if token is invalid
+		console.log("CCCCCCCCCCCC")
+		let students = require('../data/students.json');
+		let course_student = require('../data/course_student.json');
+		let course_teacher = require('../data/course_teacher.json');
+		let data = []
+		try {
+			for(let ct in course_teacher){
+				if(course_teacher[ct].teacher_id == teacher.id && course_teacher[ct].course_id == course_id){
+					for(let cs in course_student){
+						if(course_student[cs].course_id == course_id){
+							for(let s in students){
+								if(students[s].id == course_student[cs].student_id){
+									data.push(students[s])
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch(error){
+			console.log(error)
+		}
 		return data;
 	}
+
 
 	public studentNote(token:string, course:number, type:string, type_id:number, note:number) {
 		let student:Mailable = this.studentFromToken(token); // will generate an error if token is invalid

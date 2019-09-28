@@ -62,16 +62,23 @@ describe('Teacher', ()=>{
 	})
 
 	describe('Get Courses', () => {
-		it('responds with successful call for courses with valid teacher token ', () => {
-			return chai.request(app).get('/api/v1/courses')
-			.set('token',md5('teacher+3@gmail.com'))
-			.then(res => {
-				expect(res.status).to.equal(200);
-				expect(res).to.be.json;
-				expect(res.body.data).to.deep.include.members(courses)
 
+		it('responds with successful call for courses with valid teacher token ', () => {
+			let result = [ { id: 3,
+				sigle: 'LOG210',
+				nb_max_student: 5,
+				groupe: '03',
+				titre: 'Analyse et conception de logiciels',
+				date_debut: '2019-09-03',
+				date_fin: '2019-11-03' } ]
+				return chai.request(app).get('/api/v1/courses')
+				.set('token',md5('teacher+3@gmail.com'))
+				.then(res => {
+					expect(res.status).to.equal(200);
+					expect(res).to.be.json;
+					expect(res.body.data).to.deep.include.members(result)
+				});
 			});
-		});
 
 		it('responds with error if call for courses with invalid teacher token ', () => {
 			return chai.request(app).get('/api/v1/courses')
@@ -86,17 +93,27 @@ describe('Teacher', ()=>{
 
 	describe('get Students', () => {
 		it('responds with successful call for students with valid teacher token ', () => {
-			return chai.request(app).get('/api/v1/students')
-			.set('token',md5('teacher+3@gmail.com'))
-			.then(res => { 
-				expect(res.status).to.equal(200);
-				expect(res).to.be.json;
-				expect(res.body.data).to.deep.include.members(students)
-			});
-		});
+			let students_following_course_3_teached_by_teacher_3 = [ { id: 2,
+				first_name: 'firstname2',
+				last_name: 'last_name2',
+				email: 'student+2@gmail.com',
+				permanent_code: 'lastf2' },
+				{ id: 6,
+					first_name: 'firstname6',
+					last_name: 'last_name6',
+					email: 'student+6@gmail.com',
+					permanent_code: 'lastf6' } ]
+					return chai.request(app).get('/api/v1/course/3/students')
+					.set('token',md5('teacher+3@gmail.com'))
+					.then(res => { 
+						expect(res.status).to.equal(200);
+						expect(res).to.be.json;
+						expect(res.body.data).to.deep.include.members(students_following_course_3_teached_by_teacher_3)
+					});
+				});
 
 		it('responds with error if call for students with invali teacher token ', () => {
-			return chai.request(app).get('/api/v1/students')
+			return chai.request(app).get('/api/v1/course/3/students')
 			.set('token','invalid_token')
 			.then(res => { 
 				expect(res.status).to.equal(500);
