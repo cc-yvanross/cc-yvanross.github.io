@@ -35,6 +35,27 @@ export class SgbController {
 		throw new Error("Email and password do not match a student or a teacher")
 	}
 
+	public loginV2(email:string, password:string){
+		let  students = require('../data/students.json');
+		for( var student in students){
+			if(students[student].email == email) {
+				let current_student = students[student]
+				current_student.password = ''
+				return [md5(email),current_student]
+			}
+		}
+
+		let  teachers = require('../data/teachers.json');
+		for( var teacher in teachers){
+			if(teachers[teacher].email == email){
+				let current_teacher = teachers[teacher]
+				current_teacher.password = ''
+				return [md5(email),current_teacher]
+			}
+		}
+		throw new Error("Email and password do not match a student or a teacher")
+	}
+
 	public courses(token: string) {
 		let teacher = this.teacherFromToken(token); // will generate an error if token is invalid
 		let   course = require('../data/courses.json');
@@ -58,7 +79,6 @@ export class SgbController {
 
 	public students(token: string,course_id:number) {
 		let teacher = this.teacherFromToken(token); // will generate an error if token is invalid
-		console.log("CCCCCCCCCCCC")
 		let students = require('../data/students.json');
 		let course_student = require('../data/course_student.json');
 		let course_teacher = require('../data/course_teacher.json');

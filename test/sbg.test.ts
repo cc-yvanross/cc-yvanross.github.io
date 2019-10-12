@@ -54,6 +54,19 @@ describe('Login',()=>{
 			expect(res.body.error).to.eq('Error: Email and password do not match a student or a teacher')
 		});
 	})
+
+	it('Login teacher V2',()=>{
+		return chai.request(app).get('/api/v2/login?email=teacher%2B3%40gmail.com&password=1234')
+		.then(res => {
+			expect(res.status).to.equal(200);
+			expect(res).to.be.json;
+			console.log("TEST")
+			console.log(res.body.token)
+			console.log(res.body.user)
+			expect(res.body.token).to.eq(md5('teacher+3@gmail.com'))
+			expect(res.body.user['email']).to.eq("teacher+3@gmail.com")
+		});
+	})
 });
 
 describe('Teacher', ()=>{

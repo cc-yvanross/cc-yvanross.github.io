@@ -46,7 +46,6 @@ export class SgbRouter {
 			let course = req.params.course
 			let data = this.controller.students(token,course);
 			this.generate_latency();
-			console.log("Router students XXXXXXXXXXXX")
 			console.log(data)
 			res.status(200)
 			.send({
