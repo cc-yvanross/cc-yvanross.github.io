@@ -187,19 +187,110 @@ export class SgbRouter {
 		sleep(delay)
 	}
 
+	//apidoc -i src/routes/ -o docs/
 
 	/**
 	* Take each handler, and attach to one of the Express.Router's
 	* endpoints.
 	*/
 	init() {
+	/**
+	 * @api {get} /v1/latency?value=latence  Latence
+	 * @apiDescription Ajuster la latence pour modifier la performance du serveur SGB. 
+	 * @apiName GetUser
+	 * @apiGroup Test
+	 * @apiVersion 1.0.0
+	 * 
+	 * @apiParam {float} latence valeur de la latence en secondes..
+	 *
+	 */
 		this.router.get('/latency', this.latency.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
-		this.router.get('/notes/clear', this.clearNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+	/**
+	 * @api {get} /v1/notes/clear Annuler la latence
+	 * @apiGroup Test
+	 * @apiDescription Effacter toutes les notes dans le serveur SGB.  Pour vous faciliter la tâche et ne pas avoir à redémarrer le serveur à chaque fois qu'on veut nettoyer les données.  Peut aussi être très utile pour la réalisation des tests automatisées.
+	 * @apiVersion 1.0.0
+	 */
+	 this.router.get('/notes/clear', this.clearNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+	/**
+	 * @api {get} /v1/login?email=email&password=password Login
+	 * @apiGroup Application
+	 * @apiDescription Authentification de l'usager et récupération du token d'authentification
+	 * @apiVersion 1.0.0
+	 *
+	 * @apiParam {String} email courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
+	 * @apiParam {String} password non vérifier. 
+	 *
+	 * @apiSuccess (200) {String}  authentification token à mettre dans le header pour faire les autres requêtes.
+	 */
 		this.router.get('/login', this.login.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
-		this.router.get('/student/note', this.studentNote.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+	/**
+	 * @api {get} /v1/student/note?course=course&type=type&type_id=type_id&note=note Ajouter note étudiant
+	 * @apiGroup Etudiant
+	 * @apiDescription Ajout d'une note dans le dossier de l'étudiant
+	 * @apiVersion 1.0.0
+	 *
+	 * @apiParam {Integer} course id du cours.
+	 * @apiParam {String} type, devoir ou Questionnaire
+	 * @apiParam {Integer} type_id id du devoir ou du questionnaire
+	 * @apiParam {Float}  note note de l'étudiant à enregistrerpassword non vérifier. 
+	 *
+	 * @apiSuccess (200) {String} json
+	 */
+
+	 this.router.get('/student/note', this.studentNote.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+		
+		/**
+	 * @api {get} /v1/student/notes Notes de l'étudiant
+	 * @apiGroup Etudiant
+	 * @apiDescription Récupération de toutes les notes d'un étudiant
+	 * @apiVersion 1.0.0
+	 *
+	 * @apiParam {String} token Authentification token dans le header.
+	 *
+	 *  @apiSuccess (200) {String} json
+	 */
+
 		this.router.get('/student/notes', this.studentNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
-		this.router.get('/courses', this.courses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+		
+
+		/**
+	 * @api {get} /v1/courses Cours de l'enseignant 
+	 * @apiGroup Enseignant
+	 * @apiDescription Récupération de tous les cours enseigner par un enseignant
+	 * @apiVersion 1.0.0
+	 *
+	 * @apiParam {String} token Authentification token dans le header.
+	 *
+	 *  @apiSuccess (200) {String} json
+	 */
+	 this.router.get('/courses', this.courses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+		
+/**
+	 * @api {get} /v1/course/:course/notes Notes des étudiants 
+	 * @apiGroup Enseignant
+	 * @apiDescription Récupération de toutes les notes des étudiants d'un cours
+	 * @apiVersion 1.0.0
+	 *
+	 * @apiParam {String} token Authentification token dans le header.
+   * @apiParam {Integer} :course id du cours .
+	 *
+	 *  @apiSuccess (200) {String} json
+	 */
 		this.router.get('/course/:course/notes', this.courseNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+		
+/**
+	 * @api {get} /v1/course/:course/students Inscriptions
+	 * @apiGroup Enseignant
+	 * @apiDescription  Récupération de tous les étudiants inscrit a un cours
+	 * @apiVersion 1.0.0
+	 *
+	 * @apiParam {String} token Token d'authentification de l'enseignant dans le header.
+   * @apiParam {Integer} :course id du cours .
+	 *
+	 *  @apiSuccess (200) {String} json
+	 */
+
 		this.router.get('/course/:course/students', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 	}
 }

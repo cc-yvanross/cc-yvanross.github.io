@@ -1,0 +1,7 @@
+{
+  "name": "SGB",
+  "version": "2.0.0",
+  "description": "Système de gestion des bordereau utilisé dans le cadre du cours de LOG210 et développé avec Node, Express et TypeScript",
+  "title": "Système de gestion des bordereau",
+  "url" : "https://localhost:xxx/api"
+}

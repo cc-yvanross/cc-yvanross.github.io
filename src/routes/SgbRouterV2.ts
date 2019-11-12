@@ -41,6 +41,20 @@ export class SgbRouterV2 {
 	* endpoints.
 	*/
 	init() {
+	/**
+	 * @api {get} /v2/login?email=email&password=password Login
+	 * @apiGroup Application
+	 * @apiDescription Authentification de l'usager et récupération du token d'authentification
+	 * @apiVersion 2.0.0
+	 * @apiParam {String} email courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
+	 * @apiParam {String} password non vérifier. 
+	 *
+	 * @apiSuccess (200) {String}  message Success
+	 * @apiSuccess (200) {String}  status 
+	 * @apiSuccess (200) {String}  token Authentification token à inclure dans le header des requêtes subséquentes
+	 * @apiSuccess (200) {String}  user Information sur l'usager courant
+	 */
+
 		this.router.get('/login', this.login.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 	}
 }
