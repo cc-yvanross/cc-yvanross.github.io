@@ -121,10 +121,15 @@ export class SgbController {
 		let student = this.studentFromToken(token); // will generate an error if token is invalid
 		let course_student = require('../data/course_student.json');
 		var results = new Array();
-
-		for(let course in course_student){
-			 if (student.id == course_student[course].student_id){
-				results.push(course_student[course].course_id)
+		let courses = require('../data/courses.json');
+		
+		for(let course_index in course_student){
+			if (student.id == course_student[course_index].student_id){
+				for(let course in courses){
+					if (courses[course].id == course_student[course_index].course_id){
+						results.push(courses[course])
+					}
+				}
 			}
 		}
 

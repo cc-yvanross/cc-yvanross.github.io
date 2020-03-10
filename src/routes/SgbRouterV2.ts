@@ -21,8 +21,9 @@ export class SgbRouterV2 {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let data = this.controller.loginV2(req.query.email,req.query.password);
-			console.log("login called with email: " + req.query.email + " and password")
+			console.log("V2: login called with email: " + req.query.email + " and password")
 			//console.log("token = ",data[0], "user = ", data[1])
+			console.log(data[1])
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -52,7 +53,11 @@ export class SgbRouterV2 {
 	 * @apiSuccess (200) {String}  message Success
 	 * @apiSuccess (200) {String}  status 
 	 * @apiSuccess (200) {String}  token Authentification token à inclure dans le header des requêtes subséquentes
-	 * @apiSuccess (200) {String}  user Information sur l'usager courant
+	 * @apiSuccess (200) {String}  user Information sur l'usager courant { id: 3,
+  first_name: 'firstname3',
+  last_name: 'last_name3',
+  email: 'teacher+3@gmail.com',
+  password: '' }
 	 */
 
 		this.router.get('/login', this.login.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342

@@ -26,7 +26,6 @@ export class SgbRouter {
 			let courses = this.controller.courses(token);
 			// console.log("courses called with token", token)
 			this.generate_latency();
-
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -46,7 +45,6 @@ export class SgbRouter {
 			let course = req.params.course
 			let data = this.controller.students(token,course);
 			this.generate_latency();
-			// console.log(data)
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -72,6 +70,9 @@ export class SgbRouter {
 				req.query.note);
 			this.generate_latency();
 
+			console.log("studentNote")
+			console.log(data)
+
 			res.status(200)
 			.send({
 				message: 'Success',
@@ -90,7 +91,6 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			let data = this.controller.studentNotes(token);
-
 			this.generate_latency();
 			res.status(200)
 			.send({
@@ -146,6 +146,7 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = this.controller.login(req.query.email,req.query.password);
+			
 			// console.log("login called with email: " + req.query.email + " and password")
 			this.generate_latency();
 			res.status(200)
@@ -250,11 +251,10 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 * @apiVersion 1.0.0
 	 *
 	 * @apiParam {Integer} course id du cours.
-	 * @apiParam {String} type, devoir ou Questionnaire
+	 * @apiParam {String} type devoir ou Questionnaire
 	 * @apiParam {Integer} type_id id du devoir ou du questionnaire
-	 * @apiParam {Float}  note note de l'étudiant à enregistrerpassword non vérifier. 
+	 * @apiParam {Float}  note note de l'étudiant à enregistrer.
 	 *
-	 * @apiSuccess (200) {String} json
 	 */
 
 	 this.router.get('/student/note', this.studentNote.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
@@ -267,7 +267,7 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 *
 	 * @apiParam {String} token Authentification token dans le header.
 	 *
-	 *  @apiSuccess (200) {String} json
+	 *  @apiSuccess (200) {String} json [ { course: '1', type: 'devoir', type_id: '2', note: '33.33' },]
 	 */
 
 		this.router.get('/student/notes', this.studentNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
@@ -280,7 +280,14 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 *
 	 * @apiParam {String} token Authentification token dans le header.
 	 *
-	 *  @apiSuccess (200) {String} json
+	 *  @apiSuccess (200) {String} json [ { id: 5,
+	    sigle: 'LOG430',
+	    nb_max_student: 5,
+	    groupe: '01',
+	    titre: 'Architecture logicielle',
+	    date_debut: '2019-09-03',
+	    date_fin: '2019-09-03' },
+		 ]
 	 */
 
 		this.router.get('/student/courses', this.studentCourses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
@@ -293,7 +300,15 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 *
 	 * @apiParam {String} token Authentification token dans le header.
 	 *
-	 *  @apiSuccess (200) {String} json
+
+	 *  @apiSuccess (200) {String} json [ { id: 3,
+    sigle: 'LOG210',
+    nb_max_student: 5,
+    groupe: '03',
+    titre: 'Analyse et conception de logiciels',
+    date_debut: '2019-09-03',
+    date_fin: '2019-11-03' }, ...]
+
 	 */
 	 this.router.get('/courses', this.courses.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		
@@ -306,12 +321,16 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 * @apiParam {String} token Authentification token dans le header.
    * @apiParam {Integer} :course id du cours .
 	 *
-	 *  @apiSuccess (200) {String} json
+	 *  @apiSuccess (200) {String} json [ { course: '2',
+    type: 'questionnaire',
+    type_id: '5',
+    note: '66.66',
+    student: '3' },]
 	 */
 		this.router.get('/course/:course/notes', this.courseNotes.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		
 /**
-	 * @api {get} /v1/course/:course/students Inscriptions
+	 * @api {get} /v1/course/:course/students Étudiants inscrit à un cours
 	 * @apiGroup Enseignant
 	 * @apiDescription  Récupération de tous les étudiants inscrit a un cours
 	 * @apiVersion 1.0.0
@@ -319,7 +338,11 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 * @apiParam {String} token Token d'authentification de l'enseignant dans le header.
    * @apiParam {Integer} :course id du cours .
 	 *
-	 *  @apiSuccess (200) {String} json
+	 *  @apiSuccess (200) {String} json [ { id: 2,
+    first_name: 'firstname2',
+    last_name: 'last_name2',
+    email: 'student+2@gmail.com',
+    permanent_code: 'lastf2' },]
 	 */
 
 		this.router.get('/course/:course/students', this.students.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342

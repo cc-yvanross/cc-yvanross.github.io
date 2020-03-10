@@ -28,3 +28,8 @@ npm run coverage
 ## définition de l'API
 
 voir le fichier docs/index.html
+
+## Pour générer la documentation
+
+apidoc -i src/routes/ -o docs/
+

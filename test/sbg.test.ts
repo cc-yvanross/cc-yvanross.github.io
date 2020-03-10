@@ -60,9 +60,9 @@ describe('Login',()=>{
 		.then(res => {
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
-			console.log("TEST")
-			console.log(res.body.token)
-			console.log(res.body.user)
+			// console.log("TEST")
+			// console.log(res.body.token)
+			// console.log(res.body.user)
 			expect(res.body.token).to.eq(md5('teacher+3@gmail.com'))
 			expect(res.body.user['email']).to.eq("teacher+3@gmail.com")
 		});
@@ -89,6 +89,8 @@ describe('Teacher', ()=>{
 				.then(res => {
 					expect(res.status).to.equal(200);
 					expect(res).to.be.json;
+					console.log("courses")
+					console.log(res.body.data)
 					expect(res.body.data).to.deep.include.members(result)
 				});
 			});
@@ -192,12 +194,14 @@ describe('student courses',()=>{
 	});	
 
 it('responds with all courses of a student', () => {
+		let expected_results = [courses[4],courses[5]]
+
 		return chai.request(app).get('/api/v1/student/courses')
 		.set('token',md5('student+3@gmail.com')) 
 		.then(res => {
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
-			expect(res.body.data).to.deep.equal([5,6])
+			expect(res.body.data).to.deep.equal(expected_results)
 		});		
 	});
 });	
