@@ -185,6 +185,23 @@ describe('Student notes', () => {
 
 });
 
+describe('student courses',()=>{
+
+	beforeEach(async()=>{
+		loginStudent(),6
+	});	
+
+it('responds with all courses of a student', () => {
+		return chai.request(app).get('/api/v1/student/courses')
+		.set('token',md5('student+3@gmail.com')) 
+		.then(res => {
+			expect(res.status).to.equal(200);
+			expect(res).to.be.json;
+			expect(res.body.data).to.deep.equal([5,6])
+		});		
+	});
+});	
+
 describe('course notes',()=>{
 	beforeEach(async()=>{
 		loginStudent()

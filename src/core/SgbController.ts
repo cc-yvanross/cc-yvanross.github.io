@@ -98,13 +98,16 @@ export class SgbController {
 				}
 			}
 		} catch(error){
-			console.log(error)
+			console.log("XXXXXX",error)
 		}
 		return data;
 	}
 
 
 	public studentNote(token:string, course:number, type:string, type_id:number, note:number) {
+		// todo
+		// devoir: token = professeur
+		// quiz: token = étudiant
 		let student:Mailable = this.studentFromToken(token); // will generate an error if token is invalid
 		this.multimap.set(student.id.toString(),{"course": course, "type":type, "type_id":type_id, "note":note});
 	}
@@ -112,6 +115,20 @@ export class SgbController {
 	public studentNotes(token:string){
 		let student = this.studentFromToken(token); // will generate an error if token is invalid
 		return this.multimap.get(student.id.toString());
+	}
+
+	public studentCourses(token:string){
+		let student = this.studentFromToken(token); // will generate an error if token is invalid
+		let course_student = require('../data/course_student.json');
+		var results = new Array();
+
+		for(let course in course_student){
+			 if (student.id == course_student[course].student_id){
+				results.push(course_student[course].course_id)
+			}
+		}
+
+		return results
 	}
 
 	public courseNotes(token:string,course_id:number){
