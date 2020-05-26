@@ -17,7 +17,11 @@ class Student {
   email: String
   permanent_code: String
 }
-
+class Teacher {
+  first_name: String
+  last_name: String
+  email: String
+}
 class Note {
    type: String
    type_id: Integer
@@ -25,5 +29,6 @@ class Note {
 }
 Note "*"  -- "1"  Course: sont obtenu dans le cadre >
 Student "1" -- "*" Course : est inscrit > 
-Student "1" -- "*" Note: obtient
+Student "1" -- "*" Note: obtient >
+Teacher "1" -left- "*" Course: Enseigne >
 @enduml
