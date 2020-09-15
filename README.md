@@ -27,7 +27,7 @@ npm run coverage
 
 ## définition de l'API
 
-voir le fichier docs/index.html
+voir le fichier [docs/index.html](docs/index.html)
 
 ## Pour générer la documentation
 

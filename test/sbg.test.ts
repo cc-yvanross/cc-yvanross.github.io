@@ -83,7 +83,7 @@ describe('Teacher', ()=>{
 				groupe: '03',
 				titre: 'Analyse et conception de logiciels',
 				date_debut: '2019-09-03',
-				date_fin: '2019-11-03' } ]
+				date_fin: '2019-11-04' } ]
 				return chai.request(app).get('/api/v1/courses')
 				.set('token',md5('teacher+3@gmail.com'))
 				.then(res => {

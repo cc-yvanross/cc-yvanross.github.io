@@ -21,10 +21,11 @@ export class SgbRouter {
 	*/
 	public courses(req: Request, res: Response, next: NextFunction) {
 		try {
+			console.log("SGBController::courses")
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
+			console.log("Token from header:", token);
 			let courses = this.controller.courses(token);
-			// console.log("courses called with token", token)
 			this.generate_latency();
 			res.status(200)
 			.send({
@@ -53,6 +54,33 @@ export class SgbRouter {
 			});
 		} catch (error) {
 			//console.log(error)
+			let code = 500; // internal server error
+			res.status(code).json({ error: error.toString() });
+		}
+	}
+
+
+	public note(req: Request, res: Response, next: NextFunction) { 
+		try {
+			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
+			let teacher_token = req.headers.token as string
+			let data = this.controller.note(
+				teacher_token,
+				req.query.student_id,
+				req.query.course_id,
+				req.query.type,
+				req.query.type_id,
+				req.query.note);
+			this.generate_latency();
+
+
+			res.status(200)
+			.send({
+				message: 'Success',
+				status: res.status,
+				data: data
+			});
+		} catch (error) {
 			let code = 500; // internal server error
 			res.status(code).json({ error: error.toString() });
 		}
@@ -258,6 +286,23 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 */
 
 	 this.router.get('/student/note', this.studentNote.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+		
+	 /**
+	 * @api {put} /v1/note?student_id=student_id&course_id=course_id&type=type&type_id=type_id&note=note Enseignant ajouter une note à un étudiant
+	 * @apiGroup Enseignant
+	 * @apiDescription L'enseignant ajoute une note dans le dossier de l'étudiant
+	 * @apiVersion 1.0.0
+	 *
+	 
+	 * @apiParam {Integer} student_id id de l'étudiant.
+	 * @apiParam {Integer} course_id id du cours.
+	 * @apiParam {String} type devoir ou Questionnaire
+	 * @apiParam {Integer} type_id id du devoir ou du questionnaire
+	 * @apiParam {Float}  note note de l'étudiant à enregistrer.
+	 *
+	 */
+
+	this.router.put('/note', this.note.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		
 		/**
 	 * @api {get} /v1/student/notes Notes de l'étudiant

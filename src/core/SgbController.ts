@@ -2,6 +2,8 @@ import Multimap = require('multimap');
 import md5 = require('md5');
 
 interface Mailable {
+	followCourse(course_id: number);
+	giveCourse(course_id: number);
 	email: string,
 	id: number,
 }
@@ -103,11 +105,32 @@ export class SgbController {
 		return data;
 	}
 
+	
+/** teacher will assigne note to a student work */
+	public note(token:string, student_id:number, course_id:number, type:string, type_id:number, note:number) {
+		let teacher:Mailable = this.teacherFromToken(token); // will generate an error if token is invalid
+		let student:Mailable = this.studentFromId(student_id)
+		if (!teacher.giveCourse(course_id))
+			throw new Error("This teacher do not give this course")
+
+		if (!student.followCourse(course_id))
+			throw new Error("This student to not follow this course")
+
+			this.multimap.set(student_id.toString(),{"course": course_id, "type":type, "type_id":type_id, "note":note});
+	}
+	
+	private studentFromId(student_id: number): Mailable {
+		let  students = require('../data/students.json');
+
+		for( var student in students){
+			if(students[student].id == student_id){
+				return students[student]
+			}
+		}
+		throw new Error("student not found");
+	}
 
 	public studentNote(token:string, course:number, type:string, type_id:number, note:number) {
-		// todo
-		// devoir: token = professeur
-		// quiz: token = étudiant
 		let student:Mailable = this.studentFromToken(token); // will generate an error if token is invalid
 		this.multimap.set(student.id.toString(),{"course": course, "type":type, "type_id":type_id, "note":note});
 	}
@@ -157,12 +180,13 @@ export class SgbController {
 	//*********************************  privte *****************************
 
 
-
 	private teacherFromToken(token){
 		let  teachers = require('../data/teachers.json');
-
+		console.log("Token: ", token);
 		for( var teacher in teachers){
+
 			if(md5(teachers[teacher].email) == token){
+				console.log(md5(teachers[teacher].email));
 				return teachers[teacher]
 			}
 		}
