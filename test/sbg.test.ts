@@ -1,8 +1,11 @@
 import * as chai from 'chai';
-import chaiHttp = require('chai-http');
+import * as chaiHttp from 'chai-http';
+// import chaiHttp = require('chai-http'); 
 import app from '../src/App';
 //import {mock, when,verify, instance} from 'ts-mockito'
-import md5 = require('md5');
+// import md5 = require('md5');
+import * as md5 from 'md5';
+
 
 
 chai.use(chaiHttp);
