@@ -63,11 +63,27 @@ describe('Login',()=>{
 		.then(res => {
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
-			// console.log("TEST")
-			// console.log(res.body.token)
-			// console.log(res.body.user)
 			expect(res.body.token).to.eq(md5('teacher+3@gmail.com'))
 			expect(res.body.user['email']).to.eq("teacher+3@gmail.com")
+		});
+	})
+
+	it('Login student V2',()=>{
+		return chai.request(app).get('/api/v2/login?email=student%2B3%40gmail.com&password=1234')
+		.then(res => {
+			expect(res.status).to.equal(200);
+			expect(res).to.be.json;
+			expect(res.body.token).to.eq(md5('student+3@gmail.com'))
+			expect(res.body.user['email']).to.eq("student+3@gmail.com")
+		});
+	})
+
+	it('LoginV2 with invalid email',()=>{
+		return chai.request(app).get('/api/v2/login?email=invalid%2B3%40gmail.com&password=1234')
+		.then(res => {
+			expect(res.status).to.equal(500);
+			expect(res).to.be.json;
+			expect(res.body.error).to.eq('Error: Email and password do not match a student or a teacher')
 		});
 	})
 });
@@ -92,8 +108,8 @@ describe('Teacher', ()=>{
 				.then(res => {
 					expect(res.status).to.equal(200);
 					expect(res).to.be.json;
-					console.log("courses")
-					console.log(res.body.data)
+					// console.log("courses")
+					// console.log(resw.body.data)
 					expect(res.body.data).to.deep.include.members(result)
 				});
 			});
@@ -168,8 +184,8 @@ describe('Student notes', () => {
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
 
-			expect(res.body.data[0]).to.deep.equal({ course: '1', type: 'devoir', type_id: '2', note: '33.33' });
-			expect(res.body.data[1]).to.deep.equal({ course: '4', type: 'devoir', type_id: '5', note: '66.66' });
+			expect(res.body.data[0]).to.deep.equal({ course: 1, type: 'devoir', type_id: 2, note: 33.33 });
+			expect(res.body.data[1]).to.deep.equal({ course: 4, type: 'devoir', type_id: 5, note: 66.66 });
 		});
 
 	});
@@ -209,6 +225,16 @@ it('responds with all courses of a student', () => {
 	});
 });	
 
+it('responds fail if token is teacher', () => {
+	return chai.request(app).get('/api/v1/student/courses')
+	.set('token',md5('teacher+3@gmail.com')) 
+	.then(res => {
+		expect(res.status).to.equal(500);
+			expect(res).to.be.json;
+			expect(res.body.error).to.equal('Error: Authentification error, token do not match any student')
+	});		
+});	
+
 describe('course notes',()=>{
 	beforeEach(async()=>{
 		loginStudent()
@@ -224,8 +250,8 @@ describe('course notes',()=>{
 		.then(res => {
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
-			expect(res.body.data[0]).to.deep.equal({"course": "2","student": "3","note": "66.66","type": "questionnaire","type_id": "5"})
-			expect(res.body.data[1]).to.deep.equal({"course": "2","student": "3","note": "88.88","type": "questionnaire","type_id": "7"})
+			expect(res.body.data[0]).to.deep.equal({"course": 2,"student": 3,"note": 66.66,"type": "questionnaire","type_id": 5})
+			expect(res.body.data[1]).to.deep.equal({"course": 2,"student": 3,"note": 88.88,"type": "questionnaire","type_id": 7})
 		});		
 	});
 
@@ -254,7 +280,7 @@ describe('test utility',()=>{
 		.then(res => {
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
-			expect(res.body.data).to.equal('1.1')
+			expect(res.body.data).to.equal(1.1)
 		});	
 	});
 

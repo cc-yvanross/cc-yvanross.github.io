@@ -20,10 +20,12 @@ export class SgbRouterV2 {
 	public login(req: Request, res: Response, next: NextFunction) { 
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
-			let data = this.controller.loginV2(req.query.email,req.query.password);
-			console.log("V2: login called with email: " + req.query.email + " and password")
+			let data = this.controller.loginV2(
+				req.query.email as string,
+				req.query.password as string);
+			// console.log("V2: login called with email: " + req.query.email + " and password")
 			//console.log("token = ",data[0], "user = ", data[1])
-			console.log(data[1])
+			// console.log(data[1])
 			res.status(200)
 			.send({
 				message: 'Success',
