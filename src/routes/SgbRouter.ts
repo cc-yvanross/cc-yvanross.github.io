@@ -42,7 +42,7 @@ export class SgbRouter {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
-			let course = req.params.course
+			let course = parseInt(req.params.course) 
 			let data = this.controller.students(token,course);
 			this.generate_latency();
 			res.status(200)
@@ -61,17 +61,14 @@ export class SgbRouter {
 	public studentNote(req: Request, res: Response, next: NextFunction) { 
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
-			let token = req.headers.token as string
 			let data = this.controller.studentNote(
-				token,
-				req.query.course,
-				req.query.type,
-				req.query.type_id,
-				req.query.note);
+				req.headers.token as string,
+				parseInt(req.query.course as string),
+				req.query.type as string,
+				parseInt(req.query.type_id as string),
+				parseFloat(req.query.note as string));
 			this.generate_latency();
 
-			console.log("studentNote")
-			console.log(data)
 
 			res.status(200)
 			.send({
@@ -91,12 +88,13 @@ export class SgbRouter {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
 			let data = this.controller.studentNotes(token);
+			let sortedData = data.sort((n1,n2) => n1.course - n2.course);
 			this.generate_latency();
 			res.status(200)
 			.send({
 				message: 'Success',
 				status: res.status,
-				data: data
+				data: sortedData
 			});
 		} catch (error) {
 			let code = 500; // internal server error
@@ -127,7 +125,7 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 		try {
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
-			let course = req.params.course
+			let course = parseInt(req.params.course)
 			// console.log("coursesNotes called with token", token, " and course ", course)
 			let data = this.controller.courseNotes(token,course);
 			this.generate_latency();
@@ -144,10 +142,11 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	}
 	public login(req: Request, res: Response, next: NextFunction) { 
 		try {
+			let email = req.query.email as string;
+			let password = req.query.password as string;
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
-			let token = this.controller.login(req.query.email,req.query.password);
+			let token = this.controller.login(email,password);
 			
-			// console.log("login called with email: " + req.query.email + " and password")
 			this.generate_latency();
 			res.status(200)
 			.send({
@@ -164,16 +163,15 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 
 	public clearNotes(req: Request, res: Response, next: NextFunction) { 
 		try {		
-			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
+						// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
-			// console.log("clearNotes called with token ", token)
 			this.controller.clearNotes(token);
-			this.generate_latency();
 			res.status(200)
 			.send({
 				message: 'Success',
 				status: res.status
 			});
+
 		} catch(error) {
 			let code = 500; // internal server error
 			res.status(code).json({ error: error.toString() });
@@ -181,21 +179,16 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	}
 
 	public latency(req: Request, res: Response, next: NextFunction) { 
-		try {		
-			this.router_latency = req.query.value			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
+			this.router_latency = parseFloat(req.query.value as string);		// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			// console.log("latency called with value of ", this.router_latency)
 			this.generate_latency()
+
 			res.status(200)
 			.send({
 				message: 'Success',
 				status: res.status,
-				data: this.router_latency
+				data: this.router_latency as number
 			});
-		} catch(error) {
-			// console.log(error)
-			let code = 500; // internal server error
-			res.status(code).json({ error: error.toString() });
-		}
 	}
 
 	public generate_latency() {

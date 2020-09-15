@@ -12,15 +12,17 @@ Ce système doit être utilisé pour obtenir l'information de base à la réalis
 ## Voulez-vous utiliser ce serveur?
 
 1. (Créer une fork et) Cloner
-2. Installer les dépendences node - ```npm install```
-3. Compiler - ```npm run build```
-4. Lancer serveur de développement - ```npm start```
-5. Lancer les tests (pas besoin de lancer le serveur d'abord) - ```npm test```
+4. Installer les dépendences node - ```npm install```
+6. Lancer serveur de développement - ```npm start```
+7. Lancer les tests (pas besoin de lancer le serveur d'abord) - ```npm test```
+8. Lancer les tests en mode TDD - ```npm watch```
 
 ## Exécution des test
 npm run test -- -g "nom ou partie du nom d'un test"
 npm run test
 npm run coverage
+
+see https://medium.com/@RupaniChirag/writing-unit-tests-in-typescript-d4719b8a0a40
 
 ## Pour exécuter un test unitaire
 **npm run test** -- -g 'responds with successful call for students with valid teacher token'

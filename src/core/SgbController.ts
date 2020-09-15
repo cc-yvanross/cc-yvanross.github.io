@@ -61,7 +61,7 @@ export class SgbController {
 		let   course = require('../data/courses.json');
 		let   course_teacher = require('../data/course_teacher.json');
 		let data = []
-		try {
+		// try {
 			for(let i in course_teacher){
 				if(teacher.id == course_teacher[i].teacher_id){
 					for(let c in course){
@@ -70,9 +70,9 @@ export class SgbController {
 					}
 				}
 			}
-		} catch(error){
-			console.log("XXXXX",error);
-		}
+		// } catch(error){
+		// 	console.log("XXXXX",error);
+		// }
 		return data;
 
 	}
@@ -83,7 +83,6 @@ export class SgbController {
 		let course_student = require('../data/course_student.json');
 		let course_teacher = require('../data/course_teacher.json');
 		let data = []
-		try {
 			for(let ct in course_teacher){
 				if(course_teacher[ct].teacher_id == teacher.id && course_teacher[ct].course_id == course_id){
 					for(let cs in course_student){
@@ -97,9 +96,6 @@ export class SgbController {
 					}
 				}
 			}
-		} catch(error){
-			console.log("XXXXXX",error)
-		}
 		return data;
 	}
 
@@ -109,12 +105,12 @@ export class SgbController {
 		// devoir: token = professeur
 		// quiz: token = étudiant
 		let student:Mailable = this.studentFromToken(token); // will generate an error if token is invalid
-		this.multimap.set(student.id.toString(),{"course": course, "type":type, "type_id":type_id, "note":note});
+		this.multimap.set(student.id,{"course": course, "type":type, "type_id":type_id, "note":note});
 	}
 
 	public studentNotes(token:string){
 		let student = this.studentFromToken(token); // will generate an error if token is invalid
-		return this.multimap.get(student.id.toString());
+		return this.multimap.get(student.id);
 	}
 
 	public studentCourses(token:string){
@@ -140,7 +136,7 @@ export class SgbController {
 		this.teacherFromToken(token); // will generate an error if token is invalid
 		var results = new Array();
 		this.multimap.forEach((entry,key)=> {
-			if(entry.course == course_id.toString()){
+			if(entry.course == course_id){
 				entry["student"]=key
 				results.push(entry)
 			}
@@ -150,7 +146,6 @@ export class SgbController {
 
 	public clearNotes(token:string,){
 		this.teacherFromToken(token); // will generate an error if token is invalid
-
 		this.multimap = new Multimap();
 	}
 
