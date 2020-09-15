@@ -21,10 +21,9 @@ export class SgbRouter {
 	*/
 	public courses(req: Request, res: Response, next: NextFunction) {
 		try {
-			console.log("SGBController::courses")
 			// Invoquer l'opération système (du DSS) dans le contrôleur GRASP
 			let token = req.headers.token as string
-			console.log("Token from header:", token);
+			// console.log("Token from header:", token);
 			let courses = this.controller.courses(token);
 			this.generate_latency();
 			res.status(200)
@@ -66,19 +65,16 @@ export class SgbRouter {
 			let teacher_token = req.headers.token as string
 			let data = this.controller.note(
 				teacher_token,
-				req.query.student_id,
-				req.query.course_id,
-				req.query.type,
-				req.query.type_id,
-				req.query.note);
-			this.generate_latency();
-
+				parseInt(req.query.student_id as string),
+				parseInt(req.query.course_id as string),
+				req.query.type as string,
+				parseInt(req.query.type_id as string),
+				parseFloat(req.query.note as string));
 
 			res.status(200)
 			.send({
 				message: 'Success',
 				status: res.status,
-				data: data
 			});
 		} catch (error) {
 			let code = 500; // internal server error
@@ -295,7 +291,7 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	 *
 	 */
 
-	this.router.put('/note', this.note.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+	this.router.post('/note', this.note.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
 		
 		/**
 	 * @api {get} /v1/student/notes Notes de l'étudiant

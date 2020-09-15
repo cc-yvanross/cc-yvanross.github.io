@@ -1,10 +1,9 @@
 import * as chai from 'chai';
-import * as chaiHttp from 'chai-http';
-// import chaiHttp = require('chai-http'); 
+import chaiHttp = require('chai-http'); 
 import app from '../src/App';
-//import {mock, when,verify, instance} from 'ts-mockito'
-// import md5 = require('md5');
 import * as md5 from 'md5';
+import { Course } from '../src/core/Course';
+import { Student } from '../src/core/Student';
 
 
 
@@ -39,6 +38,8 @@ function insertNote(course:number,type:string,type_id:number,note:number){
 		expect(res).to.be.json;
 	});
 }
+
+
 describe('Login',()=>{
 
 	it('Login teacher',()=>{
@@ -59,9 +60,11 @@ describe('Login',()=>{
 	})
 
 	it('Login teacher V2',()=>{
+		// console.log("Login teacher V2")
 		return chai.request(app).get('/api/v2/login?email=teacher%2B3%40gmail.com&password=1234')
 		.then(res => {
 			expect(res.status).to.equal(200);
+			// console.log(res.body);
 			expect(res).to.be.json;
 			expect(res.body.token).to.eq(md5('teacher+3@gmail.com'))
 			expect(res.body.user['email']).to.eq("teacher+3@gmail.com")
@@ -96,21 +99,13 @@ describe('Teacher', ()=>{
 	describe('Get Courses', () => {
 
 		it('responds with successful call for courses with valid teacher token ', () => {
-			let result = [ { id: 3,
-				sigle: 'LOG210',
-				nb_max_student: 5,
-				groupe: '03',
-				titre: 'Analyse et conception de logiciels',
-				date_debut: '2019-09-03',
-				date_fin: '2019-11-04' } ]
+			let result = JSON.stringify([ Course.fromId(3),Course.fromId(4)])
 				return chai.request(app).get('/api/v1/courses')
 				.set('token',md5('teacher+3@gmail.com'))
 				.then(res => {
 					expect(res.status).to.equal(200);
 					expect(res).to.be.json;
-					// console.log("courses")
-					// console.log(resw.body.data)
-					expect(res.body.data).to.deep.include.members(result)
+					expect(res.body.data).to.equal(result)
 				});
 			});
 
@@ -120,29 +115,20 @@ describe('Teacher', ()=>{
 			.then(res => {
 				expect(res.status).to.equal(500);
 				expect(res).to.be.json;
-				expect(res.body.error).to.equal("Error: Authentification error, token do not match any teacher")
+				expect(res.body.error).to.equal("Error: Teacher token not found")
 			});
 		});
 	});
 
 	describe('get Students', () => {
 		it('responds with successful call for students with valid teacher token ', () => {
-			let students_following_course_3_teached_by_teacher_3 = [ { id: 2,
-				first_name: 'firstname2',
-				last_name: 'last_name2',
-				email: 'student+2@gmail.com',
-				permanent_code: 'lastf2' },
-				{ id: 6,
-					first_name: 'firstname6',
-					last_name: 'last_name6',
-					email: 'student+6@gmail.com',
-					permanent_code: 'lastf6' } ]
+			let students_following_course_3_teached_by_teacher_3 = JSON.stringify([ Student.fromId(2),Student.fromId(6) ]);
 					return chai.request(app).get('/api/v1/course/3/students')
 					.set('token',md5('teacher+3@gmail.com'))
 					.then(res => { 
 						expect(res.status).to.equal(200);
 						expect(res).to.be.json;
-						expect(res.body.data).to.deep.include.members(students_following_course_3_teached_by_teacher_3)
+						expect(res.body.data).to.equal(students_following_course_3_teached_by_teacher_3)
 					});
 				});
 
@@ -152,7 +138,17 @@ describe('Teacher', ()=>{
 			.then(res => { 
 				expect(res.status).to.equal(500);
 				expect(res).to.be.json;
-				expect(res.body.error).to.equal('Error: Authentification error, token do not match any teacher')
+				expect(res.body.error).to.equal('Error: Teacher token not found')
+			});
+		});
+
+		it('responds with error if teacher do not teach course', () => {
+			return chai.request(app).get('/api/v1/course/3/students')
+			.set('token',md5('teacher+1@gmail.com'))
+			.then(res => { 
+				expect(res.status).to.equal(500);
+				expect(res).to.be.json;
+				expect(res.body.error).to.equal('Error: This teacher do not give this course')
 			});
 		});
 	});
@@ -169,7 +165,7 @@ describe('Student notes', () => {
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match any student')
+			expect(res.body.error).to.equal('Error: Student token not found')
 
 		});
 	});
@@ -213,7 +209,7 @@ describe('student courses',()=>{
 	});	
 
 it('responds with all courses of a student', () => {
-		let expected_results = [courses[4],courses[5]]
+		let expected_results = JSON.stringify([Course.fromId(5),Course.fromId(6)])
 
 		return chai.request(app).get('/api/v1/student/courses')
 		.set('token',md5('student+3@gmail.com')) 
@@ -231,7 +227,7 @@ it('responds fail if token is teacher', () => {
 	.then(res => {
 		expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match any student')
+			expect(res.body.error).to.equal('Error: Student token not found')
 	});		
 });	
 
@@ -261,7 +257,7 @@ describe('course notes',()=>{
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match any teacher')
+			expect(res.body.error).to.equal('Error: Teacher token not found')
 		});		
 	});
 
@@ -290,7 +286,7 @@ describe('test utility',()=>{
 		.then(res => {
 			expect(res.status).to.equal(500);
 			expect(res).to.be.json;
-			expect(res.body.error).to.equal('Error: Authentification error, token do not match any teacher')
+			expect(res.body.error).to.equal('Error: Teacher token not found')
 		});	
 	});
 
@@ -311,8 +307,45 @@ describe('test utility',()=>{
 			expect(res.status).to.equal(200);
 			expect(res).to.be.json;
 			expect(res.body.data).to.deep.equal([])
-		});			
+		});	
+	});
+
+	it('fail to set student note when teacher do not give course', () => {
+		loginTeacher()
+
+		return chai.request(app).post('/api/v1/note?student_id=1&course_id=1&type=Question&type_id=1&note=99.99')
+		.set('token',md5('teacher+3@gmail.com'))
+		.then(res => {
+			expect(res.status).to.equal(500);
+			expect(res).to.be.json;
+
+			expect(res.body.error).to.equal("Error: This teacher do not give this course")
+		});	
+	});
+
+
+	it('fail to set student note when student do not follow course', () => {
+		loginTeacher()
+
+		return chai.request(app).post('/api/v1/note?student_id=3&course_id=1&type=Question&type_id=1&note=99.99')
+		.set('token',md5('teacher+1@gmail.com'))
+		.then(res => {
+			expect(res.status).to.equal(500);
+			expect(res).to.be.json;
+
+			expect(res.body.error).to.equal("Error: This student to not follow this course")
+		});	
+	});
+
+	it('set student note', () => {
+		loginTeacher()
+
+		return chai.request(app).post('/api/v1/note?student_id=1&course_id=1&type=Question&type_id=1&note=99.99')
+		.set('token',md5('teacher+1@gmail.com'))
+		.then(res => {
+			expect(res.status).to.equal(200);
+			expect(res).to.be.json;
+		});	
 	});
 });
-
 

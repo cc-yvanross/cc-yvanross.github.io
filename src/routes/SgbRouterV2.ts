@@ -24,7 +24,7 @@ export class SgbRouterV2 {
 				req.query.email as string,
 				req.query.password as string);
 			// console.log("V2: login called with email: " + req.query.email + " and password")
-			//console.log("token = ",data[0], "user = ", data[1])
+			// console.log("token = ",data[0], "user = ", data[1])
 			// console.log(data[1])
 			res.status(200)
 			.send({

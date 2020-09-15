@@ -10,6 +10,27 @@ export class Student {
   private _email: string;
   private _permanent_code: string
 
+  static login(email:string, password:string){
+    let  students = require('../data/students.json');
+		for( var student in students){
+			if(students[student].email == email) {
+				return md5(email)
+			}
+    }
+    return null;
+  }
+
+  static loginV2(email:string, password:string){
+    let  students = require('../data/students.json');
+		for( var student in students){
+			if(students[student].email == email) {
+        let current_student = students[student]
+				current_student.password = ''
+				return [md5(email),current_student]
+			}
+    }
+    return null;
+  }
   static fromId(id:number){
     let  students = require('../data/students.json');
 		for( var student in students){
@@ -64,14 +85,22 @@ export class Student {
   public email(){
     return this._email;
   }
-  public token(){
-    return md5(this._email);
-  }
+  // public token(){
+  //   return md5(this._email);
+  // }
 
   public permanent_code(){
     return this._permanent_code;
   }
 
+  public followCourse(course_id:number){
+    let courses = this.courses();
+    for(let index in courses){
+      if (courses[index].id() == course_id)
+      return true;
+    }
+    return false;
+  }
   public courses(){
     let   course_student = require('../data/course_student.json');
     let _courses = []

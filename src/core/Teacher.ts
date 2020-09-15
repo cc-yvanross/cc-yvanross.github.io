@@ -8,6 +8,28 @@ export class Teacher {
   private _last_name: string;
   private _email: string;
 
+  static login(email:string,password:string){
+    let  teachers = require('../data/teachers.json');
+		for( var teacher in teachers){
+			if(teachers[teacher].email == email){
+				return md5(email)
+			}
+    }
+    return null;
+  }
+
+  static loginV2(email:string,password:string){
+  	let  teachers = require('../data/teachers.json');
+		for( var teacher in teachers){
+			if(teachers[teacher].email == email) {
+				let current_teacher = teachers[teacher]
+				current_teacher.password = ''
+				return [md5(email),current_teacher]
+      }
+    }
+    return null;
+  }
+  
   static fromId(id:number){
     let  teachers = require('../data/teachers.json');
 		for( var teacher in teachers){
@@ -57,9 +79,17 @@ export class Teacher {
   public email(){
     return this._email;
   }
-  public token(){
-    return md5(this._email);
+  public giveCourse(course_id: number){
+    let courses = this.courses()
+    for(let index in courses){
+      if(courses[index].id() == course_id)
+      return true
+    }
+    return false
   }
+  // public token(){
+  //   return md5(this._email);
+  // }
 
   public courses(){
     let   course_teacher = require('../data/course_teacher.json');

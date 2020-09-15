@@ -6,8 +6,8 @@ import App from './App';
 debug('ts-express:server');
 
 const port = normalizePort(process.env.PORT || 3001);
-console.log("Start server on port: ", port)
-console.log("Regarer le fichier README.md pour la définition des interfaces")
+// console.log("Start server on port: ", port)
+// console.log("Regarer le fichier README.md pour la définition des interfaces")
 
 App.set('port', port);
 
