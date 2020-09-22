@@ -13,14 +13,14 @@ Ce système doit être utilisé pour obtenir l'information de base à la réalis
 
 1. (Créer une fork et) Cloner
 4. Installer les dépendences node - ```npm install```
+5. compiler le code - ```npm run build```
 6. Lancer serveur de développement - ```npm start```
-7. Lancer les tests (pas besoin de lancer le serveur d'abord) - ```npm test```
-8. Lancer les tests en mode TDD - ```npm watch```
+7. Lancer les tests (pas besoin de lancer le serveur d'abord) - ```npm run test```
+8. Lancer les tests en mode TDD - ```npm run watch```
 
 ## Exécution des test
 npm run test -- -g "nom ou partie du nom d'un test"
 npm run test
-npm run coverage
 
 see https://medium.com/@RupaniChirag/writing-unit-tests-in-typescript-d4719b8a0a40
 

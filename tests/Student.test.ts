@@ -43,6 +43,11 @@ describe('StudentTest', () => {
     let student =  Student.fromId(1);
     expect(student.courses().length).to.equal(2);
 	});
+  
+  it('get student courses', () => {
+    let student =  Student.fromId(3);
+    expect(student.courses().length).to.equal(2);
+	});
 
 
 });

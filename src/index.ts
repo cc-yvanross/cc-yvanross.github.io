@@ -9,12 +9,17 @@ const port = normalizePort(process.env.PORT || 3001);
 // console.log("Start server on port: ", port)
 // console.log("Regarer le fichier README.md pour la définition des interfaces")
 
+console.log("Starting server on port: ", port);
+console.log("Using http://localhost:3001/ in your browser should answer with");
+console.log("{'message':'Bonjour monde!'}");
+
 App.set('port', port);
 
 const server = http.createServer(App);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 function normalizePort(val: number|string): number|string|boolean {
   let port: number = (typeof val === 'string') ? parseInt(val, 10) : val;

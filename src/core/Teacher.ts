@@ -15,7 +15,7 @@ export class Teacher {
 				return md5(email)
 			}
     }
-    return null;
+    return null; 
   }
 
   static loginV2(email:string,password:string){
