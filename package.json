@@ -4,10 +4,12 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node dist/index.js",
+        "start": "apidoc -i src/routes/ -o dist/docs/ & node dist/index.js & open http://localhost:3001",
         "test": "jest --coverage",
         "watch": "jest --coverage --watchAll",
-        "build": "gulp build"
+        "build": "gulp build",
+        "docs": "apidoc -i src/routes/ -o dist/docs/",
+        "open": "open http://localhost:3001"
     },
     "keywords": [],
     "author": "",

@@ -33,17 +33,22 @@ class App {
      * API endpoints */
     let router = express.Router();
     // placeholder route handler
-    router.get('/', (req, res, next) => {
-      res.json({
-        message: 'Bonjour monde!'
-      });
-    });
+    // router.get('/', (req, res, next) => {
+    //   res.json({
+    //     message: 'Bonjour monde!'
+    //   });
+    // });
+
+    router.get('/', function(req, res) {
+      res.redirect('/docs/index.html'); 
+  });
 
     this.express.use('/', router);  // routage de base
     this.express.use('/api/v1', sgbRoutes.router);  // tous les URI pour le scénario du système de gestion des bordereau commencent ainsi
     this.express.use('/api/v2', sgbRoutesV2.router);  // tous les URI pour le scénario du système de gestion des bordereau commencent ainsi
+    this.express.use('/docs', express.static('dist/docs'))
+ 
   }
 
 }
-
 export default new App().express;
