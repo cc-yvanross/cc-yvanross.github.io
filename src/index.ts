@@ -10,9 +10,6 @@ const port = normalizePort(process.env.PORT || 3001);
 // console.log("Regarer le fichier README.md pour la définition des interfaces")
 
 console.log("Starting server on port: ", port);
-console.log("Using http://localhost:3001/ in your browser should answer with");
-console.log("{'message':'Bonjour monde!'}");
-console.log("\n");
 console.log("use http://localhost:3001/docs/index to access server documentation");
 
 App.set('port', port);
