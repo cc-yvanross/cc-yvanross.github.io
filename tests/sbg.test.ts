@@ -40,6 +40,16 @@ async function insertNote(course: number, type: string, type_id: number, note: n
 }
 
 
+describe('baseRoute', () => {
+
+  it('should be json', async () => {
+    const res = await chai.request(app).get('/');
+    expect(res.type).to.eql('text/html');
+  });
+
+});
+
+
 describe('Login', () => {
 
 	it('Login teacher', async () => {
