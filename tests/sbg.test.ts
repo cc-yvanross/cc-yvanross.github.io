@@ -254,7 +254,7 @@ describe('test utility', () => {
 		expect(res.status).to.equal(500);
 		expect(res).to.be.json;
 		expect(res.body.error).to.equal('Error: Teacher token not found')
-	});
+	}, 1000);
 
 	it('clear all notes', async () => {
 		loginTeacher()
@@ -270,7 +270,7 @@ describe('test utility', () => {
 		expect(res2.status).to.equal(200);
 		expect(res2).to.be.json;
 		expect(res2.body.data).to.deep.equal([])
-	});
+	},10000);
 
 	it('fail to set student note when teacher do not give course', async () => {
 		loginTeacher()
