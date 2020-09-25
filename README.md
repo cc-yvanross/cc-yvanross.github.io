@@ -29,5 +29,6 @@ see https://medium.com/@RupaniChirag/writing-unit-tests-in-typescript-d4719b8a0a
 
 ## définition de l'API
 6. Générer la documentation - ```npm run docs```
+ http://127.0.0.1:3001/docs/index
  http://localhost:3001/docs/index
  
