@@ -2,9 +2,6 @@ import Multimap = require('multimap');
 import md5 = require('md5');
 import {Student} from "./Student"
 export class Course {
-  static fromSigle(arg0: string): Iterable<any> {
-    throw new Error('Method not implemented.');
-  }
     private _id: number;
     private _sigle: string
     private _nb_max_student: number

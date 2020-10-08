@@ -33,10 +33,5 @@ describe('CourseTest', () => {
     expect(course.students().length).to.equal(2);
   });
 
-  it('get course from name',() => {
-    let course[] =  Course.fromSigle("LOG210");
-    expect(course.length).to.equal(2);
-    expect(course[0].id=).to.equal(223);
-    
-  });
+  
 });
