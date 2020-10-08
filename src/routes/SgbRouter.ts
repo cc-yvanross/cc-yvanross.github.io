@@ -252,11 +252,10 @@ public studentCourses(req: Request, res: Response, next: NextFunction) {
 	/**
 	 * @api {get} /v1/login?email=email&password=password Login
 	 * @apiGroup Application
-	 * @apiDescription Authentification de l'usager et récupération du token d'authentification
+	 * @apiDescription Authentification de l'usager et récupération du token d'authentification 
 	 * @apiVersion 1.0.0
 	 *
-	 * @apiParam {String} email courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
-	 * @apiParam {String} password non vérifier. 
+	 * @apiParam {String} email courriel de l'usager.  Vous devez encoder email avec https://www.w3schools.com/tags/ref_urlencode.ASP
 	 *
 	 * @apiSuccess (200) {String}  authentification token à mettre dans le header pour faire les autres requêtes.
 	 */

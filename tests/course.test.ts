@@ -14,7 +14,7 @@ describe('CourseTest', () => {
 
   it('fail to get Course by id', () => {
    expect(() => {Course.fromId(0);}).to.throw('Course id not found');
-    // expect(new Teacher(1)).to.throw(ex);
+    //  expect(new Teacher(1)).to.throw(ex);
   });
 
   it('create course by Id', () => {
@@ -31,5 +31,12 @@ describe('CourseTest', () => {
   it('get course students',() => {
     let course =  Course.fromId(1);
     expect(course.students().length).to.equal(2);
+  });
+
+  it('get course from name',() => {
+    let course[] =  Course.fromSigle("LOG210");
+    expect(course.length).to.equal(2);
+    expect(course[0].id=).to.equal(223);
+    
   });
 });

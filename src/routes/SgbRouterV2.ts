@@ -49,7 +49,7 @@ export class SgbRouterV2 {
 	 * @apiGroup Application
 	 * @apiDescription Authentification de l'usager et récupération du token d'authentification
 	 * @apiVersion 2.0.0
-	 * @apiParam {String} email courriel de l'usager.  A vérifier mais vous pouvez surement utiliser teacher3@gmail.com dans nécessairement encoder la valeur numérique et le @ commercial.
+	 * @apiParam {String} email courriel de l'usager.  Vous devez encoder email avec https://www.w3schools.com/tags/ref_urlencode.ASP
 	 * @apiParam {String} password non vérifier. 
 	 *
 	 * @apiSuccess (200) {String}  message Success
