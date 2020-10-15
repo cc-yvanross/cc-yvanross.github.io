@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http');
 import app from '../src/App';
 import { Course } from '../src/core/Course';
 import * as md5 from 'md5';
+import { POINT_CONVERSION_UNCOMPRESSED } from 'constants';
 // import md5 = require('md5');
 
 chai.use(chaiHttp);
@@ -32,6 +33,13 @@ describe('CourseTest', () => {
     let course =  Course.fromId(1);
     expect(course.students().length).to.equal(2);
   });
-
   
+  it('get course from sigle',() => {
+    // throw new Error("allo");
+    let courses: Course[] =  Course.fromSigle("LOG210");
+     expect(courses.length).to.equal(4);
+     let course_id_array: number[] = courses.map(c  => c.id());
+     expect(course_id_array.sort()).to.deep.equal([1,2,3,4].sort())
+  })
+
 });

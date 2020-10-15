@@ -2,6 +2,8 @@ import Multimap = require('multimap');
 import md5 = require('md5');
 import {Student} from "./Student"
 export class Course {
+  
+ 
     private _id: number;
     private _sigle: string
     private _nb_max_student: number
@@ -28,6 +30,26 @@ export class Course {
      throw new Error("Course id not found");
   }
 
+  static fromSigle(sigle: string): Course[] {
+    let   courses = require('../data/courses.json');
+    let result:Course[] = new Array();
+    for( var course in courses){
+			if(courses[course].sigle === sigle){
+        result.push( new this(
+          courses[course].id,
+          courses[course].sigle,
+          courses[course].nb_max_student,
+          courses[course].groupe,
+          courses[course].titre,
+          courses[course].date_debut,
+          courses[course].date_fin
+        ));
+      }
+    }
+    return result;
+  }
+
+
 
   constructor(
     id: number,
@@ -46,31 +68,31 @@ export class Course {
       this._date_fin = date_fin;
 		}
 
-  public id(){
+  public id(): number {
     return this._id;
   }
 
-  public sigle(){
+  public sigle(): string {
     return this._sigle;
   }
 
-  public nb_max_student(){
+  public nb_max_student(): number {
     return this._nb_max_student
   }
 
-  public groupe(){
+  public groupe(): string{
     return this._groupe;
   }
 
-  public titre(){
+  public titre(): string{
     return this._titre;
   }
 
-  public date_debut(){
+  public date_debut(): string{
     return this._date_debut;
   }
 
-  public date_fin(){
+  public date_fin():string {
     return this._date_fin;
   }
 
