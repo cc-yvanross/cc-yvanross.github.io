@@ -3,8 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
-    "types": [ "node" ],
-    "typeRoots": [ "../node_modules/@types" ]
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts"
