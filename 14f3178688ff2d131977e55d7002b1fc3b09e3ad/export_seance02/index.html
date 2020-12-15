@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>LOG210-C02-00-seance</title>
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- REVEAL CSS-->
+  <link rel="stylesheet" href="libs/reveal.js/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/reveal.css">
+  
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/theme/beige.css" id="theme">
+  
+  
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/plugin/title-footer/title-footer-mod.css" />
+
+  <!-- MERMAID-->
+  <script src="libs/reveal.js/3.8.0/plugin/mermaid/mermaid.min.js"></script>
+  <style>
+  .mermaid {
+    font-size: 0.5em;
+  }
+  </style>
+
+  <style>
+    [class*=task-list-item] {
+    min-height: 22px;
+    margin-top: 6px!important;
+    margin-bottom: 6px!important;
+    padding-left: 0;
+    list-style: none;
+}
+
+[class*=task-list-item]>input:first-child {
+    position: absolute!important;
+    opacity: 0;
+    margin: 0;
+}
+[class*=task-list-item]>label {
+    padding-left: 29px!important;
+    min-height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.task-list-item>input:first-child:checked+input[type=hidden]+label::before, .task-list-item>input:first-child:checked+label::before {
+    background-color: #ecf0f1;
+    border-color: #ecf0f1;
+}
+
+[class*=task-list-item]>input:first-child+input[type=hidden]+label::before, [class*=task-list-item]>input:first-child+label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #D3CFC8;
+    border-radius: 0;
+    margin-left: -29px;
+}
+
+
+[class*=task-list-item]>input:first-child:checked+input[type=hidden]+label::after, [class*=task-list-item]>input:first-child:checked+label::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 10px;
+    border: 2px solid #fff;
+    border-left: none;
+    border-top: none;
+    transform: translate(7.75px,4.5px) rotate(45deg);
+    -ms-transform: translate(7.75px,4.5px) rotate(45deg);
+}
+
+
+.task-list-item>input:first-child:checked+input[type=hidden]+label::after, .task-list-item>input:first-child:checked+label::after {
+    border-bottom-color: #95a5a6;
+    border-right-color: #95a5a6;
+}
+  </style>
+
+  <!-- Theme used for syntax highlighting of code -->
+  
+  <link rel="stylesheet" href="libs/highlight.js/9.12.0/monokai.css">
+  
+
+  
+  <link rel="stylesheet" href="slide_themes.css">
+  
+  
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'libs/reveal.js/3.8.0/css/print/pdf.css' : 'libs/reveal.js/3.8.0/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+
+  <style>
+    /* Solarized Light theme */
+     .line {
+      display: block;
+    }
+    
+
+    .line.focus {
+      background: #fdf6e3;
+      color: #657b83;
+    }
+
+/*
+    .line.focus .hljs-comment,
+    .line.focus .hljs-quote {
+      color: #93a1a1;
+    }
+
+    .line.focus .hljs-keyword,
+    .line.focus .hljs-selector-tag,
+    .line.focus .hljs-addition {
+      color: #859900;
+    }
+
+    .line.focus .hljs-number,
+    .line.focus .hljs-string,
+    .line.focus .hljs-meta .hljs-meta-string,
+    .line.focus .hljs-literal,
+    .line.focus .hljs-doctag,
+    .line.focus .hljs-regexp {
+      color: #2aa198;
+    }
+
+    .line.focus .hljs-title,
+    .line.focus .hljs-section,
+    .line.focus .hljs-name,
+    .line.focus .hljs-selector-id,
+    .line.focus .hljs-selector-class {
+      color: #268bd2;
+    }
+
+    .line.focus .hljs-attribute,
+    .line.focus .hljs-attr,
+    .line.focus .hljs-variable,
+    .line.focus .hljs-template-variable,
+    .line.focus .hljs-class .hljs-title,
+    .line.focus .hljs-type {
+      color: #b58900;
+    }
+
+    .line.focus .hljs-symbol,
+    .line.focus .hljs-bullet,
+    .line.focus .hljs-subst,
+    .line.focus .hljs-meta,
+    .line.focus .hljs-meta .hljs-keyword,
+    .line.focus .hljs-selector-attr,
+    .line.focus .hljs-selector-pseudo,
+    .line.focus .hljs-link {
+      color: #cb4b16;
+    }
+
+    .line.focus .hljs-built_in,
+    .line.focus .hljs-deletion {
+      color: #dc322f;
+    }
+
+    .line.focus .hljs-formula {
+      background: #eee8d5;
+    }
+
+    .line.focus .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .line.focus .hljs-strong {
+      font-weight: bold;
+    }
+
+    .yellow-slide .line.focus:nth-child(2) {
+      background: yellow;
+    }
+
+    .reveal .slides section .code-presenting-annotation {
+      font-size: 70%;
+    }
+    */
+
+    .reveal .slides section .fragment.current-only {
+      visibility: visible;
+      display: none;
+    }
+
+    .reveal .slides section .fragment.current-only.current-fragment {
+      display: block;
+    }
+
+/*
+    .line {
+      display: block;
+    }
+*/
+    .line.focus {
+       opacity: 1.0;
+    } 
+
+    /* .hljs {
+      background: none;
+    } */
+
+    /* .reveal pre {
+      width: 98%;
+      margin: 0px;
+      box-shadow: none;
+    }
+
+    .reveal pre code {
+      font-size: 1.2em;
+      line-height: 1.2;
+      border-radius: 10px;
+      max-height: 60vh !important;
+      overflow: hidden !important;
+    } */
+
+    @media (device-width: 100vw) and (device-height: 100vh) {
+      .reveal pre code {
+        max-height: 50vh !important;
+      }
+    }
+
+    #logo img {
+      max-height: 3.5em;
+      max-width: none;
+      min-width: 50px;
+    }
+
+    .reveal .slides section .code-presenting-annotation {
+      color: white;
+      background: black;
+      padding: 0px 15px;
+      border-radius: 15px;
+      opacity: 0.75 !important;
+      font-size: 50% !important;
+    }
+  </style>
+  <script>
+    if (window.location.search.match(/print-pdf-now/gi)) {
+      window.print();
+    }
+  </script>
+</head>
+
+<body>
+  
+<div id="logo" style="position: fixed; top: 20px; left: 20px; z-index: 1">
+    <img src="assets/logo_ets.svg" />
+</div>
+
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      
+
+
+    
+    <section>
+        <section id="admin">
+            <!-- .slide: id="admin"  -->
+<h2><a id="user-content-log210-séance-02" class="anchor" href="#log210-séance-02" aria-hidden="true"></a>LOG210 Séance #02</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels" class="anchor" href="#analyse-et-conception-de-logiciels" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><a href="#admin">Administration</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"></li>
+<li><a href="#mdd">MDD: Catégories</a></li>
+<li><a href="#dss">DSS: Opérations système</a></li>
+<li><a href="#rdcu">RDCU: Contrôleur GRASP</a></li>
+<li><a href="#couche">Architecture en couches</a></li>
+<li><a href="#exercice">Exercice</a></li>
+</ol>
+
+            </section>
+        
+            <section >
+                <h1><a id="user-content-administrivia" class="anchor" href="#administrivia" aria-hidden="true"></a>Administrivia</h1>
+<ol>
+<li>Accès G Suite (<a href="http://ETSMTL.NET">ETSMTL.NET</a>)
+<ul>
+<li>Google Classrooms</li>
+<li>Google Drive</li>
+</ul>
+</li>
+<li>Invitation Lab 0 (GitHub Classroom)
+<ul>
+<li>⚠️ lien différent pour chaque groupe!</li>
+<li>ne pas partager</li>
+</ul>
+</li>
+<li>Équipes (connaissez-vous vos coéquipiers?)</li>
+<li><del>Lien Zoom</del> <ins>Serveur Discord</ins> pour lab (Google Classrooms)</li>
+</ol>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="mdd" class="mddslide">
+            <!-- .slide: id="mdd" class="mddslide"  -->
+<h3><a id="user-content-log210-séance-02-1" class="anchor" href="#log210-séance-02-1" aria-hidden="true"></a>LOG210 Séance #02</h3>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-1" class="anchor" href="#analyse-et-conception-de-logiciels-1" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><a href="#admin">Administration</a></li>
+<li><a href="#mdd">MDD: Catégories</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/9ia0Mvdk4XY">s20203</a></li>
+<li><a href="#dss">DSS: Opérations système</a></li>
+<li><a href="#rdcu">RDCU: Contrôleur GRASP</a></li>
+<li><a href="#couche">Architecture en couches</a></li>
+<li><a href="#exercice">Exercice</a></li>
+</ol>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h3 align="right"><a id="user-content-survol-visuel" class="anchor" href="#survol-visuel" aria-hidden="true"></a>Survol Visuel</h3>
+<!-- .slide: data-fullscreen data-background-image="assets/Fig6.1.svg" data-background-size="40%" data-background-opacity="1" -->
+<aside class="notes">
+On dessine MDD, DSS, Contrat, RDCU sur cette image…</aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h1><a id="user-content-mdd" class="anchor" href="#mdd" aria-hidden="true"></a>MDD</h1>
+<h2><a id="user-content-identifier-classes-conceptuelles" class="anchor" href="#identifier-classes-conceptuelles" aria-hidden="true"></a>Identifier classes conceptuelles</h2>
+<ol>
+<li>Réutiliser modèle existant</li>
+<li>Catégories de classes</li>
+<li>Groupes nominaux</li>
+</ol>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-méthode-1-modèle-existant" class="anchor" href="#méthode-1-modèle-existant" aria-hidden="true"></a>Méthode 1: Modèle existant</h2>
+<p><img src="assets/05b-chp09-Mod%C3%A8le-du-domaine_51.pptx/mdd-existant.jpeg" alt="cartographe" height="80%" class="plain"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h3><a id="user-content-méthode-1-modèle-existant-1" class="anchor" href="#méthode-1-modèle-existant-1" aria-hidden="true"></a>Méthode 1: Modèle existant</h3>
+<p><a href="https://www.researchgate.net/figure/Car-Crash-CMS-Domain-Model-Part-1_fig2_220116635"><img src="assets/CarCrashCMSDomainModel.png" alt="MDD pour CMS Accident Auto"></a></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h3><a id="user-content-méthode-2-chercher-par-catégorie" class="anchor" href="#méthode-2-chercher-par-catégorie" aria-hidden="true"></a>Méthode 2: Chercher par catégorie</h3>
+<p>Section 9.5 du livre.</p>
+<p><img src="/assets/05b-chp09-Mod%C3%A8le-du-domaine_51.pptx/categories.png" alt="categories" width="85%" class="plain"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-catégorie-de-classe" class="anchor" href="#catégorie-de-classe" aria-hidden="true"></a>Catégorie de classe</h2>
+<p>Cas d’utilisation « S’inscrire à un groupe-cours »</p>
+<ol>
+<li>L’Étudiant commence une inscription.</li>
+<li>L’Étudiant entre le sigle du cours.</li>
+<li>Le Système affiche la liste des groupes-cours ainsi que l’horaire de chaque groupe-cours.</li>
+<li>L’étudiant sélectionne le groupe-cours auquel il veut s’inscrire.</li>
+<li>…</li>
+</ol>
+<blockquote>
+<p>Catégories dans les <a href="https://drive.google.com/file/d/1__yjzv7vuqbX0ElxLj5AkVO0xEk7ubVO/view?usp=sharing">Notes de cours</a></p>
+</blockquote>
+<aside class="notes"> Faire une liste de classes du MDD avec <strong>Transaction métier</strong>, <strong>Rôle</strong>, <strong>Évènement notable</strong></aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-méthode-3-identifier-les-groupes-nominaux" class="anchor" href="#méthode-3-identifier-les-groupes-nominaux" aria-hidden="true"></a>Méthode 3: identifier les groupes nominaux</h2>
+<ul>
+<li>Analyse linguistique du texte des spécifications (Cas d’utilisation, Récit utilisateur, etc.)</li>
+<li>Noms $\rightarrow$ Classes conceptuelles ou attributs possibles</li>
+<li>Approche <em>simple</em>, mais <em>imprécise</em></li>
+</ul>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-identifier-les-groupes-nominaux" class="anchor" href="#identifier-les-groupes-nominaux" aria-hidden="true"></a>Identifier les groupes nominaux(…)</h2>
+<p>Cas d’utilisation « S’inscrire à un groupe-cours »</p>
+<ol>
+<li>L’Étudiant commence une inscription.</li>
+<li>L’Étudiant entre le sigle du cours.</li>
+<li>Le Système affiche la liste des groupes-cours ainsi que l’horaire de chaque groupe-cours.</li>
+<li>L’étudiant sélectionne le groupe-cours auquel il veut s’inscrire.</li>
+<li>…</li>
+</ol>
+<aside class="notes"> Faire la liste des classes au tableau</aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-identifier-les-groupes-nominaux-1" class="anchor" href="#identifier-les-groupes-nominaux-1" aria-hidden="true"></a>Identifier les groupes nominaux(…)</h2>
+<p>Cas d’utilisation «S’inscrire à un <ins>groupe-cours</ins>»</p>
+<ol>
+<li>L’<ins>Étudiant</ins>  commence une <ins>inscription</ins>.</li>
+<li>L’Étudiant entre le <ins>sigle</ins>  du <ins>cours</ins>.</li>
+<li>Le <ins>Système</ins>  affiche la <ins>liste</ins>  des groupes-cours ainsi que l’<ins>horaire</ins>  de chaque groupe-cours.</li>
+<li>L’étudiant sélectionne le groupe-cours auquel il veut s’inscrire.</li>
+<li>…</li>
+</ol>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-identifier-les-groupes-nominaux-2" class="anchor" href="#identifier-les-groupes-nominaux-2" aria-hidden="true"></a>Identifier les groupes nominaux(…)</h2>
+<p><strong>Résultat:</strong> <em>Classes candidates</em></p>
+<ul>
+<li>Beaucoup de directives (Chapitre 9)</li>
+<li>Classe vs Attribut?</li>
+<li>Attribut vs Association?</li>
+</ul>
+<p>C’est de l’analyse (pas la conception)</p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h1><a id="user-content-exercice-mdd-classes-conceptuelles" class="anchor" href="#exercice-mdd-classes-conceptuelles" aria-hidden="true"></a>Exercice: MDD Classes Conceptuelles</h1>
+<p>Google Classrooms</p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="dss" class="dssslide">
+            <!-- .slide: id="dss" class="dssslide"  -->
+<h3><a id="user-content-log210-séance-02-2" class="anchor" href="#log210-séance-02-2" aria-hidden="true"></a>LOG210 Séance #02</h3>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-2" class="anchor" href="#analyse-et-conception-de-logiciels-2" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><a href="#admin">Administration</a></li>
+<li><a href="#mdd">MDD: Catégories</a></li>
+<li><a href="#dss">DSS: Opérations système</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/y5fXCWYq6m4">S20203</a></li>
+<li><a href="#rdcu">RDCU: Contrôleur GRASP</a></li>
+<li><a href="#couche">Architecture en couches</a></li>
+<li><a href="#exercice">Exercice</a></li>
+</ol>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h1><a id="user-content-dss" class="anchor" href="#dss" aria-hidden="true"></a>DSS</h1>
+<h2><a id="user-content-diagramme-séquence-système" class="anchor" href="#diagramme-séquence-système" aria-hidden="true"></a>Diagramme Séquence Système</h2>
+<p><img src="assets/Fig10.5.png" alt="Exemple DSS" class="plain" width="400px"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h1><a id="user-content-dss-1" class="anchor" href="#dss-1" aria-hidden="true"></a>DSS</h1>
+<ul>
+<li>Créé à partir d’un cas d’utilisation</li>
+<li>Modélise l’interaction
+<ul>
+<li>Opérations système</li>
+<li>Messages de retour (au besoin)</li>
+</ul>
+</li>
+<li>Notation UML</li>
+<li>But : définir l’API (haut niveau)</li>
+<li>Système est une « boîte noire »</li>
+</ul>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h1><a id="user-content-faire-un-dss" class="anchor" href="#faire-un-dss" aria-hidden="true"></a>Faire un DSS</h1>
+<ul>
+<li>Identifier l’acteur principal</li>
+<li>Modéliser système comme boîte noire</li>
+<li>Proposer une opération système pour chaque évènement système
+<ul>
+<li>Types primitifs pour arguments</li>
+<li>Messages de retour si nécessaire</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h3><a id="user-content-dss-cu01---ajouter-un-livre-à-échanger" class="anchor" href="#dss-cu01---ajouter-un-livre-à-échanger" aria-hidden="true"></a>DSS: CU01 - Ajouter un livre à échanger</h3>
+<ol>
+<li>Le Client démarre un nouvel ajout de livre.</li>
+<li>Le Client entre le code ISBN du livre, ainsi que le code de sa
+condition.</li>
+<li>Le Système enregistre le livre et présente sa description.</li>
+</ol>
+<blockquote>
+<p>Le Client
+répète les étapes 2 à 3 jusqu’à ce qu’il ait saisi tous les livres à
+échanger.</p>
+</blockquote>
+<ol start="4">
+<li>Le Système présente la liste de livres que possède le Client.</li>
+</ol>
+<aside class="notes">
+faire le DSS
+<img src="https://www.plantuml.com/plantuml/svg/0/NP2nJiGm38RtF8Lr4oTH2TOErQ6Jc112gjXOGcgA8N4gsqMwjs7adgClHjeWXbio-FV__vzpKFDYSufEFuadBpw1sYbYUON2XJBWcv-ZtMUsHvyGUXmpmfCGcpEouZe-tzn20tSVUJOKc1aYVGd2yWtBERnx7b6S3vO5Tkqn4hBjm2i4LngC0asUhKZzIMtvIRY9waBJARGmBEVaHL2s_8Sr-MhlNCnv0a4rB8HQ6_yzlgBKPT9NBhE-tCRZzGj3o3oGKUQsplPEcwRhmbg66eIcLNJ80wmjRajjeGGcuWkEwcnBVoNv0u5XXh1TwWubf_peBm00" alt="CU01 - Ajouter un livre à échanger" title="CU01 - Ajouter un livre à échanger"></aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h3><a id="user-content-dss-«attaquer-un-pays»" class="anchor" href="#dss-«attaquer-un-pays»" aria-hidden="true"></a>DSS: «Attaquer un pays»</h3>
+<ol>
+<li>Le Joueur attaquant choisit d’attaquer un pays voisin du Joueur défenseur.</li>
+<li>Le Joueur attaquant annonce combien de régiments il va utiliser pour son attaque.</li>
+<li>Le Joueur défenseur annonce combien de régiments il va utiliser pour sa défense.</li>
+<li>Les deux Joueurs jettent le nombre de dés selon leur stratégie choisie aux étapes précédentes.</li>
+<li>Le Système compare les dés et élimine les régiments de l’attaquant ou du défenseur selon les règles et affiche le résultat.</li>
+</ol>
+<aside class="notes"> solution dans deux pages</aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h3><a id="user-content-dss-«attaquer-un-pays»-1" class="anchor" href="#dss-«attaquer-un-pays»-1" aria-hidden="true"></a>DSS: «Attaquer un pays»</h3>
+<blockquote>
+<p>Les Joueurs répètent l’étape 2 jusqu’à ce que l’attaquant ne puisse plus attaquer ou ne veuille plus attaquer.</p>
+</blockquote>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<h3><a id="user-content-dss-«attaquer-un-pays»-2" class="anchor" href="#dss-«attaquer-un-pays»-2" aria-hidden="true"></a>DSS: «Attaquer un pays»</h3>
+<p><img src="https://www.plantuml.com/plantuml/svg/0/NL4nRiCm3Dpz2Y9B6o16zy084Y1JWIxrcaMLMLUeJBiY1JG_gjwXZvLAuZJf847IyOvtr9R518c3h_ZJqMI26O3nAo9PV45cq-FEkvx08Wc6soevUjGzE7lYYnEzxziMfZ46QDnc9s9KAK0acCoHcoUtgOoLCS1Y_Jn6Z641Xi5MgYZEkicGADGUMVBFW2UGArjl6DRGvJIO431SP1-BvFbSQ6jerGhrgmCLO9_JEn9hYokohFmuJkg4GPCCZdAQjGtHg86lqlJscbFl1iryryAHBFzpvavtfFDZTyjgchekl90JHoz663eiAtw3DqM9LmMyAC24eOiC1-eG_8Evka21BfPfpFbqwbOpvMG_SjAAIXj3YJexFQVzIxUijbgYV_OB" alt="DSS pour Attaquer un pays" title="DSS pour Attaquer un pays" style="width:70%" class="plain"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide"  -->
+<p><a href="http://tiny.cc/quizdesign">tiny.cc/quizdesign</a> $\rightarrow$ ETSDESIGN</p>
+<p>Vrai/Faux: Il y a 5 opérations système dans ce DSS</p>
+<p><img src="https://www.plantuml.com/plantuml/svg/0/NL4nRiCm3Dpz2Y9B6o16zy084Y1JWIxrcaMLMLUeJBiY1JG_gjwXZvLAuZJf847IyOvtr9R518c3h_ZJqMI26O3nAo9PV45cq-FEkvx08Wc6soevUjGzE7lYYnEzxziMfZ46QDnc9s9KAK0acCoHcoUtgOoLCS1Y_Jn6Z641Xi5MgYZEkicGADGUMVBFW2UGArjl6DRGvJIO431SP1-BvFbSQ6jerGhrgmCLO9_JEn9hYokohFmuJkg4GPCCZdAQjGtHg86lqlJscbFl1iryryAHBFzpvavtfFDZTyjgchekl90JHoz663eiAtw3DqM9LmMyAC24eOiC1-eG_8Evka21BfPfpFbqwbOpvMG_SjAAIXj3YJexFQVzIxUijbgYV_OB" alt="DSS pour  i Attaquer un pays  i" title="DSS pour  i Attaquer un pays  i" style="width:60%" class="plain"></p>
+<aside class="notes"> <a href="https://b.socrative.com/teacher/#launch">https://b.socrative.com/teacher/#launch</a> -&gt; True/False</aside>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="rdcu" class="rdcuslide">
+            <!-- .slide: id="rdcu" class="rdcuslide" -->
+<h3><a id="user-content-log210-séance-02-3" class="anchor" href="#log210-séance-02-3" aria-hidden="true"></a>LOG210 Séance #02</h3>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-3" class="anchor" href="#analyse-et-conception-de-logiciels-3" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><a href="#admin">Administration</a></li>
+<li><a href="#mdd">MDD: Catégories</a></li>
+<li><a href="#dss">DSS: Opérations système</a></li>
+<li><a href="#rdcu">RDCU: Contrôleur GRASP</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/gZ3Jir-mKDE">S20203</a></li>
+<li><a href="#couche">Architecture en couches</a></li>
+<li><a href="#exercice">Exercice</a></li>
+</ol>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-🤠pourquoi-faire-une-rdcu" class="anchor" href="#🤠pourquoi-faire-une-rdcu" aria-hidden="true"></a>🤠:Pourquoi faire une RDCU?</h2>
+<p>Pour apprendre à faire une solution<br>
+<strong>modulaire</strong> et <strong>intuitive</strong></p>
+<p><img src="https://www.plantuml.com/plantuml/svg/XLJRRjf047tVhnZbXOIAAcdVAeG2f9UqKLMLq3v07iQxWxrYlMljHPJyKTHFw5loOrtRc1X8gMJPqfapPsRFiNtfF5eVSiKSHqLmyVeDSqkf2xIOW_FhY3bl9Qyvsqg2V9bQ4xJWHXaBtg9siKJQimxuJ3g85qA6Mgoiz9uqB8ps83Nyb5gObMETPpb12mpAbmoDES4NArtPSdqxPftRZ1o1yHbP1ygO9QIMi9AQ_FW8fpakuvB1KfnBwqvyIXsFfHI9EDF2yEO6ffFttoUjuN1nViR-FTzXMjxqqIMlzH8-cs0rgcEqNqikOCAjBFmnsZUA9bdNMghjdRU1MYMkqBcHiOBi-C3_VTesglzIXzQQLSrAL6nZcHHb_cJ9-7L1hWOeB_mQSigJSk6g4qxwJjxJkxVdWxiJG0ShZ5sB649JV_mDOumlMUmlogmU_rIyhxne6Dtkgswt0XCH5j3lvr88HOD1GnWH1cv24RsRQsuqfy9Be-SQ0uYdXoJukJuTNKq_dDNIfSoX-ClQKmq5HHcAbvFfdkZ4n8IUXL_KnLJ6Z-LGULZYTHyssDLcnjD3JZQDIMnqwS3DMLN9OXXIfoqlFzK8SBDAp7hhPiROrddeALhuMMAKkEjLdhBAs1suH0_0wYYiFj1EeTcZDQJV2pE1BgEoNgPPXzSJBJHffkoIItJZsWvTq1Pkqv5jnk_HCtP9MiJ_qry0" alt="Rappel spectre" class="plain" width="60%"></p>
+<aside class="notes">
+Les stagiaires n’ont souvent pas la mission de faire une solution modulaire/intuitive. Les compagnies paient pour quelque chose qui fonctionne d’abord. Mais dans LOG210 on s’intéresse à la modularité et la facilité de maintenance!</aside>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-rdcu-aspects" class="anchor" href="#rdcu-aspects" aria-hidden="true"></a>RDCU: aspects</h2>
+<ul>
+<li>Proposer des <strong>classes logicielles</strong> correspondant aux <strong>classes conceptuelles</strong>
+<ul>
+<li>Inspirées du MDD</li>
+<li>Pour réduire le <em>décalage des représentations</em></li>
+</ul>
+</li>
+<li>Utiliser les principes GRASP
+<ul>
+<li><strong>Faible Couplage</strong> et <strong>Forte cohésion</strong> (LOG121!)</li>
+<li><strong>Contrôleur</strong> (<a href="#couche">architecture en couches</a>)</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-rdcu---jeu-de-dés" class="anchor" href="#rdcu---jeu-de-dés" aria-hidden="true"></a>RDCU - Jeu de dés</h2>
+<p>Opérations système du DSS</p>
+<p><img src="https://www.plantuml.com/plantuml/svg/0/NP71QiCm38RlVWhHKmlfngubb8xjLBPJOATUD4VDl2Lo9ikmClO-otFanQQq5BhwOB3-Nz8dUPCKHNFNklGHk4V13f8UMh9RWhzIQjfZRdKVMHaxWXUI6XalS-ap4tk2RmTsdYabREY-3Gs39rOIz-Cqg3Luh2heOnR83CcF0wE425XZh-DWhQ0CwstC983v2-fnIELjMEzu_l1s0tUJuGcbGruuz1e5Pgl9dMK6cC0xuz7WGu-i9bM7fEDlHqSnERzS9rXDHJiK8TbIddFiB5JPsDmiN1jZ3xsP3RaBF0xddFS9wShiotAvd4GB5w1HiOKwGuks2Ia0nE1jRwWmRx2nOX0pzBQyl2XspA_JC4TUIWNyUyB9JyaHrp11dJbEN1VePvYDEUtR_W00" alt="DSS pour un scénario adapté de  i Jouer aux dés  i (Ch. 1 de Larman)" title="DSS pour un scénario adapté de  i Jouer aux dés  i (Ch. 1 de Larman)" class="plain"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-rdcu---jeu-de-dés-1" class="anchor" href="#rdcu---jeu-de-dés-1" aria-hidden="true"></a>RDCU - Jeu de dés</h2>
+<p>Première opération système:</p>
+<p><img src="https://www.plantuml.com/plantuml/svg/0/NOyz2a9138JxFKMmqi8BM8W_dM0bs8VTlCVYRbQJR27YVVGSxs86Ap55Ydmp4sQZXcAzbg2Np5SKhA1sB-HRSlmZYGRinOR6nbW9pYG96NyKEuoNKLhdj6-b2PWWgoDY-_r0jquS2Hu1V8waYYDjInuPeaj9mZDWD0-OhGwjKvSPe48CxhSSynNP79tkQjEhqXTgYCkrmWhIzAueGdAWFkTM_NJoCZmkmeOuUQKF" alt="dss_jouer_aux_dés" title="dss_jouer_aux_dés" class="plain" width="60%"></p>
+<p>Qui envoie l’opération? Qui la reçoit?</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-rdcu-solution-java-swing" class="anchor" href="#rdcu-solution-java-swing" aria-hidden="true"></a>RDCU (solution Java Swing)</h2>
+<p>Opération <code>démarrerJeu</code> - qui <strong>envoie</strong> cette opération?</p>
+<p><img src="assets/SwingJeuDeD%C3%A9s.png" alt="Swing et JeuDeDés" class="plain"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-rdcu-solution-java-swing-1" class="anchor" href="#rdcu-solution-java-swing-1" aria-hidden="true"></a>RDCU (solution Java Swing)</h2>
+<p>Opération <code>démarrerJeu</code> - qui <strong>reçoit</strong> cette opération?</p>
+<p><img src="assets/SwingJeuDeD%C3%A9s.png" alt="Swing et JeuDeDés" class="plain"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h3><a id="user-content-principe-contrôleur-grasp" class="anchor" href="#principe-contrôleur-grasp" aria-hidden="true"></a>Principe Contrôleur GRASP</h3>
+<p><strong>Problème:</strong> Quel est le premier objet en dehors de la couche présentation <strong>qui reçoit</strong> et coordonne (« contrôle ») les opérations système ?</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h3><a id="user-content-principe-contrôleur-grasp-1" class="anchor" href="#principe-contrôleur-grasp-1" aria-hidden="true"></a>Principe Contrôleur GRASP</h3>
+<p><strong>Solution:</strong> Affectez une responsabilité à la classe qui correspond à l’une de ces définitions:</p>
+<ol>
+<li>Elle représente le <strong>système global,</strong> un « <strong>objet racine</strong> », un <strong>équipement</strong> ou un
+<strong>sous-système</strong>.</li>
+<li>…</li>
+</ol>
+<p><img src="https://www.plantuml.com/plantuml/svg/NL7DIWCn4BxdAOQzL8KAzTY355mGYWL1y3xTp7QZoMH9PeKYle_x7FjYJafjgvSay_tD35bbmIH3yB2fQvFV7VUOC42MlISzasiAUy5OQd7mqaOMna3mIiaYe_7K2aY4v7QTW7M96d6HJUSi0OLUzX0eR2bbCpkdUSSa-vuW9kcY4IVQTXFjzAst7S36W2g1AxJOopGMR4sAApkDkPGFtIqi2l24AI1VcyPZph2E0mq9FWq0nm1BUD5bU5VAxRFkx2Whw5WkaKVSyJIUcAzZLgsDIz07-fBvbzHnQb95DkRqX6fHmNmErLrrC1T7umU1Up37mQeRLVZvGNdsBU5DwIAR_Uh-9tdavg1O4Llzcny0" alt="MDD JeuDeDés" class="plain"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h1><a id="user-content-rdcu---contrôleur" class="anchor" href="#rdcu---contrôleur" aria-hidden="true"></a>RDCU - Contrôleur</h1>
+<p><code>JeuDeDés</code> est le contrôleur GRASP (inspiré du MDD)</p>
+<p><img src="assets/SwingJeuDeD%C3%A9sContr%C3%B4leur.png" alt="Swing et JeuDeDés" class="plain"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide" -->
+<h2><a id="user-content-rdcu---détaillé" class="anchor" href="#rdcu---détaillé" aria-hidden="true"></a>RDCU - détaillé</h2>
+<p>Faire un design modulaire et facile à comprendre. Affecter les responsabilités aux bonnes classes.</p>
+<p><img src="assets/cohesion_RDCU.png" alt="Swing et JeuDeDés" width="65%" class="plain"></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="couche" class="packageslide">
+            <!-- .slide: id="couche" class="packageslide" -->
+<h3><a id="user-content-log210-séance-02-4" class="anchor" href="#log210-séance-02-4" aria-hidden="true"></a>LOG210 Séance #02</h3>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-4" class="anchor" href="#analyse-et-conception-de-logiciels-4" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><a href="#admin">Administration</a></li>
+<li><a href="#mdd">MDD: Catégories</a></li>
+<li><a href="#dss">DSS: Opérations système</a></li>
+<li><a href="#rdcu">RDCU: Contrôleur GRASP</a></li>
+<li><a href="#couche">Architecture en couches</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/BNu7_aT4WwU">S20203</a></li>
+<li><a href="#exercice">Exercice</a></li>
+</ol>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide: class="packageslide" -->
+<h2><a id="user-content-architecture-logique" class="anchor" href="#architecture-logique" aria-hidden="true"></a>Architecture logique</h2>
+<p>Solution avec Java/Swing:</p>
+<p><img src="assets/SwingJeuDeD%C3%A9s.png" alt="Swing et JeuDeDés" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide: class="packageslide" -->
+<h2><a id="user-content-architecture-logique-1" class="anchor" href="#architecture-logique-1" aria-hidden="true"></a>Architecture logique</h2>
+<p>Solution avec Navigateur/HTTP/ExpressJS/TypeScript:</p>
+<p><img src="http://www.plantuml.com/plantuml/proxy?cache=no&amp;fmt=svg&amp;src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/dss-details-demarrerJeu.puml" alt="ExpressJS et JeuDeDés" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide: class="packageslide" -->
+<h2><a id="user-content-comprendre-et-respecter-larchitecture-en-couches-du-laboratoire" class="anchor" href="#comprendre-et-respecter-larchitecture-en-couches-du-laboratoire" aria-hidden="true"></a>Comprendre et respecter l’architecture en couches du laboratoire</h2>
+<p><a href="https://log210-cfuhrman.github.io/log210-valider-architecture-couches/">https://log210-cfuhrman.github.io/log210-valider-architecture-couches/</a></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="exercice" class="codeslide">
+            <!-- .slide: id="exercice" class="codeslide" -->
+<h3><a id="user-content-log210-séance-02-5" class="anchor" href="#log210-séance-02-5" aria-hidden="true"></a>LOG210 Séance #02</h3>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-5" class="anchor" href="#analyse-et-conception-de-logiciels-5" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><a href="#admin">Administration</a></li>
+<li><a href="#mdd">MDD: Catégories</a></li>
+<li><a href="#dss">DSS: Opérations système</a></li>
+<li><a href="#rdcu">RDCU: Contrôleur GRASP</a></li>
+<li><a href="#couche">Architecture en couches</a></li>
+<li><a href="#exercice">Exercice<img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"></a></li>
+</ol>
+
+            </section>
+        
+            <section class="codeslide">
+                <!-- .slide:  class="codeslide" -->
+<h2><a id="user-content-exercice-mise-en-plateau" class="anchor" href="#exercice-mise-en-plateau" aria-hidden="true"></a>Exercice Mise en plateau</h2>
+<p><a href="https://docs.google.com/document/d/1nGiQOeRyrY-Tx-J82z3qa0vAoUsF1rvHMNjyPGXH2mY/edit?usp=sharing">https://docs.google.com/document/d/1nGiQOeRyrY-Tx-J82z3qa0vAoUsF1rvHMNjyPGXH2mY/edit?usp=sharing</a></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+        <section class="feedbackslide">
+            
+            <!-- .slide: class="feedbackslide" -->
+<h2><a id="user-content-séance-02" class="anchor" href="#séance-02" aria-hidden="true"></a>Séance #02</h2>
+<h3><a id="user-content-rétroaction-page-dune-minute" class="anchor" href="#rétroaction-page-dune-minute" aria-hidden="true"></a><a href="https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs">Rétroaction: Page d’une Minute</a></h3>
+<ol>
+<li>Quels sont les deux [trois, quatre, cinq] plus importants [utiles, significatives,
+surprenantes, dérangeantes] choses que vous avez apprises au cours de cette session?</li>
+<li>Quelle (s) question (s) reste (s) en tête dans votre esprit?</li>
+<li>Y a-t-il quelque chose que tu n’as pas compris?</li>
+</ol>
+<p><a href="https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs">https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs</a></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h1><a id="user-content-références-et-images" class="anchor" href="#références-et-images" aria-hidden="true"></a>Références et images</h1>
+<ol>
+<li>mapping by Vectors Point from the Noun Project</li>
+<li>user interaction by mynamepong from the Noun Project</li>
+<li>Prototyping by ProSymbols from the Noun Project</li>
+</ol>
+
+            </section>
+    
+
+
+    </div>
+
+
+  </div>
+
+  <script src="libs/reveal.js/3.8.0/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js/3.8.0/js/reveal.js"></script>
+
+  <script>
+
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+
+        controls: true,
+        controlsTutorial: true,
+        controlsLayout: 'bottom-right',
+        controlsBackArrows: 'faded',
+        progress: true,
+        slideNumber: true,
+        history: true,
+        keyboard: true,
+        overview: true,
+        center: false,
+        touch: true,
+        loop: false,
+        rtl: false,
+        shuffle: false,
+        fragments: true,
+        fragmentInURL: false,
+        embedded: false,
+        help: true,
+        showNotes: false,
+        autoPlayMedia: false,
+        autoSlide: 0,
+        autoSlideStoppable: true,
+        autoSlideMethod: Reveal.navigateNext,
+        defaultTiming: 120,
+        mouseWheel: true,
+        hideAddressBar: true,
+        previewLinks: false,
+        transition: 'none',
+        transitionSpeed: 'fast',
+        backgroundTransition: 'default',
+        viewDistance: 3,
+        parallaxBackgroundImage: '',
+        parallaxBackgroundSize: '',
+        parallaxBackgroundHorizontal: 0,
+        parallaxBackgroundVertical: 0,
+        display: 'block',
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            // { src: 'libs/reveal.js/3.8.0/lib/js/classList.js', condition: function () { return !document.body.classList; } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+            { src: 'libs/reveal.js/3.8.0/plugin/notes/notes.js', async: true },
+            { src: 'libs/reveal.js/3.8.0/plugin/chart/Chart.min.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/chart/csv2chart.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/embed-tweet/embed-tweet.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/math/math.js', async: true },
+            { src: 'libs/highlight.js/9.12.0/highlight.js', async: true },
+            { src: 'libs/reveal.js/3.8.0/plugin/anything/anything.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() {mermaid.initialize({startOnLoad:false})} },	
+
+           
+        { src: 'libs/reveal.js/3.8.0/plugin/search/search.js', async: true },
+           
+
+           
+        { src: 'libs/reveal.js/3.8.0/plugin/zoom-js/zoom.js', async: true },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/chalkboard/chalkboard.js' },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/menu/menu.js' },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/title-footer/title-footer.js', async: true, callback: function () { title_footer.initialize(); } },
+            
+
+        {
+            src: 'libs/highlight.js/9.12.0/reveal-code-focus-1.0.0-mod.js',
+            async: true,
+            callback: function () {
+                RevealCodeFocus();
+            }
+        },
+            // { src: 'libs/reveal.js/3.8.0/plugin/reveal-code-focus/highlight.pack.js' },
+            // { src: 'libs/reveal.js/3.8.0/plugin/reveal-code-focus/reveal-code-focus.js', async: true, callback: function() { RevealCodeFocus(); } },
+           // {src: 'libs/reveal.js/3.8.0/plugin/line-numbers/line-numbers.js'}
+        ]
+        ,
+    keyboard: {
+        67: function () { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+        66: function () { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+        46: function () { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+        8: function () { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+        68: function () { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+    },
+    math: {
+       // mathjax: 'libs/reveal.js/3.8.0/plugin/math/MathJax.js',
+             mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+            config: 'TeX-AMS_HTML-full'
+    },
+    chart: {
+        defaults: {
+            global: {
+                title: { fontColor: "#FFF" },
+                legend: {
+                    position: "bottom",
+                        labels: { fontColor: "#FFF" },
+                },
+                tooltips: {
+                    labels: { fontColor: "#FFF" },
+                },
+            },
+            scale: {
+                scaleLabel: { fontColor: "#FFF" },
+                gridLines: { color: "#FFF", zeroLineColor: "#FFF" },
+                ticks: { fontColor: "#FFF" },
+            }
+        },
+        line: { borderColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"], "borderDash": [[5, 10], [0, 0]] },
+        bar: { backgroundColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"] },
+        pie: { backgroundColor: [["rgba(0,0,0,.8)", "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"]] },
+        radar: { borderColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"] },
+    },
+    anything: [ 
+	 {
+	  className: "mermaid"
+	 },
+	 // ...
+	],
+    menu: {
+        // Specifies which side of the presentation the menu will 
+        // be shown. Use 'left' or 'right'.
+        side: 'left',
+
+            // Specifies the width of the menu.
+            // Can be one of the following:
+            // 'normal', 'wide', 'third', 'half', 'full', or
+            // any valid css length value
+            width: 'normal',
+
+                // Add slide numbers to the titles in the slide list.
+                // Use 'true' or format string (same as reveal.js slide numbers)
+                numbers: false,
+
+                    // Specifies which slide elements will be used for generating
+                    // the slide titles in the menu. The default selects the first
+                    // heading element found in the slide, but you can specify any
+                    // valid css selector and the text from the first matching
+                    // element will be used.
+                    // Note: that a section data-menu-title attribute or an element
+                    // with a menu-title class will take precedence over this option
+                    titleSelector: 'h1, h2, h3, h4, h5, h6',
+
+                        // If slides do not have a matching title, attempt to use the
+                        // start of the text content as the title instead
+                        useTextContentForMissingTitles: false,
+
+                            // Hide slides from the menu that do not have a title.
+                            // Set to 'true' to only list slides with titles.
+                            hideMissingTitles: false,
+
+                                // Adds markers to the slide titles to indicate the 
+                                // progress through the presentation. Set to 'false'
+                                // to hide the markers.
+                                markers: true,
+
+                                    // Specify custom panels to be included in the menu, by
+                                    // providing an array of objects with 'title', 'icon'
+                                    // properties, and either a 'src' or 'content' property.
+                                    // custom: false,
+                                    custom: [],
+                                        // Specifies the themes that will be available in the themes
+                                        // menu panel. Set to 'true' to show the themes menu panel
+                                        // with the default themes list. Alternatively, provide an
+                                        // array to specify the themes to make available in the
+                                        // themes menu panel, for example...
+                                        // [
+                                        //     { name: 'Black', theme: 'css/theme/black.css' },
+                                        //     { name: 'White', theme: 'css/theme/white.css' },
+                                        //     { name: 'League', theme: 'css/theme/league.css' }
+                                        // ]
+                                        themes: false,
+
+                                            // Specifies the path to the default theme files. If your
+                                            // presentation uses a different path to the standard reveal
+                                            // layout then you need to provide this option, but only
+                                            // when 'themes' is set to 'true'. If you provide your own 
+                                            // list of themes or 'themes' is set to 'false' the 
+                                            // 'themesPath' option is ignored.
+                                            themesPath: 'css/theme/',
+
+                                                // Specifies if the transitions menu panel will be shown.
+                                                // Set to 'true' to show the transitions menu panel with
+                                                // the default transitions list. Alternatively, provide an
+                                                // array to specify the transitions to make available in
+                                                // the transitions panel, for example...
+                                                // ['None', 'Fade', 'Slide']
+                                                transitions: false,
+
+                                                    // Adds a menu button to the slides to open the menu panel.
+                                                    // Set to 'false' to hide the button.
+                                                    openButton: true,
+
+                                                        // If 'true' allows the slide number in the presentation to
+                                                        // open the menu panel. The reveal.js slideNumber option must 
+                                                        // be displayed for this to take effect
+                                                        openSlideNumber: false,
+
+                                                            // If true allows the user to open and navigate the menu using
+                                                            // the keyboard. Standard keyboard interaction with reveal
+                                                            // will be disabled while the menu is open.
+                                                            keyboard: true,
+
+                                                                // Normally the menu will close on user actions such as
+                                                                // selecting a menu item, or clicking the presentation area.
+                                                                // If 'true', the sticky option will leave the menu open
+                                                                // until it is explicitly closed, that is, using the close
+                                                                // button or pressing the ESC or m key (when the keyboard 
+                                                                // interaction option is enabled).
+                                                                sticky: false,
+
+                                                                    // If 'true' standard menu items will be automatically opened
+                                                                    // when navigating using the keyboard. Note: this only takes 
+                                                                    // effect when both the 'keyboard' and 'sticky' options are enabled.
+                                                                    autoOpen: true,
+
+                                                                        // If 'true' the menu will not be created until it is explicitly
+                                                                        // requested by calling RevealMenu.init(). Note this will delay
+                                                                        // the creation of all menu panels, including custom panels, and
+                                                                        // the menu button.
+                                                                        delayInit: false,
+
+                                                                            // If 'true' the menu will be shown when the menu is initialised.
+                                                                            openOnInit: false,
+
+                                                                                // By default the menu will load it's own font-awesome library
+                                                                                // icons. If your presentation needs to load a different
+                                                                                // font-awesome library the 'loadIcons' option can be set to false
+                                                                                // and the menu will not attempt to load the font-awesome library.
+                                                                                loadIcons: false
+    },
+    chalkboard: {
+        toggleChalkboardButton: { left: "60px", bottom: "30px", top: "auto", right: "auto" },
+        toggleNotesButton: { left: "90px", bottom: "30px", top: "auto", right: "auto" },
+
+    }
+    });
+
+
+
+</script>
+</body>
+
+</html>

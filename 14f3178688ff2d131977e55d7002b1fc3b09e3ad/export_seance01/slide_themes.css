@@ -1,0 +1,182 @@
+.transition {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.transition h1 {
+    color: red;
+    /* Heading 1 */
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+    /* shadows */
+    font-weight: bold;
+    /* bold */
+}
+
+.mddslide div.slide-background-content {
+    background-image: url("assets/noun_mapping_2763502.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #CCFFCC;
+}
+
+.equipeslide div.slide-background-content {
+    background-image: url("assets/noun_team_884673.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #c9fad9;
+}
+
+.dssslide div.slide-background-content {
+    background-image: url("assets/noun_user_interaction_2209214.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #CCCCFF;
+}
+
+.rdcuslide div.slide-background-content {
+    background-image: url("assets/noun_Prototyping_2017211.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #FFCCFF;
+}
+
+.puslide div.slide-background-content {
+    background-image: url("assets/noun_Processing_750305.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: lightblue;
+}
+
+.dcuslide div.slide-background-content {
+    background-image: url("assets/noun_use_case_diagram_actor_1234074.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #f7f79b5f;
+}
+
+.cuslide div.slide-background-content {
+    background-image: url("assets/noun_text_3077363.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #f49090cb;
+}
+
+.uislide div.slide-background-content {
+    background-image: url("assets/noun_user_interface_1282632.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #90f498cb;
+}
+
+.contratslide div.slide-background-content {
+    background-image: url("assets/noun_contract_1237314.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #b4afaf;
+}
+
+.dclslide div.slide-background-content {
+    background-image: url("assets/noun_class_diagram_1234073.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #5ea266;
+}
+
+.feedbackslide div.slide-background-content {
+    background-image: url("assets/noun_feedback_1431183.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: skyblue;
+}
+
+.codeslide div.slide-background-content {
+    background-image: url("assets/noun_code_887253.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: lightgray;
+}
+
+.complexiteslide div.slide-background-content {
+    background-image: url("assets/noun_complex thinking_1779451.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #fa01019c;
+}
+
+.furpslide div.slide-background-content {
+    background-image: url("assets/noun_quality_1476824.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: yellowgreen;
+}
+
+.evalslide div.slide-background-content {
+    background-image: url("assets/noun_quiz_3241476.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #00C000;
+}
+
+.toolslide div.slide-background-content {
+    background-image: url("assets/noun_Tool_3492180.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: lightcoral;
+}
+
+.gofslide div.slide-background-content {
+    background-image: url("assets/noun_design_pattern_513139.svg");
+    background-size: 10%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: lightseagreen;
+}
+
+.packageslide div.slide-background-content {
+    background-image: url("assets/noun_Package_1731464.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: #ff6a6a;
+}
+
+.stateslide div.slide-background-content {
+    background-image: url("assets/noun_state_diagram_1815567.svg");
+    background-size: 15%;
+    background-position: right 5% top 5%;
+    opacity: 0.75;
+    background-color: lightsalmon;
+}
+
+.container {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+}
+
+.reveal section img.arrow {
+    border: none;
+    margin-bottom: -19px;
+    margin-top: -19px;
+    background: rgba(0, 0, 0, 0);
+    box-shadow: none;
+}
