@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>LOG210-C10-00-seance</title>
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- REVEAL CSS-->
+  <link rel="stylesheet" href="libs/reveal.js/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/reveal.css">
+  
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/theme/beige.css" id="theme">
+  
+  
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/plugin/title-footer/title-footer-mod.css" />
+
+  <!-- MERMAID-->
+  <script src="libs/reveal.js/3.8.0/plugin/mermaid/mermaid.min.js"></script>
+  <style>
+  .mermaid {
+    font-size: 0.5em;
+  }
+  </style>
+
+  <style>
+    [class*=task-list-item] {
+    min-height: 22px;
+    margin-top: 6px!important;
+    margin-bottom: 6px!important;
+    padding-left: 0;
+    list-style: none;
+}
+
+[class*=task-list-item]>input:first-child {
+    position: absolute!important;
+    opacity: 0;
+    margin: 0;
+}
+[class*=task-list-item]>label {
+    padding-left: 29px!important;
+    min-height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.task-list-item>input:first-child:checked+input[type=hidden]+label::before, .task-list-item>input:first-child:checked+label::before {
+    background-color: #ecf0f1;
+    border-color: #ecf0f1;
+}
+
+[class*=task-list-item]>input:first-child+input[type=hidden]+label::before, [class*=task-list-item]>input:first-child+label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #D3CFC8;
+    border-radius: 0;
+    margin-left: -29px;
+}
+
+
+[class*=task-list-item]>input:first-child:checked+input[type=hidden]+label::after, [class*=task-list-item]>input:first-child:checked+label::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 10px;
+    border: 2px solid #fff;
+    border-left: none;
+    border-top: none;
+    transform: translate(7.75px,4.5px) rotate(45deg);
+    -ms-transform: translate(7.75px,4.5px) rotate(45deg);
+}
+
+
+.task-list-item>input:first-child:checked+input[type=hidden]+label::after, .task-list-item>input:first-child:checked+label::after {
+    border-bottom-color: #95a5a6;
+    border-right-color: #95a5a6;
+}
+  </style>
+
+  <!-- Theme used for syntax highlighting of code -->
+  
+  <link rel="stylesheet" href="libs/highlight.js/9.12.0/monokai.css">
+  
+
+  
+  <link rel="stylesheet" href="slide_themes.css">
+  
+  
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'libs/reveal.js/3.8.0/css/print/pdf.css' : 'libs/reveal.js/3.8.0/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+
+  <style>
+    /* Solarized Light theme */
+     .line {
+      display: block;
+    }
+    
+
+    .line.focus {
+      background: #fdf6e3;
+      color: #657b83;
+    }
+
+/*
+    .line.focus .hljs-comment,
+    .line.focus .hljs-quote {
+      color: #93a1a1;
+    }
+
+    .line.focus .hljs-keyword,
+    .line.focus .hljs-selector-tag,
+    .line.focus .hljs-addition {
+      color: #859900;
+    }
+
+    .line.focus .hljs-number,
+    .line.focus .hljs-string,
+    .line.focus .hljs-meta .hljs-meta-string,
+    .line.focus .hljs-literal,
+    .line.focus .hljs-doctag,
+    .line.focus .hljs-regexp {
+      color: #2aa198;
+    }
+
+    .line.focus .hljs-title,
+    .line.focus .hljs-section,
+    .line.focus .hljs-name,
+    .line.focus .hljs-selector-id,
+    .line.focus .hljs-selector-class {
+      color: #268bd2;
+    }
+
+    .line.focus .hljs-attribute,
+    .line.focus .hljs-attr,
+    .line.focus .hljs-variable,
+    .line.focus .hljs-template-variable,
+    .line.focus .hljs-class .hljs-title,
+    .line.focus .hljs-type {
+      color: #b58900;
+    }
+
+    .line.focus .hljs-symbol,
+    .line.focus .hljs-bullet,
+    .line.focus .hljs-subst,
+    .line.focus .hljs-meta,
+    .line.focus .hljs-meta .hljs-keyword,
+    .line.focus .hljs-selector-attr,
+    .line.focus .hljs-selector-pseudo,
+    .line.focus .hljs-link {
+      color: #cb4b16;
+    }
+
+    .line.focus .hljs-built_in,
+    .line.focus .hljs-deletion {
+      color: #dc322f;
+    }
+
+    .line.focus .hljs-formula {
+      background: #eee8d5;
+    }
+
+    .line.focus .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .line.focus .hljs-strong {
+      font-weight: bold;
+    }
+
+    .yellow-slide .line.focus:nth-child(2) {
+      background: yellow;
+    }
+
+    .reveal .slides section .code-presenting-annotation {
+      font-size: 70%;
+    }
+    */
+
+    .reveal .slides section .fragment.current-only {
+      visibility: visible;
+      display: none;
+    }
+
+    .reveal .slides section .fragment.current-only.current-fragment {
+      display: block;
+    }
+
+/*
+    .line {
+      display: block;
+    }
+*/
+    .line.focus {
+       opacity: 1.0;
+    } 
+
+    /* .hljs {
+      background: none;
+    } */
+
+    /* .reveal pre {
+      width: 98%;
+      margin: 0px;
+      box-shadow: none;
+    }
+
+    .reveal pre code {
+      font-size: 1.2em;
+      line-height: 1.2;
+      border-radius: 10px;
+      max-height: 60vh !important;
+      overflow: hidden !important;
+    } */
+
+    @media (device-width: 100vw) and (device-height: 100vh) {
+      .reveal pre code {
+        max-height: 50vh !important;
+      }
+    }
+
+    #logo img {
+      max-height: 3.5em;
+      max-width: none;
+      min-width: 50px;
+    }
+
+    .reveal .slides section .code-presenting-annotation {
+      color: white;
+      background: black;
+      padding: 0px 15px;
+      border-radius: 15px;
+      opacity: 0.75 !important;
+      font-size: 50% !important;
+    }
+  </style>
+  <script>
+    if (window.location.search.match(/print-pdf-now/gi)) {
+      window.print();
+    }
+  </script>
+</head>
+
+<body>
+  
+<div id="logo" style="position: fixed; top: 20px; left: 20px; z-index: 1">
+    <img src="assets/logo_ets.svg" />
+</div>
+
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      
+
+
+    
+    <section>
+        <section id='affinementMDD' class="mddslide">
+            <!-- .slide: id='affinementMDD' class="mddslide" -->
+<h2><a id="user-content-log210-séance-10" class="anchor" href="#log210-séance-10" aria-hidden="true"></a>LOG210 Séance #10</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels" class="anchor" href="#analyse-et-conception-de-logiciels" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><strong><a href="#affinementMDD">Affinement du MDD</a></strong> <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/oIjKVwf1Wps">S20203</a></li>
+<li><strong><a href="#interaction">Diagramme d’intéraction</a></strong></li>
+<li><strong><a href="#etat">Diagramme d’état</a></strong></li>
+<li><strong><a href="#activite">Diagramme d’activité</a></strong></li>
+</ol>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide:  class="mddslide" -->
+<h3><a id="user-content-affinement-du-modèle-du-domaine" class="anchor" href="#affinement-du-modèle-du-domaine" aria-hidden="true"></a>Affinement du modèle du domaine</h3>
+<div style="font-size:0.8em" class="block">
+<table>
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Exemples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objets physiques ou tangibles</td>
+<td>CarteDeCrédit, Chèque</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>PaiementEnEspèces, PaiementACrédit, PaiementParChèque</td>
+</tr>
+<tr>
+<td>Systèmes externes</td>
+<td>ServiceDAutorisationDesCrédits, ServiceDAutorisationDesChèques</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td>Organisations</td>
+<td>ServiceDAutorisationDesCrédit, ServiceDAutorisationDesChèques,       Documents de travail comptables, contractuels, juridiques</td>
+</tr>
+</tbody>
+</table>
+<p>Tableau F26.1/A32.1</p>
+</div>
+<aside class="notes"> todo arranger la table</aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-extensions-au-uc1-traiter-vente" class="anchor" href="#extensions-au-uc1-traiter-vente" aria-hidden="true"></a>Extensions au UC1: Traiter vente</h2>
+<ul>
+<li>7b. Payer par carte de crédit
+<ul>
+<li>… information de crédit … demande d’autorisation … autorisation de paiement …</li>
+</ul>
+</li>
+<li>7c. Payer par chèque
+<ul>
+<li>…</li>
+<li>chèque … pièce d’identité …</li>
+<li>autorisation de paiement par chèque … paiement par chèque …</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-systèmes-dautorisation-de-paiement" class="anchor" href="#systèmes-dautorisation-de-paiement" aria-hidden="true"></a>Systèmes d’autorisation de paiement</h2>
+<ul>
+<li>RequêtePaiementACrédit et AccordCrédit
+<ul>
+<li>Abstractions des éléments dans l’activité d’autorisation de paiement</li>
+<li>Pas nécessairement des informations (en termes de données transactionnelles) transmises sur le fil du réseau</li>
+<li><strong>Classes conceptuelles toujours</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="/assets/02-chp26F-31A_Affinement_du_mod%C3%A8le_du_domaine-46.pptx/image7.png" alt="image" class="plain" width="10%"></p>
+<aside class="notes"> todo refaire lien entre les images</aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-exemple-dans-pos" class="anchor" href="#exemple-dans-pos" aria-hidden="true"></a>Exemple dans POS</h2>
+<p>Généralisation/spécialisation
+<img src="/assets/larman/F26.7.png" alt="larman/F26.7, A32.7" class="plain"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h3><a id="user-content-exemple-dans-pos-1" class="anchor" href="#exemple-dans-pos-1" aria-hidden="true"></a>Exemple dans POS</h3>
+<p>Hiérarchie des services d’autorisation</p>
+<p><img src="/assets/larman/F26.8.png" alt="larman/F26.8, A32.8" class="plain" width="80%"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h3><a id="user-content-transactions-dautorisation" class="anchor" href="#transactions-dautorisation" aria-hidden="true"></a>Transactions d’autorisation</h3>
+<ul>
+<li>Est-ce utile?</li>
+</ul>
+<p><img src="/assets/larman/F26.9.png" alt="larman/F26.9" class="plain" width="70%"></p>
+<div style="font-size:0.5em" class="block">
+<p>figure: F26.9, A32.9</p>
+</div>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h3><a id="user-content-transactions-dautorisation-1" class="anchor" href="#transactions-dautorisation-1" aria-hidden="true"></a>Transactions d’autorisation</h3>
+<p><img src="/assets/larman/F26.10.png" alt="larman/F26.10, A32.10" class="plain" width="90%"></p>
+<div style="font-size:0.7em;text-align:left" class="block">
+<p>Le modèle du domaine n’est pas jugé en fonction de sa précision (justesse, correcte ou non) mais en terme de son utilité. Il n’est pas un but en soi</p>
+</div>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h3><a id="user-content-modélisation-de-changement-détat" class="anchor" href="#modélisation-de-changement-détat" aria-hidden="true"></a>Modélisation de changement d’état</h3>
+<div style="font-size:0.7em" class="block">
+<ul>
+<li>Ne modélisez pas les différents états possibles d’un concept comme des sous classes</li>
+<li>Deux solutions
+<ul>
+<li>définir une hiérarchie d’états et les associés à X ;</li>
+<li>ignorer la représentation des états dans le MDD et faire un diagramme d’états</li>
+</ul>
+</li>
+</ul>
+<p><img src="/assets/larman/F26.13.png" alt="larman/F26.13" title="figure: F26.13, A32.13" width="60%" class="plain"></p>
+</div>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-hiérarchies-et-héritage-dans-limplémentation" class="anchor" href="#hiérarchies-et-héritage-dans-limplémentation" aria-hidden="true"></a>Hiérarchies et héritage dans l’implémentation</h2>
+<div style="font-size:0.8em" class="block">
+<ul>
+<li>Les hiérarchies de classes conceptuelles peuvent êtres reflétées ou non dans le modèle de conception
+<ul>
+<li>Par exemple, les classes paramétrées (templates) en C++/Java/C# permettre de réduire le nombre de classes dans l’implémentation</li>
+<li><a href="https://www.tutorialspoint.com/cplusplus/cpp_templates.htm">www.tutorialspoint.com/cplusplus/cpp_templates</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-intervalles-de-temps-et-prix-des-produits" class="anchor" href="#intervalles-de-temps-et-prix-des-produits" aria-hidden="true"></a>Intervalles de temps et prix des produits</h2>
+<p>Correction d’une « erreur » de l’itération 1</p>
+<p><img src="/assets/larman/F26.19.png" alt="larman/F26.19, A32.19" class="plain"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-nom-de-rôles" class="anchor" href="#nom-de-rôles" aria-hidden="true"></a>Nom de rôles</h2>
+<ul>
+<li>Extrémité d’une association peut avoir un rôle</li>
+<li>Rôle possède plusieurs propriétés: nom et multiplicité</li>
+</ul>
+<p><img src="/assets/larman/F26.20.png" alt="larman/F26.20,A32.20" class="plain" width="40%"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-concepts-vs-associations" class="anchor" href="#concepts-vs-associations" aria-hidden="true"></a>Concepts vs associations</h2>
+<p><img src="/assets/larman/A32.21.svg" alt="larman/F26.21, A32.21" title="Fig. A32.21/F26.21" class="plain" width="80%"></p>
+<aside class="notes"> Les deux approches sont avantageuses
+Note: Q : Quand est-ce important de présenter le nom d’un rôle?
+Quand le rôle de l’objet n’est pas clair</aside>
+<aside class="notes"> Q : Avantage de la première approche?
+Montre une personne qui peut jouer plusieurs rôles
+Rôle peut changer dynamiquement</aside>
+<aside class="notes"> Q : Avantage de la deuxième?
+Permet d’avoir des associations et attributs spécifiques</aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-éléments-dérivés" class="anchor" href="#éléments-dérivés" aria-hidden="true"></a>Éléments dérivés</h2>
+<div style="font-size:0.8em;" text-align:="" left="" class="block">
+<p>Évitez de faire apparaître les éléments dérivés dans les diagrammes, sauf si leur omission peut nuire à la compréhension</p>
+<p><img src="/assets/larman/F26.23.png" alt="larman/ F26.22, A32.22, F26.23, A32.23" class="plain" width="80%"></p>
+</div>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-packages-pour-organiser-le-mdd" class="anchor" href="#packages-pour-organiser-le-mdd" aria-hidden="true"></a>Packages pour organiser le MDD</h2>
+<ul>
+<li>Un élément peut être référencé dans un autre package
+<ul>
+<li>nom augmenté du nom du package
+<img src="/assets/larman/F26.26.png" alt="larman/F26.26, A32.26" class="plain" width="80%"></li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-dépendance-entre-package" class="anchor" href="#dépendance-entre-package" aria-hidden="true"></a>Dépendance entre package</h2>
+<div style="font-size:0.8em" class="block">
+<ul>
+<li>Package qui dépend d’un autre
+<ul>
+<li>indicateur de couplage</li>
+<li>entre certains éléments du premier et du deuxième</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><img src="/assets/larman/F26.28.png" alt="larman/F26.28, A32.28" class="plain" width="70%"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-partitionner-le-modèle-du-domaine" class="anchor" href="#partitionner-le-modèle-du-domaine" aria-hidden="true"></a>Partitionner le modèle du domaine</h2>
+<ul>
+<li>Placer en package les éléments
+<ul>
+<li>Cohésion relationelle
+<ul>
+<li>qui sont fortement associés</li>
+<li>situés dans la même hiérarchie de classes</li>
+</ul>
+</li>
+<li>Cohésion fonctionnelle
+<ul>
+<li>situés dans le même domaine</li>
+<li>participant au même cas d’utilisation</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-modèle-du-domaine-1" class="anchor" href="#modèle-du-domaine-1" aria-hidden="true"></a>Modèle du domaine (1)</h2>
+<p><img src="/assets/larman/F9.17.png" alt="larman/9.17" class="plain" width="75%"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-modèle-du-domaine-2" class="anchor" href="#modèle-du-domaine-2" aria-hidden="true"></a>Modèle du domaine (2)</h2>
+<p><img src="/assets/02-chp26F-31A_Affinement_du_mod%C3%A8le_du_domaine-46.pptx/mdd2.png" alt="mdd2" class="plain" width="60%"></p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide" -->
+<h2><a id="user-content-affinements--du-mdd-monopoly" class="anchor" href="#affinements--du-mdd-monopoly" aria-hidden="true"></a>Affinements  du MDD Monopoly</h2>
+<p><img src="/assets/larman/f26.68.png" alt="larman/F26.28, A32.28" class="plain" width="50%"></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id='interaction'  class="dssslide">
+            <!-- .slide: id='interaction'  class="dssslide" -->
+<h2><a id="user-content-log210-séance-10-1" class="anchor" href="#log210-séance-10-1" aria-hidden="true"></a>LOG210 Séance #10</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-1" class="anchor" href="#analyse-et-conception-de-logiciels-1" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><strong><a href="#affinementMDD">Affinement du MDD</a></strong></li>
+<li><strong><a href="#interaction">Diagramme d’intéraction</a></strong> <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/oVFNLrN5OYQ">S20203</a></li>
+<li><strong><a href="#etat">Diagramme d’état</a></strong></li>
+<li><strong><a href="#activite">Diagramme d’activité</a></strong></li>
+</ol>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h3><a id="user-content-diagrammes-dinteraction-modélisent-laction" class="anchor" href="#diagrammes-dinteraction-modélisent-laction" aria-hidden="true"></a>Diagrammes d’interaction modélisent l’action</h3>
+<p>Diagrammes de séquence</p>
+<p><img src="/assets/larman/Fig.A15.1.svg" alt="larman/F14.1" class="plain" width="40%"></p>
+<p>Diagrammes de communication</p>
+<p><img src="/assets/larman/Fig.A15.2.svg" alt="larman/F14.2" class="plain" width="40%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-diagramme-dinteraction" class="anchor" href="#diagramme-dinteraction" aria-hidden="true"></a>Diagramme d’interaction</h2>
+<ul>
+<li>Pour détailler les opérations</li>
+<li>Annoté avec les GRASP</li>
+</ul>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-comparaison" class="anchor" href="#comparaison" aria-hidden="true"></a>Comparaison</h2>
+<div style="font-size:0.7em" class="block">
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Forces (+)</th>
+<th>Faiblesses (-)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Séquence</td>
+<td>Indique clairement la séquence et l’ordonnancement des messages. Grande richesse de la notation</td>
+<td>Ajout de nouveaux objets doit être vers la droite: consomme l’espace horizontal</td>
+</tr>
+<tr>
+<td>Communication</td>
+<td>Économique en termes d’espace, permet d’ajouter des objets dans les deux dimensions</td>
+<td>Rend plus difficile la lecture des séquences de messages. Moins d’options de notation</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h1><a id="user-content-rappel-de-log121" class="anchor" href="#rappel-de-log121" aria-hidden="true"></a>Rappel de LOG121</h1>
+<h2><a id="user-content-classe-vs-instance" class="anchor" href="#classe-vs-instance" aria-hidden="true"></a>Classe vs. instance</h2>
+<p><img src="https://www.plantuml.com/plantuml/svg/RSyz3eCm30NWFQUmE40Fm8JKgHVer2K42o9Y1za6YIFr75oiwJ-LkdZm-oG_DsfURAO4n-HLOT43dBWiEQ3JCVBanHEehGdBb1ZkU9UqFeozv9cxa5CMCF6i9K8sDyGE0Mco5GYfHL4N7bUgSucn0gyG76T3aDWF1lMp1RvP_NNnrtqwlkIoe_oVNfWpqNP5ro1tvOiR" alt="Class vs. Instance" title="Class vs. Instance" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-notation-diagrammes-de-séquence" class="anchor" href="#notation-diagrammes-de-séquence" aria-hidden="true"></a>Notation: Diagrammes de séquence</h2>
+<p><img src="/assets/larman/Fig.F14.7.svg" alt="larman/F14.7, A15.7" class="plain" width="80%"></p>
+<aside class="notes"> montrez la Fin des contextes d’exécution</aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-résultat-dun-message" class="anchor" href="#résultat-dun-message" aria-hidden="true"></a>Résultat d’un message</h2>
+<p><img src="/assets/larman/Fig.A15.8.svg" alt="larman/F14.8, A15.8" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-message-dun-objet-à-lui-même" class="anchor" href="#message-dun-objet-à-lui-même" aria-hidden="true"></a>Message d’un objet à lui-même</h2>
+<p><img src="/assets/larman/Fig.A15.9.svg" alt="larman/F14.9, A15.9" class="plain" width="60%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-destruction-dun-objet" class="anchor" href="#destruction-dun-objet" aria-hidden="true"></a>Destruction d’un objet</h2>
+<p><img src="/assets/larman/Fig.A15.11.svg" alt="larman/F14.11, A15.11" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-itération-sur-une-collection-notation-explicite" class="anchor" href="#itération-sur-une-collection-notation-explicite" aria-hidden="true"></a>Itération sur une collection (notation explicite)</h2>
+<p><img src="/assets/larman/Fig.A15.16.svg" alt="F14.16" class="plain" width="100%"></p>
+<p>fig F14.16, A15.16</p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-itération-sur-une-collection-notation-implicite" class="anchor" href="#itération-sur-une-collection-notation-implicite" aria-hidden="true"></a>Itération sur une collection (notation implicite)</h2>
+<p><img src="/assets/larman/Fig.A15.17.svg" alt="larman/F14.17. A15.17" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-imbrication-de-cadres" class="anchor" href="#imbrication-de-cadres" aria-hidden="true"></a>Imbrication de cadres</h2>
+<p><img src="/assets/larman/Fig.A15.18.svg" alt="larman/F14.18, A15.18" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-appels-asynchrones-et-objets-actifs" class="anchor" href="#appels-asynchrones-et-objets-actifs" aria-hidden="true"></a>Appels asynchrones et objets actifs</h2>
+<p><img src="/assets/larman/Fig.A15.22.svg" alt="larman/F14.22, A15.22" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-diagramme-de-communication" class="anchor" href="#diagramme-de-communication" aria-hidden="true"></a>Diagramme de communication</h2>
+<ul>
+<li>Liens et messages</li>
+</ul>
+<p><img src="/assets/larman/Fig.A15.23.svg" alt="larman/F14.23,A15.23" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-diagramme-de-communication-1" class="anchor" href="#diagramme-de-communication-1" aria-hidden="true"></a>Diagramme de communication</h2>
+<ul>
+<li>Liens et messages</li>
+</ul>
+<h2><a id="user-content-no-te-voir-solution-dans-la-section-exercice-plus-bas" class="anchor" href="#no-te-voir-solution-dans-la-section-exercice-plus-bas" aria-hidden="true"></a><img src="/assets/larman/Fig.A15.24.svg" alt="larman/F14.24, a15.24" class="plain" width="100%">
+No
+te: Voir solution dans la section exercice plus bas.</h2>
+<!-- .slide: class="dssslide" -->
+<h2><a id="user-content-message-pour-une-classe" class="anchor" href="#message-pour-une-classe" aria-hidden="true"></a>Message pour une classe</h2>
+<p><img src="https://www.plantuml.com/plantuml/svg/TL1BQWCn3Dth52Ah5j8BX7H8oQhG0tIhQCJKn9OdjZoGstIRSyp5gac_MHICPUlPUfzTDIhMKiHddJAJXQpO2wRvOc_P3xuuKgq2zHXqf489gvsZ-5u2Br__80VYur1oqvvpp0Mja5Q7H0syME0maXgkDliLKaM-xUufYlPKhbXYt6wJ65tvkmuUEcJSO99QQP1N8BOmaRb0qEmbJrAGrudXwmcAUphF5vpViUctaJKqHHf7YJT6FGWBfoPmzsFv7bmDBhE1qTdJGXyzfIWL7t4GUveeH3f4UVdi_cfo5RtySsFO-M1FxWC0" alt="Invocation de méthode de classe" title="Invocation de méthode de classe" class="plain" width="80%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-message-dun-objet-à-lui-même-1" class="anchor" href="#message-dun-objet-à-lui-même-1" aria-hidden="true"></a>Message d’un objet à lui-même</h2>
+<p><img src="/assets/larman/Fig.A15.25.svg" alt="larman/F14.25, A15.25" class="plain" width="40%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<!-- .slide: class="dssslide" -->
+<h2><a id="user-content-création-dinstance" class="anchor" href="#création-dinstance" aria-hidden="true"></a>Création d’instance</h2>
+<p><img src="/assets/larman/Fig.A15.26.svg" alt="larman/F14.26,A15.26" class="plain" width="90%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-affectation-de-numéros-dordre" class="anchor" href="#affectation-de-numéros-dordre" aria-hidden="true"></a>Affectation de numéros d’ordre</h2>
+<p><img src="/assets/larman/Fig.A15.27.svg" alt="larman F14.27,A15.27" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-affectation-de-numéros-dordre-1" class="anchor" href="#affectation-de-numéros-dordre-1" aria-hidden="true"></a>Affectation de numéros d’ordre</h2>
+<p><img src="/assets/larman/Fig.A15.28.svg" alt="larman/F14.28, A15.28" class="plain" width="90%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-itération-sur-une-collection" class="anchor" href="#itération-sur-une-collection" aria-hidden="true"></a>Itération sur une collection</h2>
+<p><img src="/assets/larman/Fig.A15.32.svg" alt="larman/F14.32, A15.32" class="plain" width="80%"></p>
+<p><a href="http://docs.oracle.com/javase/6/docs/api/java/util/Collection.html">collection en java</a></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-message-vers-une-classe" class="anchor" href="#message-vers-une-classe" aria-hidden="true"></a>Message vers une classe</h2>
+<p><img src="/assets/larman/Fig.A15.33.svg" alt="larman/F14.33, A15.34" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-messages-polymorphes" class="anchor" href="#messages-polymorphes" aria-hidden="true"></a>Messages polymorphes</h2>
+<p><img src="/assets/larman/Fig.A15.34.svg" alt="larman/F14.34, A15.34" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h5><a id="user-content-exercice---transformer-en-diagramme-de-séquence-de-classes" class="anchor" href="#exercice---transformer-en-diagramme-de-séquence-de-classes" aria-hidden="true"></a>*Exercice - Transformer en diagramme de séquence, de classes</h5>
+<p><img src="/assets/02-chp14F-15A-DiagrammesIteraction_36.pptx/macallan.png" alt="macallan.jpeg" class="plain" width="60%"></p>
+<div style="font-size:0.3em" class="block">
+<p>ref: UML Distilled, 2nd ed., Fowler, Scott, Addison Wesley, 2000.</p>
+</div>
+<aside class="notes"> Solution séquence <img src="https://www.plantuml.com/plantuml/svg/RLBDIiD04BxdAGPFUl052af1Un0KmGeUZ8TrCzWbczauksdj8_aSlfWpcpHDImB9pdu_yqUMCHbENUDXzODidKLO1zyb5mZMVx_V7P905S9TQ9gEd3LA5R5sr1es3SIqzoXVTbRJJ9XFO-il3XrLDlZ0aDXG50ef5N8aPrrhAC75ufahv1KbtfVqvgWAkmim4NOvdDDcEcXqoZuPQxmtzEW8I-gr6h-xZspn4iyxrYdOMYpvV4ZOP7qytCwQUC5SlAHHoJqoexr7xxQeeutY2dqMzWF2zMq_2ooWPTGDNLuLFeIsw67XjV5JMW4XnWw5tPYOsvVGRj3M8ZC-ZN01yipv69kmrQGgE19dAaAiuZ0ut9IazzSm08DP7oqvrOw4PJG9JpPre2P5fUf4eQDasoX5gef9jiCgZxD9WW4ycjKaB-IbBYMIF_KV" alt="Exercice Solution Séquence de Communication" title="Exercice Solution Séquence de Communication"><br>
+Solution classe <img src="https://www.plantuml.com/plantuml/svg/TL7DIWCn4BxdAOQUTWlj0qXP2hK7GH2iu3bD1WsRp9H9jhg8xsxIhcuec4CWtzzyGxOnQKb3yB3_H37E81pO3yanmSxh614imev36CWPNN0LUqSdBJf0JAF7V8ip9QDYZjhqRy83MSEU1P9eYfb2IigKN7WIYxAd9EEh8yiVDGnV2l8v2HPBqwhlcdrqXFyg3ebD_v0mJ0hpZgPlMhY38xD7JHTKCF2vsCg34EqBFoENyAQTbR-P4rLI9-GUlJkZZ1VeTXDOTTUYLmQMgmmibekvlPhtADnVPpMtNw-xUcxklzaOGPqmTbtbBxgwpOrmYsJpp_m0" alt="Exercice Solution Classe de Communication" title="Exercice Solution Classe de Communication"></aside>
+<aside class="notes"> <a href="https://github.com/yvanross/LOG210-exercices/blob/master/out/communication/Macallan-communication-sequence/Macallan%20order.png">https://github.com/yvanross/LOG210-exercices/blob/master/out/communication/Macallan-communication-sequence/Macallan order.png</a></aside>
+<aside class="notes"> <a href="https://github.com/yvanross/LOG210-exercices/blob/master/out/communication/Macallan-DCC/Diagramme%20de%20classe%20logiciel%20Macallan%20Stock.png">https://github.com/yvanross/LOG210-exercices/blob/master/out/communication/Macallan-DCC/Diagramme de classe logiciel Macallan Stock.png</a></aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-exercice" class="anchor" href="#exercice" aria-hidden="true"></a>*Exercice</h2>
+<h3><a id="user-content-transformer-en-diagramme-de-séquence" class="anchor" href="#transformer-en-diagramme-de-séquence" aria-hidden="true"></a>Transformer en diagramme de séquence</h3>
+<p><img src="/assets/larman/Fig.A15.24.svg" alt="larman/F14.24, A15.24" class="plain" width="100%"></p>
+<aside class="notes"> <img src="https://www.plantuml.com/plantuml/png/NOyn3eD030Hxls95do8XD1GHRx1VO865JWA4E2VlvxY277JsxAwrxgBhvjzv8bhJ4FgmwkAeMhOnHBUjWaOmRgheP5aHqEC3RZ77yKdQU_Yf6vWOYKlchtAf_oOXmHbkRk4ZG8CLK39CLGegvUdtrK-TBKFwR0S0" alt="Transformer-en-diagramme-de-sequence-Register-sale" title="Transformer-en-diagramme-de-sequence-Register-sale"></aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h3><a id="user-content-parallélisme-diagramme-de-communication" class="anchor" href="#parallélisme-diagramme-de-communication" aria-hidden="true"></a>Parallélisme: Diagramme de communication</h3>
+<p><img src="/assets/02-chp14F-15A-DiagrammesIteraction_36.pptx/communication-message-concurrent.png" alt="parallelisme" class="plain" width="40%"></p>
+<div style="font-size:0.6em" class="block">
+<ul>
+<li>
+<p>For example,</p>
+<ul>
+<li>messages 2.3a and 2.3b are concurrent within  activation 2.3,</li>
+<li>Name represents  a concurrent thread of control.</li>
+<li>Instance of A sends draw () messages concurrently to instance of B and to instance of C</li>
+</ul>
+</li>
+<li>
+<p>Réf: <a href="https://www.uml-diagrams.org/communication-diagrams.html">https://www.uml-diagrams.org/communication-diagrams.html</a></p>
+</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<!-- .slide: class="dssslide" -->
+<h2><a id="user-content-diagramme-de-collaboration-uml" class="anchor" href="#diagramme-de-collaboration-uml" aria-hidden="true"></a>Diagramme de collaboration UML</h2>
+<p><img src="/assets/02-chp14F-15A-DiagrammesIteraction_36.pptx/collaboration.png" alt="collaboration" class="plain" width="50%"></p>
+<div style="font-size:0.5em" class="block">
+<p>Réf: Documenting Software Architectures: Views and Beyond, 2e édition, Felix Bachmann, Len Bass, Paul C. Clements, David Garlan, James Ivers, Reed Little, Paulo Merson, Robert Nord, Judith A. Stafford</p>
+</div>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-résumé" class="anchor" href="#résumé" aria-hidden="true"></a>Résumé</h2>
+<div style="font-size:80%" class="block">
+<ul>
+<li>Deux types de diagrammes d’interaction
+<ul>
+<li>de séquence et de communication</li>
+</ul>
+</li>
+<li>Agilité est importante dans la modélisation
+<ul>
+<li>Habileté de faire rapidement des modèles en UML</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><img src="/assets/02-chp14F-15A-DiagrammesIteraction_36.pptx/iteration.png" alt="iteration" class="plain" width="80%"></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="etat" class="stateslide">
+            <!-- .slide: id="etat" class="stateslide" -->
+<h2><a id="user-content-log210-séance-10-2" class="anchor" href="#log210-séance-10-2" aria-hidden="true"></a>LOG210 Séance #10</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-2" class="anchor" href="#analyse-et-conception-de-logiciels-2" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><strong><a href="#affinementMDD">Affinement du MDD</a></strong></li>
+<li><strong><a href="#interaction">Diagramme d’intéraction</a></strong></li>
+<li><strong><a href="#etat">Diagramme d’état</a></strong>  <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/RrFpwLGIxIs">S20203</a></li>
+<li><strong><a href="#activite">Diagramme d’activité</a></strong></li>
+</ol>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-diagramme-détat" class="anchor" href="#diagramme-détat" aria-hidden="true"></a>Diagramme d’état</h2>
+<p>Pour modéliser les comportements.</p>
+<p>Notion préalable: <a href="https://fr.wikipedia.org/wiki/Automate_fini#Automates_UML">Automate fini</a></p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-exemple-dautomate-fini" class="anchor" href="#exemple-dautomate-fini" aria-hidden="true"></a>Exemple d’automate fini</h2>
+<p><img src="/assets/larman/Fig.F25.8.svg" alt="larman/F25.8, A29.1" class="plain" width="90%"></p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-événement-état-et-transition" class="anchor" href="#événement-état-et-transition" aria-hidden="true"></a>Événement, état et transition</h2>
+<ul>
+<li>Événement
+<ul>
+<li>occurrence d’un fait significatif ou remarquable</li>
+</ul>
+</li>
+<li>État
+<ul>
+<li>la condition d’un objet à un moment donné, jusqu’à l’arrivée d’un nouvel événement</li>
+</ul>
+</li>
+<li>Transition
+<ul>
+<li>relation état-événement-état</li>
+<li>indique que l’objet change d’état</li>
+</ul>
+</li>
+</ul>
+<aside class="notes"> Q : différences entre événement et transition?
+selon l’état, un même événement peut mener à différentes transitions</aside>
+<aside class="notes"> Il s’agit de la modélisation (un état est une simplification de la réalité). Ça dépend de ce qu’on veut capturer comme information dans l’état.</aside>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-objets-état-dépendants-et-état-indépendants" class="anchor" href="#objets-état-dépendants-et-état-indépendants" aria-hidden="true"></a>Objets état-dépendants et état-indépendants</h2>
+<ul>
+<li>Un objet répondant de la même manière à un événement donné
+<ul>
+<li>état-indépendant  (par rapport à l’événement )</li>
+</ul>
+</li>
+<li>Un objet répondant différemment, selon son état, à un événement donné
+<ul>
+<li>état-dépendant</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-modélisation-dobjet-état-dépendants" class="anchor" href="#modélisation-dobjet-état-dépendants" aria-hidden="true"></a>Modélisation d’objet état-dépendants</h2>
+<ul>
+<li>Équipement physiques contrôlés par des logiciels</li>
+</ul>
+<p><img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/auto.png" alt="auto" class="plain" width="30%">
+<img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/telephone.png" alt="telephone" class="plain" width="30%">
+<img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/microonde.png" alt="microonde" class="plain" width="30%"></p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-modélisation-dobjet-état-dépendants-1" class="anchor" href="#modélisation-dobjet-état-dépendants-1" aria-hidden="true"></a>Modélisation d’objet état-dépendants</h2>
+<div style="font-size:0.9em" class="block">
+<p>Transactions et objets métier apparentés</p>
+<ul>
+<li>Vente, Commande, Paiement, etc.</li>
+<li>Exemple: annuler l’envoi d’un colis après son ramassage? Cela dépend de son « état » probablement…</li>
+</ul>
+</div>
+<p><img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/image11.jpeg" alt="image11" class="plain" width="20%">
+<img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/image12.jpeg" alt="image12" class="plain" width="30%">
+<img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/image13.jpeg" alt="image13" class="plain" width="30%"></p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-modélisation-dobjet-état-dépendants-2" class="anchor" href="#modélisation-dobjet-état-dépendants-2" aria-hidden="true"></a>Modélisation d’objet état-dépendants</h2>
+<p>Objets qui changent de rôle, comme une personne…</p>
+<ul>
+<li>état de civil ou de militaire</li>
+<li>résident temporaire, résident permanent, citoyen</li>
+</ul>
+<p><img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/passport.jpeg" alt="passport" class="plain" width="40%"></p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-modélisation-dobjet-état-dépendants-3" class="anchor" href="#modélisation-dobjet-état-dépendants-3" aria-hidden="true"></a>Modélisation d’objet état-dépendants</h2>
+<div style="font-size:0.7em" class="block">
+<ul>
+<li>Protocoles de communication
+<ul>
+<li>p.ex. en TCP, si le gestionnaire du protocole est dans l’état « fermé », un message « close » sera ignoré</li>
+</ul>
+</li>
+<li>Flot page/fenêtre IHM
+<ul>
+<li>séquence légale des pages Web ou des fenêtres, souvent complexe</li>
+</ul>
+</li>
+<li>Contrôleurs de flot ou de sessions
+<ul>
+<li>objets « session » p.ex. application Web</li>
+</ul>
+</li>
+<li>Ordre des opérations système d’un cas d’utilisation
+<ul>
+<li>créerNouvelleVente , saisirArticle , terminerVente , etc.</li>
+</ul>
+</li>
+<li>Gestion d’un événement individuel dans une fenêtre d’une IHM
+<ul>
+<li>séquences légales d’une fenêtre ou d’un formulaire (coller n’est pas valide si presse-papiers est nul)</li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-notation-additionnelle" class="anchor" href="#notation-additionnelle" aria-hidden="true"></a>Notation additionnelle</h2>
+<p style="text-align:left">Transitions peuvent avoir des actions et des conditions de guard</p>
+<p><img src="/assets/larman/F25.9.png" alt="larman/F25.9, A29.9" class="plain" width="100%"></p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h3><a id="user-content-notation-additionnelle-1" class="anchor" href="#notation-additionnelle-1" aria-hidden="true"></a>Notation additionnelle</h3>
+<p>États imbriqués</p>
+<p><img src="/assets/larman/Fig.F25.10.svg" alt="larman/F25.10, A29.3" class="plain" width="90%"></p>
+<div style="font-size:0.8em" class="block">
+<ul>
+<li>Pouvez vous réaliser le diagramme de classe correspondant?</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h4><a id="user-content-automate-fini-et-cas-dutilisation-12" class="anchor" href="#automate-fini-et-cas-dutilisation-12" aria-hidden="true"></a>*Automate fini et cas d’utilisation 1/2</h4>
+<p><img src="https://www.plantuml.com/plantuml/svg/ZLFDRk903BxdAQoUg0JQUvH5HMoFkqAYsXENsOa5LYUUTEoWSklRB7sElDXwKg10grKlqSIVlnzxaZjHbxHh0lnOBk4XEL9Cy1jP4POxqNxV8E2p5HaBUIHkNN8DYEu2sZEHp-Gpv8_pZ-iKEwvz33619iTYa2cUTItngKFs-1D5t1fdWTOCFhkcGabDEyUfQ7gHgFf6qy9vDTcRSkv8X33TW1FmXUagUMeTgu77w0Cero2chITSyQmpAHAd57d5yzI_rgHl5EUXgWQhwVIBz4s_jw6EzCqPtq-c0YLuCy3qAtPR3067YOeGOmi9nTOzc0IK0WxzOXDIchsLLppoiSOoxvpNOtZgB0tfhYJMMwDKrMIIIJMAJzJcJ6FGg2uKo3LadsCEssT3Z6b8CBejJjoX7TmMFQXxjYGkABIEiB7EUxwNjjzxAr_Ci_Y0Zvh8QkaEMSyC361hBp08deJxbyFcFzSzmLUoOwhdyvE56DNkh0JNwIRVIlyAt_DBFjj7TU6uSEbmMvzRlkCVFHTvUJAFN7UKyCf_yvy0NB_l8M7_jolkh6O_ppy0" alt="DSS Traiter Vente Système externe" title="DSS Traiter Vente Système externe" class="plain" width="70%"></p>
+<div style="font-size:0.7em" class="block">
+<ul>
+<li>Diagramme d’état correspondant?</li>
+</ul>
+</div>
+<aside class="notes"> Est ce que vous savez comment passer du diagramme d’état vers le code?</aside>
+<aside class="notes"> Déterminer les états à partir d’un diagramme de séquence système.  Question aux étudiants: Quel est l’intérêt?</aside>
+<aside class="notes"> Les nom des opérations correspondent aux nom des transitions.</aside>
+<aside class="notes"> Convertissez ce diagramme d’état en diagramme de séquence</aside>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-automate-fini-et-cas-dutilisation-22" class="anchor" href="#automate-fini-et-cas-dutilisation-22" aria-hidden="true"></a>*Automate fini et cas d’utilisation 2/2</h2>
+<p><img src="/assets/03-chp25F-28A-Diagrammes-%C3%A9tats-13.pptx/etats.png" alt="etats" class="plain" width="100%"></p>
+<div style="font-size:0.7em" class="block">
+<ul>
+<li>Diagramme de classes logiciels correspondant?</li>
+</ul>
+</div>
+<aside class="notes"> Convertissez ce diagramme d’état en diagramme de classe.
+Note: Diagramme de classe <img src="https://www.plantuml.com/plantuml/png/vPMnJiCm48PtFyMfKokHWRLYe8ewiA1AHKminhcsbbAxFPy10NaV-XnzCUoKWDEcekg4HAQJ__kJkyzdvzgn9FRBKWYXIkaSv58xX_0c527IhVLFM9PuZuQnFn0kg9f6n5ejiAziWNLSuWMilJIi6GU2aPRQ83Mc-aqJgN4P5ypOhL2Xwo-juM0PEYPjvdjfevomqBoNT06woFDknqHIli2rnmxF95RaSckKruJVVkdPadP8eSWvyfHbh7S8D-CGxK08rwmdYmCXAY5qQ8PcKc6Q_--uHHBoCIXICUn6w8T66AEtHgoWaqoYdmGfoT_ZzNhmhT_P7NESXF6O-GoYoQjIkDNNeHmnnpRgHY50XV1qqgoWESVJ2BC162ndJM0bsWKq7JRNmrySpf-QTo0bQskImYExDcFnDQozonvafESBpkeulGQI6AxUiy8-comPTD6MizQE7HEReWxqrjuTkZlw4iQ6oIXnnc1dILr3kBEUqK7O6x2hxOPgctimy-t6R3yeCl460LyKhgBqO5QIeDXkPjANBAxH5E7ty0a0" alt="etat-caisse-enregistruse-&gt;classe" title="etat-caisse-enregistruse-&gt;classe">
+Note: Diagramme de séquence <img src="https://www.plantuml.com/plantuml/png/hLF1JiCm3BtdAwoUraczS2nZMbJji0iWLQfsuE9rXaLqRPLu1VuU9soY0OQOn2LARB_tx2TduHWj7_QDSi-cxT7Y7af-QmWSMrE7Z98mczhqs3AierUI5sYSemJGGH6dSCWrCxLCbJyIy3MwYeiSvgKm6D8-s90BJAK6TH_9B1bv9BKgOJRJ6-aHQvxFbO8rPDaSYkaqXzeICarI1P8qWzobjIBaTHKLI50mEJZYadq8XrIDG5iwzr17lK16zhOx3DGq7vDE8ewJ1Wvm0qydeVJwh4u0w2g7rUVGu53G3-qFOhmpRYGe1klgVnXA7ParQb9A2fXbcR_4uU-MEZnlwJgG5F35MnNilSZTCDsVtIrrx0qELx-R8mifCDcw2t62y6koVAsfPzErtb3UsUvbajprPD77eErOE710q-16VjvZPy73vGjApqbwj4cuub4Mr6xbVxu3" alt="etat-caisse-enregistruse-&gt;classe-1" title="etat-caisse-enregistruse-&gt;classe-1"></aside>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-état-dune-commande" class="anchor" href="#état-dune-commande" aria-hidden="true"></a>État d’une commande</h2>
+<p><img src="/assets/larman/F25.12.png" alt="larman/F25.12, A29.5" class="plain" width="80%"></p>
+<p>Réf:Applying Domain-Driven Design and Patterns: With Examples in C# and .NET</p>
+
+            </section>
+        
+            <section class="stateslide">
+                <!-- .slide: class="stateslide" -->
+<h2><a id="user-content-exercices-diagramme-détat" class="anchor" href="#exercices-diagramme-détat" aria-hidden="true"></a>Exercices diagramme d’état</h2>
+<ul>
+<li>Téléphone intelligent</li>
+<li>Vidéo projecteur</li>
+<li>Guichet automatique</li>
+<li><a href="https://docs.google.com/document/d/18s-eN0QoqREblJUihUaEC2L7f1hZF82_Jm9PjfL6BuY/edit?pli=1#heading=h.woe7hjrtreze">CU29-Annuler un service</a></li>
+<li><a href="https://docs.google.com/document/d/18s-eN0QoqREblJUihUaEC2L7f1hZF82_Jm9PjfL6BuY/edit?pli=1#heading=h.woe7hjrtreze">CU30-Confirmer une visite supervisée</a></li>
+<li><a href="https://docs.google.com/document/d/18s-eN0QoqREblJUihUaEC2L7f1hZF82_Jm9PjfL6BuY/edit?pli=1#heading=h.571qr0tmgkvv">CU31-Confirmer des échanges de garde</a></li>
+<li><a href="https://docs.google.com/document/d/18s-eN0QoqREblJUihUaEC2L7f1hZF82_Jm9PjfL6BuY/edit?pli=1#heading=h.1u1pach8bqyv">CU32-Rédiger une note d’observation</a></li>
+<li><a href="https://docs.google.com/document/d/18s-eN0QoqREblJUihUaEC2L7f1hZF82_Jm9PjfL6BuY/edit?pli=1#heading=h.8rnjn3p0d663">CU33-Corriger une note d’observation</a></li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="activite" class="dssslide">
+            <!-- .slide: id="activite" class="dssslide" -->
+<h2><a id="user-content-log210-séance-10-3" class="anchor" href="#log210-séance-10-3" aria-hidden="true"></a>LOG210 Séance #10</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-3" class="anchor" href="#analyse-et-conception-de-logiciels-3" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<ol>
+<li><strong><a href="#affinementMDD">Affinement du MDD</a></strong></li>
+<li><strong><a href="#interaction">Diagramme d’intéraction</a></strong></li>
+<li><strong><a href="#etat">Diagramme d’état</a></strong></li>
+<li><strong><a href="#activite">Diagramme d’activité</a></strong> <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/baWGzdegw5Q">S20203</a></li>
+</ol>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-diagrammes-dactivités" class="anchor" href="#diagrammes-dactivités" aria-hidden="true"></a>Diagrammes d’activités</h2>
+<ul>
+<li>Exposer les activités séquentielles et parallèles d’un processus.</li>
+</ul>
+<p><img src="/assets/03-chp25F-28A-Diagrammes_activit%C3%A9s-10.pptx/EngrenagesVisages.svg" alt="Représentation d'activités séquentielles et parallèles" class="plain" width="40%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h3><a id="user-content-diagrammes-dactivités-1" class="anchor" href="#diagrammes-dactivités-1" aria-hidden="true"></a>Diagrammes d’activités</h3>
+<p><img src="/assets/larman/F25.1.svg" alt="larman/F25.1, A28.1" class="plain" width="50%"></p>
+<aside class="notes"> Pouvez vous réaliser le diagramme de classe correspondant?</aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h3><a id="user-content-compléments-sur-la-notation" class="anchor" href="#compléments-sur-la-notation" aria-hidden="true"></a>Compléments sur la notation</h3>
+<p><img src="/assets/larman/F25.4.svg" alt="larman/F25.4, A28.4" class="plain" width="40%"></p>
+<p><img src="/assets/larman/F25.5.svg" alt="larman/F25.5, A28.5" class="plain" width="60%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-signaux" class="anchor" href="#signaux" aria-hidden="true"></a>Signaux</h2>
+<p><img src="/assets/larman/F25.6.svg" alt="larman/F25.6, A28.6" class="plain" width="70%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h3><a id="user-content-lignes-directrices--modélisation-dactivités" class="anchor" href="#lignes-directrices--modélisation-dactivités" aria-hidden="true"></a>Lignes directrices – modélisation d’activités</h3>
+<div style="font-size:0.8em" class="block">
+<ul>
+<li>Utile pour les processus très complexes
+<ul>
+<li>impliquant <strong>plusieurs parties</strong></li>
+<li>impliquant des <strong>activités séquentielles</strong></li>
+</ul>
+</li>
+<li>
+<ul>
+<li>impliquant des <strong>processus en parallèles</strong></li>
+</ul>
+</li>
+<li>Utilisez les niveaux d’abstraction («rateau» et sous-activité) afin de gérer la complexité
+<ul>
+<li>Niveaux 0, 1, 2, etc.</li>
+<li>Dans un diagramme, veillez à ce que les nœuds d’action soient à peu près équivalents en ce qui concerne leur propre niveau d’abstraction.</li>
+<li>p.ex. au niveau 0, « Livrer Commande » et « Calculer TVA » ne sont pas cohérents
+- « Livrer Commande » et « Envoyer Facture » le sont</li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h4><a id="user-content-modélisation-de-traiter-une-vente" class="anchor" href="#modélisation-de-traiter-une-vente" aria-hidden="true"></a>Modélisation de Traiter une vente</h4>
+<p><img src="/assets/larman/F25.7.svg" alt="larman/F25.7, A28.7" class="plain" width="60%"></p>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h4><a id="user-content-dautres-exemples" class="anchor" href="#dautres-exemples" aria-hidden="true"></a>D’autres exemples</h4>
+<p><img src="/assets/03-chp25F-28A-Diagrammes_activit%C3%A9s-10.pptx/exemple.jpeg" alt="exemple" class="plain" width="60%"></p>
+<div style="font-size:0.5em" class="block">
+<ul>
+<li>Applying  Use Cases, 2nd ed., Schneider &amp; Winters, Addison Wesley, 2001.</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide" -->
+<h2><a id="user-content-outils-plantuml" class="anchor" href="#outils-plantuml" aria-hidden="true"></a>outils PlantUML</h2>
+<div class="container">
+<p><img src="https://www.plantuml.com/plantuml/svg/JOuz2iCm38LtdyBGMoHB81qxcEuTL4Uu8lu9iX88v48zHozMfQMXYmJlVKzFNHLWcLEqPuB0a5922rve8NazJHqfJw2ohR96rCdaT_pFkOCV0vSv3xx4mbOOSbKBivYjZwHxCvyQq_Gb9SW3ifqYI6ksKwJmaC28URkYKhEcbJ_8csaSutxko5neOQ1Qic9E9KLsIG7t1NwbZOCLkTNoCfaEyw2Flm40" alt="Diagramme activité" title="Diagramme activité" class="col plain" width="80%"></p>
+<div class="col" class="block">
+<pre><code class="language-plantuml">|Client|
+start
+:Commander plat;
+|#lightgreen|Restaurant|
+:Commande]
+:Preparer plat;
+|Livraison|
+:Plat]
+:Livrer Plat;
+|Client|
+:Payer;
+stop
+</code></pre>
+</div>
+</div>
+<p><a href="https://education.github.community/t/what-do-students-see/57848/4?u=fuhrmanator">Exemple : Dynamique GitHub Classroom</a></p>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide" -->
+<h4><a id="user-content-exercice-retour-de-voiture-loué" class="anchor" href="#exercice-retour-de-voiture-loué" aria-hidden="true"></a>Exercice: Retour de voiture loué</h4>
+<div style="font-size:0.5em" class="block">
+<p>Esquissez le diagramme d’activités lors de la réception de voitures
+louées (après la location) dans une compagnie. Pour le diagramme, faites
+att ention à la <strong>notation UML</strong>: cela comprend les objets (pour la
+voiture et pour la facture), le début et la fin de l’activité, les
+débranchements, les jointures, les décisions et les fusions.</p>
+<p>Scénario</p>
+<ul>
+<li>Le client rend la voiture et les clés.</li>
+<li>Le réceptionniste note le kilométrage et le niveau d’essence pour calculer la facture.</li>
+<li>Le client paye sa location, selon le montant sur la facture et part après.</li>
+<li>L’agent inspect la voiture pour la proprété. Si elle n’est pas assez propre, alors l’agent doit laver, rincer et sécher l’extérieur et nettoyer l’intérieur. Ce travail devrait commencer le plus vite possible, après que le réceptionniste ait finit de noter les informations pour la facture.</li>
+<li>Les rôles sont le ______ le ________ (qui gère la documentation et le paiement de la location) et ______ (qui gère le traitement des voitures avant la prochaine location).</li>
+</ul>
+</div>
+<aside class="notes"> <img src="http://www.plantuml.com/plantuml/img/PP31IWD138RlUOhSR4_Unr8HGH6ab1MyzJ3iPjlGQMR9P2g5VI3tEVR5dArIBLx2aFpvvykVzYoTLt_0PAT0fIhNbWy1qcMoyz9yA9kHe6acCBOYNUHbHHQpOaDuZ6nP2KFCuq2Bsxo4_Z4mYVMGpAk1gqWQlIZleA_6eQREE8fmCkh1lV-ua64TnY5jmAsYaUAUGpoCdwP-Eqr1-4W-OtD3AP7KnQsDkWVtF0uo3besMbz_V-EUlb-RNo2tzgShoRe0iXQaX-rPC9cXtteMS2-IEgedY0ivjpZhD7PAztEqNObb5ZFFWK8Yd4cKEQ1xzSU_E-WgBg1NdRSImEwwjIApEC6nM3c4AHUi4XotKyNpbV-3InQxBm00" alt=""></aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h4><a id="user-content-exercices---modéliser-dune-dynamique-de-stationnement" class="anchor" href="#exercices---modéliser-dune-dynamique-de-stationnement" aria-hidden="true"></a>*Exercices - Modéliser d’une dynamique de stationnement</h4>
+<ul>
+<li>Client arrive, entre sa carte de crédit, le système enregistre la carte et la remet au client, le clientl reprend sa carte, le système ouvre la barrière, le client entre pour se stationner, le système ferme la barrière. Le client se présente à la sortie, présente sa carte de crédit, le système imprime le recu, le client reprend sa carte de crédit, prend le recu, le système ouvre la barrière, le client peut alors sortir, le système détecte la sortie et ferme la barrière.</li>
+</ul>
+<aside class="notes"> <img src="https://www.plantuml.com/plantuml/png/TK-x4S8m3EqrXJUWTveSFYPW0XC_xdpdo3b5fl90xC5YA2a855Jwl9yqhXf5srn8inQu2wj0N8gyEXiDrLoPCOELUYZPQgTTHDvwumRhuO8WPHsedwimhj-wJhvWqYPmqyOToE-Q4tanWke1V18CMGIS3kYFSsqFoU9kKII_dhAP9wZ5sMNOde6BJQkjxv0PFynLwqAZfTZ_Rm00" alt="Entrer dans le stationnement" title="Entrer dans le stationnement">
+Note: <img src="https://www.plantuml.com/plantuml/png/RL4xRiCm3Drr2exErDq1Yg16vmvPkwZoKqj0bWoAAbB01yezSh7I3efuw2JgYNmVwbJLYxOfEMLDe7CHPQ6naJqebvmn8QjRXiHsBcxhTxtL41gi1Ws2aVNebfSY6UVztEBwXA1DG67jFRh-FlFMzCbnf6w32HUkYWFf5p9rFwW7rmUVGakcOeeSttFq6v5GsAmO5K-py6I883IxYscgFhIGAgZBnSW-aI5UyNf1c5T_pvQap0vvvFX8PnIp6BRp-tU_Q_oViRHliQrzU16-NMKT6w4MtBpLTQCWtxGO726huLtdPkDa6lO9lm00" alt="Sortir du stationnement" title="Sortir du stationnement"></aside>
+
+            </section>
+        
+            <section class="dssslide">
+                <!-- .slide: class="dssslide" -->
+<h2><a id="user-content-exercices-diagramme-dactivité" class="anchor" href="#exercices-diagramme-dactivité" aria-hidden="true"></a>Exercices diagramme d’activité</h2>
+<ul>
+<li>Retour de voiture louée</li>
+<li>Recette de cuisine</li>
+<li>Retrait au guichet automatique</li>
+<li>Ordinateur de plongée</li>
+<li>Demander un remplacement</li>
+<li>Processus d’achat sur le web</li>
+<li>Vendre au comptoir</li>
+</ul>
+<p><a href="https://github.com/yvanross/LOG210-exercices">https://github.com/yvanross/LOG210-exercices</a></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h1><a id="user-content-résumé-1" class="anchor" href="#résumé-1" aria-hidden="true"></a>Résumé</h1>
+<ol>
+<li><strong><a href="#affinementMDD">Affinement du MDD</a></strong></li>
+<li><strong><a href="#interaction">Diagramme d’intéraction</a></strong></li>
+<li><strong><a href="#etat">Diagramme d’état</a></strong></li>
+<li><strong><a href="#activite">Diagramme d’activité</a></strong></li>
+</ol>
+
+            </section>
+        
+            <section class="feedbackslide" data-background-color="skyblue">
+                <!-- .slide: class="feedbackslide" data-background-color="skyblue" -->
+<h2><a id="user-content-séance-10" class="anchor" href="#séance-10" aria-hidden="true"></a>Séance #10</h2>
+<h3><a id="user-content-rétroaction-page-dune-minute" class="anchor" href="#rétroaction-page-dune-minute" aria-hidden="true"></a><a href="https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs">Rétroaction: Page d’une Minute</a></h3>
+<ol>
+<li>Quels sont les deux [trois, quatre, cinq] plus importants [utiles, significatives,
+surprenantes, dérangeantes] choses que vous avez apprises au cours de cette session?</li>
+<li>Quelle (s) question (s) reste (s) en tête dans votre esprit?</li>
+<li>Y a-t-il quelque chose que tu n’as pas compris?</li>
+</ol>
+<p><a href="https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs">https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs</a></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+    </div>
+
+
+  </div>
+
+  <script src="libs/reveal.js/3.8.0/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js/3.8.0/js/reveal.js"></script>
+
+  <script>
+
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+
+        controls: true,
+        controlsTutorial: true,
+        controlsLayout: 'bottom-right',
+        controlsBackArrows: 'faded',
+        progress: true,
+        slideNumber: true,
+        history: true,
+        keyboard: true,
+        overview: true,
+        center: false,
+        touch: true,
+        loop: false,
+        rtl: false,
+        shuffle: false,
+        fragments: true,
+        fragmentInURL: false,
+        embedded: false,
+        help: true,
+        showNotes: false,
+        autoPlayMedia: false,
+        autoSlide: 0,
+        autoSlideStoppable: true,
+        autoSlideMethod: Reveal.navigateNext,
+        defaultTiming: 120,
+        mouseWheel: true,
+        hideAddressBar: true,
+        previewLinks: false,
+        transition: 'none',
+        transitionSpeed: 'fast',
+        backgroundTransition: 'default',
+        viewDistance: 3,
+        parallaxBackgroundImage: '',
+        parallaxBackgroundSize: '',
+        parallaxBackgroundHorizontal: 0,
+        parallaxBackgroundVertical: 0,
+        display: 'block',
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            // { src: 'libs/reveal.js/3.8.0/lib/js/classList.js', condition: function () { return !document.body.classList; } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+            { src: 'libs/reveal.js/3.8.0/plugin/notes/notes.js', async: true },
+            { src: 'libs/reveal.js/3.8.0/plugin/chart/Chart.min.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/chart/csv2chart.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/embed-tweet/embed-tweet.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/math/math.js', async: true },
+            { src: 'libs/highlight.js/9.12.0/highlight.js', async: true },
+            { src: 'libs/reveal.js/3.8.0/plugin/anything/anything.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() {mermaid.initialize({startOnLoad:false})} },	
+
+           
+        { src: 'libs/reveal.js/3.8.0/plugin/search/search.js', async: true },
+           
+
+           
+        { src: 'libs/reveal.js/3.8.0/plugin/zoom-js/zoom.js', async: true },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/chalkboard/chalkboard.js' },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/menu/menu.js' },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/title-footer/title-footer.js', async: true, callback: function () { title_footer.initialize(); } },
+            
+
+        {
+            src: 'libs/highlight.js/9.12.0/reveal-code-focus-1.0.0-mod.js',
+            async: true,
+            callback: function () {
+                RevealCodeFocus();
+            }
+        },
+            // { src: 'libs/reveal.js/3.8.0/plugin/reveal-code-focus/highlight.pack.js' },
+            // { src: 'libs/reveal.js/3.8.0/plugin/reveal-code-focus/reveal-code-focus.js', async: true, callback: function() { RevealCodeFocus(); } },
+           // {src: 'libs/reveal.js/3.8.0/plugin/line-numbers/line-numbers.js'}
+        ]
+        ,
+    keyboard: {
+        67: function () { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+        66: function () { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+        46: function () { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+        8: function () { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+        68: function () { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+    },
+    math: {
+       // mathjax: 'libs/reveal.js/3.8.0/plugin/math/MathJax.js',
+             mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+            config: 'TeX-AMS_HTML-full'
+    },
+    chart: {
+        defaults: {
+            global: {
+                title: { fontColor: "#FFF" },
+                legend: {
+                    position: "bottom",
+                        labels: { fontColor: "#FFF" },
+                },
+                tooltips: {
+                    labels: { fontColor: "#FFF" },
+                },
+            },
+            scale: {
+                scaleLabel: { fontColor: "#FFF" },
+                gridLines: { color: "#FFF", zeroLineColor: "#FFF" },
+                ticks: { fontColor: "#FFF" },
+            }
+        },
+        line: { borderColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"], "borderDash": [[5, 10], [0, 0]] },
+        bar: { backgroundColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"] },
+        pie: { backgroundColor: [["rgba(0,0,0,.8)", "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"]] },
+        radar: { borderColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"] },
+    },
+    anything: [ 
+	 {
+	  className: "mermaid"
+	 },
+	 // ...
+	],
+    menu: {
+        // Specifies which side of the presentation the menu will 
+        // be shown. Use 'left' or 'right'.
+        side: 'left',
+
+            // Specifies the width of the menu.
+            // Can be one of the following:
+            // 'normal', 'wide', 'third', 'half', 'full', or
+            // any valid css length value
+            width: 'normal',
+
+                // Add slide numbers to the titles in the slide list.
+                // Use 'true' or format string (same as reveal.js slide numbers)
+                numbers: false,
+
+                    // Specifies which slide elements will be used for generating
+                    // the slide titles in the menu. The default selects the first
+                    // heading element found in the slide, but you can specify any
+                    // valid css selector and the text from the first matching
+                    // element will be used.
+                    // Note: that a section data-menu-title attribute or an element
+                    // with a menu-title class will take precedence over this option
+                    titleSelector: 'h1, h2, h3, h4, h5, h6',
+
+                        // If slides do not have a matching title, attempt to use the
+                        // start of the text content as the title instead
+                        useTextContentForMissingTitles: false,
+
+                            // Hide slides from the menu that do not have a title.
+                            // Set to 'true' to only list slides with titles.
+                            hideMissingTitles: false,
+
+                                // Adds markers to the slide titles to indicate the 
+                                // progress through the presentation. Set to 'false'
+                                // to hide the markers.
+                                markers: true,
+
+                                    // Specify custom panels to be included in the menu, by
+                                    // providing an array of objects with 'title', 'icon'
+                                    // properties, and either a 'src' or 'content' property.
+                                    // custom: false,
+                                    custom: [],
+                                        // Specifies the themes that will be available in the themes
+                                        // menu panel. Set to 'true' to show the themes menu panel
+                                        // with the default themes list. Alternatively, provide an
+                                        // array to specify the themes to make available in the
+                                        // themes menu panel, for example...
+                                        // [
+                                        //     { name: 'Black', theme: 'css/theme/black.css' },
+                                        //     { name: 'White', theme: 'css/theme/white.css' },
+                                        //     { name: 'League', theme: 'css/theme/league.css' }
+                                        // ]
+                                        themes: false,
+
+                                            // Specifies the path to the default theme files. If your
+                                            // presentation uses a different path to the standard reveal
+                                            // layout then you need to provide this option, but only
+                                            // when 'themes' is set to 'true'. If you provide your own 
+                                            // list of themes or 'themes' is set to 'false' the 
+                                            // 'themesPath' option is ignored.
+                                            themesPath: 'css/theme/',
+
+                                                // Specifies if the transitions menu panel will be shown.
+                                                // Set to 'true' to show the transitions menu panel with
+                                                // the default transitions list. Alternatively, provide an
+                                                // array to specify the transitions to make available in
+                                                // the transitions panel, for example...
+                                                // ['None', 'Fade', 'Slide']
+                                                transitions: false,
+
+                                                    // Adds a menu button to the slides to open the menu panel.
+                                                    // Set to 'false' to hide the button.
+                                                    openButton: true,
+
+                                                        // If 'true' allows the slide number in the presentation to
+                                                        // open the menu panel. The reveal.js slideNumber option must 
+                                                        // be displayed for this to take effect
+                                                        openSlideNumber: false,
+
+                                                            // If true allows the user to open and navigate the menu using
+                                                            // the keyboard. Standard keyboard interaction with reveal
+                                                            // will be disabled while the menu is open.
+                                                            keyboard: true,
+
+                                                                // Normally the menu will close on user actions such as
+                                                                // selecting a menu item, or clicking the presentation area.
+                                                                // If 'true', the sticky option will leave the menu open
+                                                                // until it is explicitly closed, that is, using the close
+                                                                // button or pressing the ESC or m key (when the keyboard 
+                                                                // interaction option is enabled).
+                                                                sticky: false,
+
+                                                                    // If 'true' standard menu items will be automatically opened
+                                                                    // when navigating using the keyboard. Note: this only takes 
+                                                                    // effect when both the 'keyboard' and 'sticky' options are enabled.
+                                                                    autoOpen: true,
+
+                                                                        // If 'true' the menu will not be created until it is explicitly
+                                                                        // requested by calling RevealMenu.init(). Note this will delay
+                                                                        // the creation of all menu panels, including custom panels, and
+                                                                        // the menu button.
+                                                                        delayInit: false,
+
+                                                                            // If 'true' the menu will be shown when the menu is initialised.
+                                                                            openOnInit: false,
+
+                                                                                // By default the menu will load it's own font-awesome library
+                                                                                // icons. If your presentation needs to load a different
+                                                                                // font-awesome library the 'loadIcons' option can be set to false
+                                                                                // and the menu will not attempt to load the font-awesome library.
+                                                                                loadIcons: false
+    },
+    chalkboard: {
+        toggleChalkboardButton: { left: "60px", bottom: "30px", top: "auto", right: "auto" },
+        toggleNotesButton: { left: "90px", bottom: "30px", top: "auto", right: "auto" },
+
+    }
+    });
+
+
+
+</script>
+</body>
+
+</html>

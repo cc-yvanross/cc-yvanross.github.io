@@ -1,0 +1,1774 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>LOG210-C08-00-seance</title>
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- REVEAL CSS-->
+  <link rel="stylesheet" href="libs/reveal.js/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/reveal.css">
+  
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/theme/beige.css" id="theme">
+  
+  
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/plugin/title-footer/title-footer-mod.css" />
+
+  <!-- MERMAID-->
+  <script src="libs/reveal.js/3.8.0/plugin/mermaid/mermaid.min.js"></script>
+  <style>
+  .mermaid {
+    font-size: 0.5em;
+  }
+  </style>
+
+  <style>
+    [class*=task-list-item] {
+    min-height: 22px;
+    margin-top: 6px!important;
+    margin-bottom: 6px!important;
+    padding-left: 0;
+    list-style: none;
+}
+
+[class*=task-list-item]>input:first-child {
+    position: absolute!important;
+    opacity: 0;
+    margin: 0;
+}
+[class*=task-list-item]>label {
+    padding-left: 29px!important;
+    min-height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.task-list-item>input:first-child:checked+input[type=hidden]+label::before, .task-list-item>input:first-child:checked+label::before {
+    background-color: #ecf0f1;
+    border-color: #ecf0f1;
+}
+
+[class*=task-list-item]>input:first-child+input[type=hidden]+label::before, [class*=task-list-item]>input:first-child+label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #D3CFC8;
+    border-radius: 0;
+    margin-left: -29px;
+}
+
+
+[class*=task-list-item]>input:first-child:checked+input[type=hidden]+label::after, [class*=task-list-item]>input:first-child:checked+label::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 10px;
+    border: 2px solid #fff;
+    border-left: none;
+    border-top: none;
+    transform: translate(7.75px,4.5px) rotate(45deg);
+    -ms-transform: translate(7.75px,4.5px) rotate(45deg);
+}
+
+
+.task-list-item>input:first-child:checked+input[type=hidden]+label::after, .task-list-item>input:first-child:checked+label::after {
+    border-bottom-color: #95a5a6;
+    border-right-color: #95a5a6;
+}
+  </style>
+
+  <!-- Theme used for syntax highlighting of code -->
+  
+  <link rel="stylesheet" href="libs/highlight.js/9.12.0/monokai.css">
+  
+
+  
+  <link rel="stylesheet" href="slide_themes.css">
+  
+  
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'libs/reveal.js/3.8.0/css/print/pdf.css' : 'libs/reveal.js/3.8.0/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+
+  <style>
+    /* Solarized Light theme */
+     .line {
+      display: block;
+    }
+    
+
+    .line.focus {
+      background: #fdf6e3;
+      color: #657b83;
+    }
+
+/*
+    .line.focus .hljs-comment,
+    .line.focus .hljs-quote {
+      color: #93a1a1;
+    }
+
+    .line.focus .hljs-keyword,
+    .line.focus .hljs-selector-tag,
+    .line.focus .hljs-addition {
+      color: #859900;
+    }
+
+    .line.focus .hljs-number,
+    .line.focus .hljs-string,
+    .line.focus .hljs-meta .hljs-meta-string,
+    .line.focus .hljs-literal,
+    .line.focus .hljs-doctag,
+    .line.focus .hljs-regexp {
+      color: #2aa198;
+    }
+
+    .line.focus .hljs-title,
+    .line.focus .hljs-section,
+    .line.focus .hljs-name,
+    .line.focus .hljs-selector-id,
+    .line.focus .hljs-selector-class {
+      color: #268bd2;
+    }
+
+    .line.focus .hljs-attribute,
+    .line.focus .hljs-attr,
+    .line.focus .hljs-variable,
+    .line.focus .hljs-template-variable,
+    .line.focus .hljs-class .hljs-title,
+    .line.focus .hljs-type {
+      color: #b58900;
+    }
+
+    .line.focus .hljs-symbol,
+    .line.focus .hljs-bullet,
+    .line.focus .hljs-subst,
+    .line.focus .hljs-meta,
+    .line.focus .hljs-meta .hljs-keyword,
+    .line.focus .hljs-selector-attr,
+    .line.focus .hljs-selector-pseudo,
+    .line.focus .hljs-link {
+      color: #cb4b16;
+    }
+
+    .line.focus .hljs-built_in,
+    .line.focus .hljs-deletion {
+      color: #dc322f;
+    }
+
+    .line.focus .hljs-formula {
+      background: #eee8d5;
+    }
+
+    .line.focus .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .line.focus .hljs-strong {
+      font-weight: bold;
+    }
+
+    .yellow-slide .line.focus:nth-child(2) {
+      background: yellow;
+    }
+
+    .reveal .slides section .code-presenting-annotation {
+      font-size: 70%;
+    }
+    */
+
+    .reveal .slides section .fragment.current-only {
+      visibility: visible;
+      display: none;
+    }
+
+    .reveal .slides section .fragment.current-only.current-fragment {
+      display: block;
+    }
+
+/*
+    .line {
+      display: block;
+    }
+*/
+    .line.focus {
+       opacity: 1.0;
+    } 
+
+    /* .hljs {
+      background: none;
+    } */
+
+    /* .reveal pre {
+      width: 98%;
+      margin: 0px;
+      box-shadow: none;
+    }
+
+    .reveal pre code {
+      font-size: 1.2em;
+      line-height: 1.2;
+      border-radius: 10px;
+      max-height: 60vh !important;
+      overflow: hidden !important;
+    } */
+
+    @media (device-width: 100vw) and (device-height: 100vh) {
+      .reveal pre code {
+        max-height: 50vh !important;
+      }
+    }
+
+    #logo img {
+      max-height: 3.5em;
+      max-width: none;
+      min-width: 50px;
+    }
+
+    .reveal .slides section .code-presenting-annotation {
+      color: white;
+      background: black;
+      padding: 0px 15px;
+      border-radius: 15px;
+      opacity: 0.75 !important;
+      font-size: 50% !important;
+    }
+  </style>
+  <script>
+    if (window.location.search.match(/print-pdf-now/gi)) {
+      window.print();
+    }
+  </script>
+</head>
+
+<body>
+  
+<div id="logo" style="position: fixed; top: 20px; left: 20px; z-index: 1">
+    <img src="assets/logo_ets.svg" />
+</div>
+
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      
+
+
+    
+    <section>
+        <section id='administration' class="feedbackslide">
+            <!-- .slide: id='administration' class="feedbackslide"  -->
+<h2><a id="user-content-log210-séance-08" class="anchor" href="#log210-séance-08" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels" class="anchor" href="#analyse-et-conception-de-logiciels" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="feedbackslide">
+                <!-- .slide: class="feedbackslide"  -->
+<h2><a id="user-content-administrivia" class="anchor" href="#administrivia" aria-hidden="true"></a>Administrivia</h2>
+<ul>
+<li>Statistiques Intra</li>
+<li>Consultation individuelle par Zoom/Discord selon <a href="https://www.etsmtl.ca/Professeurs/cfuhrman/Accueil?lang=fr-ca#etsMCContentRight:~:text=Disponibilit%C3%A9s,-Si">mes disponibilités</a></li>
+</ul>
+<p>Élaborer: Outils/patron de réusinage</p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="equipe" class="equipeslide">
+            <!-- .slide: id="equipe" class="equipeslide"  -->
+<h2><a id="user-content-log210-séance-08-1" class="anchor" href="#log210-séance-08-1" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-1" class="anchor" href="#analyse-et-conception-de-logiciels-1" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="equipeslide">
+                <!-- .slide:  class="equipeslide"  -->
+<h2><a id="user-content-travail-déquipe" class="anchor" href="#travail-déquipe" aria-hidden="true"></a>Travail d’équipe</h2>
+<ul>
+<li>Quels sont les problèmes HRC rencontré par votre équipe?</li>
+<li>Quels solutions avez vous apportées?</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id='etude' class="mddslide">
+            <!-- .slide: id='etude' class="mddslide"  -->
+<h2><a id="user-content-log210-séance-08-2" class="anchor" href="#log210-séance-08-2" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-2" class="anchor" href="#analyse-et-conception-de-logiciels-2" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a> <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-conception-dobjet-12" class="anchor" href="#conception-dobjet-12" aria-hidden="true"></a>Conception d’objet 1/2</h2>
+<ul>
+<li>Comment les développeurs conçoivent-ils des objets?
+<ul>
+<li>Ils codent. On conçoit en codant (vous avez fait ça au CÉGEP, en INF111, en LOG121, en stage?)</li>
+<li>Outils de réusinage (refactoring)</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-conception-dobjet-22" class="anchor" href="#conception-dobjet-22" aria-hidden="true"></a>Conception d’objet 2/2</h2>
+<ul>
+<li>Comment les développeurs conçoivent-ils des objets?
+<ul>
+<li>Ils tracent des diagrammes puis ils codent.</li>
+<li>UML au tableau blanc, puis Java dans Eclipse</li>
+</ul>
+</li>
+<li>Ils se contentent de tracer des diagrammes.
+<ul>
+<li>Les outils ne sont pas encore capables de faire le codage à partir des diagrammes… (est-ce vrai?)</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-quest-ce-qui-est-plus-important" class="anchor" href="#quest-ce-qui-est-plus-important" aria-hidden="true"></a>Qu’est-ce qui est plus important?</h2>
+<p><img src="/assets/05-chp13F-14A-premiere-etude-conception-objet_9.pptx/UML-statique-dynamique.png" alt="savoir-faire" class="plain" width="80%"></p>
+<aside class="notes"> les deux ont des avantages et inconvénients</aside>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-cartes-crc" class="anchor" href="#cartes-crc" aria-hidden="true"></a>Cartes CRC</h2>
+<ul>
+<li>Classe, Responsabilité, Collaborateurs</li>
+<li>Utilisées pour faire le design</li>
+</ul>
+<ol>
+<li><a href="https://horstmann.com/oodp3/slides/ch02/#(22)">LOG121</a> (Cay Horstmann, chap: 2.12):
+<img src="https://horstmann.com/oodp3/slides/ch02/images/Ch2_02.jpg" alt="crc.jpeg" class="plain"></li>
+</ol>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-exemple-crc" class="anchor" href="#exemple-crc" aria-hidden="true"></a>Exemple CRC</h2>
+<p><img src="/assets/05-chp13F-14A-premiere-etude-conception-objet_9.pptx/ref-crc.jpeg" alt="ref-crc"></p>
+<p>ref: Object-Oriented Software Engineering, Bruegge &amp; Dutoit, Prentice-Hall, 2000.</p>
+
+            </section>
+        
+            <section class="mddslide">
+                <!-- .slide: class="mddslide"  -->
+<h2><a id="user-content-résumé" class="anchor" href="#résumé" aria-hidden="true"></a>Résumé</h2>
+<ul>
+<li>Modélisation agile
+<ul>
+<li>Caméra pour numériser les esquisses</li>
+<li>Habileté avec UML</li>
+</ul>
+</li>
+<li>Modélisation dynamique est importante</li>
+<li>Pas beaucoup de temps pour modéliser
+<ul>
+<li>Une itération de 3 semaines (120 h)</li>
+<li>2 à 8 heures de modélisation, pas plus</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="outilsUML" class="toolslide">
+            <!-- .slide: id="outilsUML" class="toolslide"  -->
+<h2><a id="user-content-log210-séance-08-3" class="anchor" href="#log210-séance-08-3" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-3" class="anchor" href="#analyse-et-conception-de-logiciels-3" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a>  <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/JU0bEcbhwa4">S20203</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h2><a id="user-content-définitions" class="anchor" href="#définitions" aria-hidden="true"></a>Définitions</h2>
+<ul>
+<li>Pro-ingénierie
+<ul>
+<li>Générer du code source à partir des diagrammes (UML)
+<img src="assets/ProIng%C3%A9nierieTransparent.png" alt="pro-ingenierie" class="plain"></li>
+</ul>
+</li>
+</ul>
+<aside class="notes"> Simulink</aside>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h2><a id="user-content-définitions-1" class="anchor" href="#définitions-1" aria-hidden="true"></a>Définitions</h2>
+<ul>
+<li>Rétro-ingénierie
+<ul>
+<li>Générer des diagrammes (UML) à partir du code
+<img src="assets/R%C3%A9tro-ing%C3%A9nierieTrans.png" alt="retro-ingenierie" class="plain"></li>
+</ul>
+</li>
+</ul>
+<aside class="notes"> railroady</aside>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h2><a id="user-content-définitions-2" class="anchor" href="#définitions-2" aria-hidden="true"></a>Définitions</h2>
+<ul>
+<li>Ingénierie cycle
+<ul>
+<li>Fermer cette boucle
+<img src="assets/Ing%C3%A9nierieCycleTransparent.png" alt="ingenierie-cycle" class="plain"></li>
+</ul>
+</li>
+</ul>
+<aside class="notes"> Enterprise Architect</aside>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h3><a id="user-content-que-doit-on-rechercher-dans-un-outil" class="anchor" href="#que-doit-on-rechercher-dans-un-outil" aria-hidden="true"></a>Que doit-on rechercher dans un outil?</h3>
+<ul>
+<li>Essayez un outil gratuitement avant de l’acheter.</li>
+<li>Testez l’outil sur un projet réel.</li>
+<li>Choisissez un outil qui s’intègre à votre IDE préféré (VS, Eclipse, etc.)</li>
+<li>Rétro-ingénierie est important</li>
+<li>L’impression sur grande feuilles est importante (Larman)</li>
+</ul>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h2><a id="user-content-liste-doutils-uml" class="anchor" href="#liste-doutils-uml" aria-hidden="true"></a>Liste d’outils UML</h2>
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/List_of_Unified_Modeling_Language_tools">Wikipedia</a></li>
+</ol>
+<ul>
+<li>Suggestions:
+<ul>
+<li>Papyrus</li>
+<li>Modeliosoft</li>
+<li>PlantUML</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h2><a id="user-content-uml-en-mode-esquisse" class="anchor" href="#uml-en-mode-esquisse" aria-hidden="true"></a>UML en mode esquisse</h2>
+<ul>
+<li>Esquisses murales UML au début d’une itération</li>
+<li>Suivies par 3 semaines de codage et de tests
+<ul>
+<li>Les modèles évolueront avec le code</li>
+</ul>
+</li>
+<li>Entamer de nouveau la modélisation de nouvelles esquisses</li>
+<li>Générer les diagrammes à partir du code existant le jours précédant cette modélisation</li>
+</ul>
+
+            </section>
+        
+            <section class="toolslide">
+                <!-- .slide: class="toolslide"  -->
+<h2><a id="user-content-exemple-dune-itération" class="anchor" href="#exemple-dune-itération" aria-hidden="true"></a>Exemple d’une itération</h2>
+<p><img src="assets/UML-en-it%C3%A9rationTransparent.png" alt="iteration" class="plain"></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="grasp" class="rdcuslide">
+            <!-- .slide: id="grasp" class="rdcuslide"  -->
+<h2><a id="user-content-log210-séance-08-4" class="anchor" href="#log210-séance-08-4" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-4" class="anchor" href="#analyse-et-conception-de-logiciels-4" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a> <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/DlufMFcGSSE">S20203</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section >
+                <h2><a id="user-content-autres-patterns-daffectation-des-responsabilités" class="anchor" href="#autres-patterns-daffectation-des-responsabilités" aria-hidden="true"></a>autres patterns d’affectation des responsabilités</h2>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-les-neuf-patrons-grasp" class="anchor" href="#les-neuf-patrons-grasp" aria-hidden="true"></a>Les neuf patrons GRASP</h2>
+<ol class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7086752"><label class="task-list-item-label" for="task-item-7086752"> Expert</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-3252635"><label class="task-list-item-label" for="task-item-3252635"> Créateur</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-3345170"><label class="task-list-item-label" for="task-item-3345170"> Contrôleur</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9351491"><label class="task-list-item-label" for="task-item-9351491"> Faible Couplage</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8063256"><label class="task-list-item-label" for="task-item-8063256"> Forte Cohésion</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3090038"><label class="task-list-item-label" for="task-item-3090038"> Polymorphisme</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9521639"><label class="task-list-item-label" for="task-item-9521639"> Fabrication pure</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8098398"><label class="task-list-item-label" for="task-item-8098398"> Indirection</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8592398"><label class="task-list-item-label" for="task-item-8592398"> Protection des variations</label></li>
+</ol>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-polymorphisme" class="anchor" href="#polymorphisme" aria-hidden="true"></a>Polymorphisme</h2>
+<ul>
+<li>Principe de base pour la conception OO</li>
+<li>Cas qui varient mais qui sont similaires</li>
+<li>Dans une famille de classes
+<ul>
+<li>opération polymorphique</li>
+<li>dans laquelle les cas sont différents</li>
+</ul>
+</li>
+<li>Formes géométriques (carré, cercle, triangle, etc.)
+<ul>
+<li>se dessine avec une méthode draw()</li>
+<li>chaque classe implémente sa méthode selon son cas…</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-polymorphisme-1" class="anchor" href="#polymorphisme-1" aria-hidden="true"></a>Polymorphisme</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.1.svg" alt="F25.1" class="plain" width="65%"></p>
+<p>Fig. 25.1 (3e édition)</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-polymorphisme-2" class="anchor" href="#polymorphisme-2" aria-hidden="true"></a>Polymorphisme</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.2.png" alt="F25.2" class="plain"></p>
+<p>Fig. 25.2 (3e édition)</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-polymorphisme-3" class="anchor" href="#polymorphisme-3" aria-hidden="true"></a>Polymorphisme</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.3.png" alt="F25.3" class="plain" width="80%"></p>
+<p>Fig. 25.3 (3e édition)</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-polymorphisme-4" class="anchor" href="#polymorphisme-4" aria-hidden="true"></a>Polymorphisme</h2>
+<p>Fig. 25.4, 25.5, 25.7 (3e édition)</p>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.4.png" alt="F25.4" width="30%" class="plain">       <img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.5.png" alt="F25.5" width="30%" class="plain"></p>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.7.png" alt="F25.7" class="plain" width="50%"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-fabrication-pure" class="anchor" href="#fabrication-pure" aria-hidden="true"></a>Fabrication pure</h2>
+<ul>
+<li>Parfois en suivant un patron
+<ul>
+<li>assigne une responsabilité</li>
+<li>mais il y a des conséquences non désirables
+<ul>
+<li>augmentation du couplage</li>
+<li>diminution de la cohésion</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Solution
+<ul>
+<li>fabrique une classe « comportementale »</li>
+<li>qui n’a pas d’équivalent dans le modèle du domaine</li>
+<li>invention de la part du concepteur</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-fabrication-pure-1" class="anchor" href="#fabrication-pure-1" aria-hidden="true"></a>Fabrication pure</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.8.png" alt="F25.8" class="plain"></p>
+<p>Fig. 25.8 (3e édition)</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-fabrication-pure-2" class="anchor" href="#fabrication-pure-2" aria-hidden="true"></a>Fabrication pure</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.9.png" alt="F25.9" class="plain" width="80%"></p>
+<p>Fig. 25.9 (3e édition)</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-compréhension" class="anchor" href="#compréhension" aria-hidden="true"></a>Compréhension</h2>
+<p align="left">Quel autre GRASP implique une fabrication pure? Autrement dit, on propose une classe « inventée » ne faisant pas partie du MDD.</p>
+<ol>
+<li>Créateur</li>
+<li>Contrôleur</li>
+<li>Expert</li>
+<li>Forte cohésion</li>
+<li>Faible couplage</li>
+</ol>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-indirection" class="anchor" href="#indirection" aria-hidden="true"></a>Indirection</h2>
+<ul>
+<li>Mécanisme souvent utilisé pour réduire le couplage</li>
+<li>Objet intermédiaire
+<ul>
+<li>découple deux composants</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-indirection-1" class="anchor" href="#indirection-1" aria-hidden="true"></a>Indirection</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.10.svg" alt="F25.10" class="plain" width="130%"></p>
+<p>Fig. 25.10 (3e édition)</p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-protection-des-variations" class="anchor" href="#protection-des-variations" aria-hidden="true"></a>Protection des variations</h2>
+<ul>
+<li>Composants (classes, interfaces, …)
+<ul>
+<li>variations (ou instabilités) de ces composants en affectent d’autres</li>
+</ul>
+</li>
+<li>Éliminer ces effets indésirables</li>
+<li>Identifier des zones de variabilité</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-protection-des-variations-1" class="anchor" href="#protection-des-variations-1" aria-hidden="true"></a>Protection des variations</h2>
+<ul>
+<li>Créer une interface stable (API) autour des composants instables</li>
+</ul>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/iceberg.png" alt="Iceberg" class="plain" width="35%"></p>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-protection-des-variations-2" class="anchor" href="#protection-des-variations-2" aria-hidden="true"></a>Protection des variations</h2>
+<p><img src="/assets/03-ChpF22-A25-GRASP-autres-patterns-affectation-des-responsabilit%C3%A9s_17.pptx/F25.10.svg" alt="F25.10" class="plain" width="130%"></p>
+<aside class="notes"> Adaptateur permet d’utiliser d’autres systèmes externes qui se ressemblent mais qui ont un des API différents</aside>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-protection-des-variations-3" class="anchor" href="#protection-des-variations-3" aria-hidden="true"></a>Protection des variations</h2>
+<ul>
+<li>Vieux principe du génie logiciel</li>
+<li>Principe de « Information hiding » (Parnas, 1972)
+<ul>
+<li>Encapsulation des données</li>
+<li>Déterminer
+<ul>
+<li>choix difficiles du design</li>
+<li>choix du design qui auront tendance à changer</li>
+</ul>
+</li>
+<li>Concevoir chaque module afin de cacher ces choix « variables »</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-protection-des-variations-4" class="anchor" href="#protection-des-variations-4" aria-hidden="true"></a>Protection des variations</h2>
+<ul>
+<li>Principe de « Open-closed » (Meyer, 1988)</li>
+<li>Composants devraient être
+<ul>
+<li>ouverts à l’extensibilité (Implémentations)</li>
+<li>fermés à la modification (API)</li>
+</ul>
+</li>
+<li>Ces contraintes paraissent contradictoires</li>
+</ul>
+
+            </section>
+        
+            <section class="rdcuslide">
+                <!-- .slide: class="rdcuslide"  -->
+<h2><a id="user-content-résumé-1" class="anchor" href="#résumé-1" aria-hidden="true"></a>Résumé</h2>
+<ul>
+<li>D’autres patrons GRASP
+<ul>
+<li>Polymorphisme</li>
+<li>Fabrication pure</li>
+<li>Indirection</li>
+<li>Protection des variations</li>
+</ul>
+</li>
+<li>Vocabulaire
+<ul>
+<li>concepts de base pour les ingénieurs en logiciel</li>
+<li>améliore la communication dans une équipe</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="gofrevision" class="gofslide">
+            <!-- .slide: id="gofrevision" class="gofslide"  -->
+<h2><a id="user-content-log210-séance-08-5" class="anchor" href="#log210-séance-08-5" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-5" class="anchor" href="#analyse-et-conception-de-logiciels-5" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a>  <img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/eGIM9xIEGQE">S20203</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h2><a id="user-content-quest-ce-quun-design-pattern" class="anchor" href="#quest-ce-quun-design-pattern" aria-hidden="true"></a>Qu’est ce qu’un design pattern?</h2>
+<ul>
+<li>Solution à un problème récurrent dans un contexte particulier</li>
+</ul>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h3><a id="user-content-trois-défis-pour-bien-utiliser-les-patterns" class="anchor" href="#trois-défis-pour-bien-utiliser-les-patterns" aria-hidden="true"></a>Trois défis pour bien utiliser les Patterns</h3>
+<ol>
+<li>(Re)connaître le problème</li>
+<li>Comprendre le patron (la solution)</li>
+<li>Appliquer la solution</li>
+</ol>
+<p><img src="/assets/06-chp23F-Design-Patterns-13-16x9.pptx/noun_Toy_1063841.svg" alt="cube-jouet" class="plain" width="30%"></p>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h2><a id="user-content-1reconnaître-le-problème" class="anchor" href="#1reconnaître-le-problème" aria-hidden="true"></a>1.(Re)connaître le problème</h2>
+<ul>
+<li><em>Comprendre</em> le problème</li>
+<li>Exercice de « croyance » (on débute en OO)</li>
+<li>Certains problèmes sont plus « récurrents » que d’autres…</li>
+<li>Auteurs (GoF) avaient beaucoup d’expérience en OO</li>
+</ul>
+<p><img src="/assets/06-chp23F-Design-Patterns-13-16x9.pptx/auteurs.png" alt="auteurs" class="plain"></p>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h1><a id="user-content-2comprendre-le-patron" class="anchor" href="#2comprendre-le-patron" aria-hidden="true"></a>2.Comprendre le patron</h1>
+<h3><a id="user-content-la-solution" class="anchor" href="#la-solution" aria-hidden="true"></a>(la solution)</h3>
+<ul>
+<li>abstractions</li>
+<li>notation UML est importante</li>
+<li>aspects statique et dynamique</li>
+</ul>
+<p><img src="https://www.plantuml.com/plantuml/svg/JOyz3i8m38NtdCBg10CtG1M20tJeokAcXeOcJcMxI1NYxWJ4dmVBqlVUq_DE3SNc5A4rjE2RJack94x7m1CA9b1R8fKjmJ-5VsIFVZnBdha_v9W5J92r869pG-W9A4ssGABKaQZp4LMXQkVkGjugG8KMRWxAe1dwORLsTnVOI4xe2QfFcPUqWUtso-hwRUHiuRIyZE_uGsOlP7JadpsaAL8gjKgCQs4ZuJpOfjmxuhxyz000" alt="StaticObserver" title="StaticObserver" class="plain" width="30%">      
+<img src="https://www.plantuml.com/plantuml/svg/NOun3i8m34NtdCBg14ClK5Me4kmPihAumL13urQ9YvJRuoAni5ZwxpzzUIYAMRSqmwKA9ev-B9JVb5rviQoOCK7HEfFTp74tdL7bo2kAGjE5RNnIr0QmGFZhpel4J4fN-Sr-DUy2z2ruw01LCKw7esjF42mNqh0aqedbOJI0yTsJHVbUZGmaDtlY0m00" alt="DynamicObserver" title="DynamicObserver" class="plain" width="50%"></p>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h2><a id="user-content-3-appliquer-la-solution" class="anchor" href="#3-appliquer-la-solution" aria-hidden="true"></a>3. Appliquer la solution</h2>
+<ul>
+<li>Étape concrète</li>
+<li>Mise en contexte particulier</li>
+</ul>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h2><a id="user-content-3-appliquer-la-solution-1" class="anchor" href="#3-appliquer-la-solution-1" aria-hidden="true"></a>3. Appliquer la solution</h2>
+<table>
+<thead>
+<tr>
+<th>Nom dans le patron</th>
+<th>Vrai nom (Bouton Swing)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject</td>
+<td>JButton</td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>ActionListener</td>
+</tr>
+<tr>
+<td>ConcreteObserver</td>
+<td>la classe implémentant l’interface ActionListener</td>
+</tr>
+<tr>
+<td><code>attach()</code></td>
+<td><code>addActionListener()</code></td>
+</tr>
+<tr>
+<td><code>notify()</code></td>
+<td><code>actionPerformed()</code></td>
+</tr>
+</tbody>
+</table>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h3><a id="user-content-patrons-vus-dans-le-livre-de-log121" class="anchor" href="#patrons-vus-dans-le-livre-de-log121" aria-hidden="true"></a>Patrons vus dans le livre de LOG121</h3>
+<div style="font-size:0.9em" class="block">
+<ul>
+<li><strong>Adaptateur</strong></li>
+<li>Commande</li>
+<li>Composite</li>
+<li>Décorateur</li>
+<li>Itérateur</li>
+<li>Méthode fabrique</li>
+<li>Observateur</li>
+<li><strong>Proxy</strong></li>
+<li>Singleton</li>
+<li>Stratégie</li>
+<li>Template</li>
+<li>Visiteur</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h2><a id="user-content-perspective--zen" class="anchor" href="#perspective--zen" aria-hidden="true"></a>Perspective  Zen</h2>
+<p><img src="/assets/06-chp23F-Design-Patterns-13-16x9.pptx/zen.png" alt="zen" class="plain"></p>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h3><a id="user-content-design-pattern-relationships" class="anchor" href="#design-pattern-relationships" aria-hidden="true"></a>Design Pattern Relationships</h3>
+<p><img src="/assets/06-chp23F-Design-Patterns-13-16x9.pptx/relations-GOF.png" alt="relations-GOF" class="plain" width="55%"></p>
+<p>Ref: Design Patterns, Element of Reusable Object-oriented Software</p>
+
+            </section>
+        
+            <section class="gofslide">
+                <!-- .slide: class="gofslide"  -->
+<h2><a id="user-content-résumé-2" class="anchor" href="#résumé-2" aria-hidden="true"></a>Résumé</h2>
+<ul>
+<li>Reconnaître des problèmes récurrents est difficile faute d’expérience adéquate</li>
+<li class="fragment shape-up">Expérimenter avec les patterns (dans une version du projet qui n’est pas critique)</li>
+<li class="fragment shape-up">Un patron ne s’enlève pas facilement!</li>
+<li class="fragment shape-up">Discuter de leurs avantages et leurs inconvénients avec des collègues</li>
+<li class="fragment shape-up">Vérifier après l’application du pattern que les bénéfices sont vraiment là
+<ul>
+<li class="fragment shape-up">p.ex. il est plus facile d’étendre le logiciel</li>
+</ul>
+</li>
+</ul>
+<aside class="notes"> Animations</aside>
+
+            </section>
+        
+            <section id="gof121" class="gofslide">
+                <!-- .slide:  id="gof121" class="gofslide"  -->
+<h2><a id="user-content-patron-gof-log121" class="anchor" href="#patron-gof-log121" aria-hidden="true"></a>Patron GOF LOG121</h2>
+<ul>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch5/Ch5_fr.html#:~:text=Bars)-,Patron%20D%C3%A9corateur,Contexte,-Objets%20composant%20peuvent%20avoir%20de%20la%20d%C3%A9coration%2C%20soit%20visuelle%2C%20soit%20comportementale">Décorateur</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch5/Ch5_fr.html#:~:text=mur.-,Patron%20It%C3%A9rateur">Itérateur</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch10/Ch10_fr.html#:~:text=Le%20patron%20COMMAND,-Le%20patron%20COMMAND">Commande</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch7/Ch7_fr.html#:~:text=Le%20pattern%20Fa%C3%A7ade">Façade</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch10/Ch10_fr.html#:~:text=Le%20patron%20SINGLETON,-Contexte">Singleton</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch6/Ch6_fr.html#:~:text=Ch6%2Fscene2%2FHouseShape.java-,Patron%20TEMPLATE%20METHOD,Contexte,-Un%20algorithme%20est%20applicable%20pour%20plusieurs%20types.">Template method</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch10/Ch10_fr.html#:~:text=M%C3%A9thodes%20de%20fabrique%20(Factory%20methods)">Factory method</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch10/Ch10_fr.html#:~:text=distante-,Le%20patron%20PROXY">Proxy</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch5/Ch5_fr.html#:~:text=sujet-,Patron%20Observateur,Contexte,-Un%20objet%2C%20nomm%C3%A9%20le%20sujet%2C%20est%20une%20source%20d'%C3%A9v%C3%A8nements">Observateur</a></strong></li>
+<li><strong><a href="http://fuhrmanator.github.io/oodp-horstmann/htm/Ch10/Ch10_fr.html#:~:text=double-,Le%20patron%20VISITOR">Visiteur</a></strong></li>
+</ul>
+
+            </section>
+        
+            <section id="gof121" class="gofslide">
+                <!-- .slide:  id="gof121" class="gofslide"  -->
+<h1><a id="user-content-patrons-gof" class="anchor" href="#patrons-gof" aria-hidden="true"></a>Patrons GOF</h1>
+<p><a href="http://www.vincehuston.org/dp/patterns_quiz.html">Quiz patron GOF</a></p>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id='package' class="packageslide">
+            <!-- .slide: id='package' class="packageslide" -->
+<h2><a id="user-content-log210-séance-08-6" class="anchor" href="#log210-séance-08-6" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-6" class="anchor" href="#analyse-et-conception-de-logiciels-6" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"><a href="https://youtu.be/ZyBbUEyZegY">S20203</a></li>
+<li><a href="#tdd">TDD en pratique</a><a href="https://youtu.be/avpPyxjQpSk">S20203</a></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-packaging" class="anchor" href="#packaging" aria-hidden="true"></a>Packaging?</h2>
+<div class="fragment shade-up" class="block">
+<h3><a id="user-content-attribut-de-qualité" class="anchor" href="#attribut-de-qualité" aria-hidden="true"></a>Attribut de qualité</h3>
+<ol class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4373537"><label class="task-list-item-label" for="task-item-4373537"> Performance</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1804329"><label class="task-list-item-label" for="task-item-1804329"> Disponibilité</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8887793"><label class="task-list-item-label" for="task-item-8887793"> Testabilité</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3981318"><label class="task-list-item-label" for="task-item-3981318"> Interopérabilité</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6467502"><label class="task-list-item-label" for="task-item-6467502"> Sécurité</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-586825"><label class="task-list-item-label" for="task-item-586825"> Usabilité</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1729304"><label class="task-list-item-label" for="task-item-1729304"> Modifiabilité</label></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-objectifs" class="anchor" href="#objectifs" aria-hidden="true"></a>Objectifs</h2>
+<ul>
+<li>Organiser les packages pour réduire l’impact des <strong>modifications</strong></li>
+<li>Apprendre d’autres notations des structures de packages UML</li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-principes" class="anchor" href="#principes" aria-hidden="true"></a>Principes</h2>
+<ul>
+<li>Organiser les packages par <strong>cohésion</strong></li>
+<li>Packager une <strong>famille d’interface</strong></li>
+<li>Créer un package par <strong>tâche</strong> et par <strong>goupe  de classes instables</strong> (Branches)</li>
+<li>Les plus responsables sont les plus stables</li>
+<li>Factoriser les type indépendants</li>
+<li>Utiliser des <strong>fabrications</strong> pour limiter la dépendance aux packages concrets</li>
+<li>Pas de cycles dans les packages <a href="https://www.ndepend.com/docs/dependency-structure-matrix-dsm">DSM</a></li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-groupement-par-cohésion-fonctionnelle" class="anchor" href="#groupement-par-cohésion-fonctionnelle" aria-hidden="true"></a>Groupement par cohésion fonctionnelle</h3>
+<ul>
+<li>On groupe les types qui sont fortement apparentés, parce qu’ils participent à une finalité, un service, des collaborations, une politique et une fonction qu’ils ont en commun.</li>
+<li>P.ex. le package “Tarification” contient des classes liées à la tarification des produits.</li>
+<li>C’est intuitif.</li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-groupement-par-cohésion-relationnelle" class="anchor" href="#groupement-par-cohésion-relationnelle" aria-hidden="true"></a>Groupement par cohésion relationnelle</h3>
+<div style="font-size:0.6em" class="block">
+<ul>
+<li>
+<p>Mettre dans un package des classes qui se sont fortement couplées les unes aux autres.</p>
+</li>
+<li>
+<p>CR = (NombreDeRelationsInternes + 1) / NombreDeTypes
+<img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/cohesionRelationnelle.png" alt="cohesionRelationnelle" class="plain" width="50%"></p>
+</li>
+<li>
+<p>GOF Facade  pour améliorer la cohésion relationnelle avec les packages externes</p>
+</li>
+</ul>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h4><a id="user-content-cohésion-relationnelle---exemple" class="anchor" href="#cohésion-relationnelle---exemple" aria-hidden="true"></a>Cohésion relationnelle - exemple</h4>
+<p><img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/image6.png" alt="image6" class="plain">
+<img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/image5.png" alt="image5" class="plain" width="50%"></p>
+<div style="font-size:0.7em" class="block">
+<p><a href="http://www.hanselman.com/blog/content/binary/NDepend%20metrics%20placemats%201.1.pdf" class="plain">ndepend: métrique de cohésion</a></p>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-packager-une-famille-dinterfaces" class="anchor" href="#packager-une-famille-dinterfaces" aria-hidden="true"></a>Packager une famille d’interfaces</h3>
+<ul>
+<li>Placez une famille d’interfaces fonctionnellement liées dans un package à part</li>
+<li>Cela vaut pour les familles de trois interfaces ou plus</li>
+<li>Exemple: javax.ejb  comprend au moins douze</li>
+</ul>
+<div style="font-size:0.5em" class="block">
+<pre><code>- EJBContext
+- EJBHome
+- EJBLocalHome
+- EJBLocalObject
+- EJBMetaData
+- EJBObject
+- EnterpriseBean
+- EntityBean
+- EntityContext
+- Handle
+- HomeHandle
+- MessageDrivenBean
+- MessageDrivenContext
+- SessionBean
+- SessionContext
+- SessionSynchronization
+- TimedObject
+- Timer
+- TimerHandle
+- TimerService
+</code></pre>
+</div>
+<aside class="notes"> todo plusieurs colonnes</aside>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-créez-un-package-par-tâche-de-livraison" class="anchor" href="#créez-un-package-par-tâche-de-livraison" aria-hidden="true"></a>Créez un package par tâche de livraison</h2>
+<ul>
+<li>Les packages sont l’unité de base de développement et de livraison (on ne développe rarement qu’une seule classe)</li>
+<li>Créer un package par tâche de livraison</li>
+</ul>
+<p><img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/image7.png" alt="image7" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content--et-par-groupe-de-classes-instables-2" class="anchor" href="#-et-par-groupe-de-classes-instables-2" aria-hidden="true"></a>… et par groupe de classes instables [2/]</h3>
+<div style="font-size:0.8em" class="block">
+<ul>
+<li>Si un ensemble de classes dans un package a une tendance à évoluer ensemble, p.ex. on remarque qu’à chaque itération, c’est toujours les mêmes 5 ou 10 classes dans un package qui ont été modifiées.</li>
+<li>Exemple concret – chaque fois que l’on change le schéma de la BD il y a des changements dans plusieurs classes, surtout les appels à la méthode “sqlquery()”
+<ul>
+<li>Créez un package dans le package (sous package) pour isoler les classes ayant une tendance à changer ensemble</li>
+<li>Notez que la tendance de ce genre de changement n’est pas visible dans les premières itérations.</li>
+</ul>
+</li>
+</ul>
+<aside class="notes"> Sujets de recherche en génie logiciel: “co-change” – “couplage logique” et “couplage évolutionnaire” - liens de couplage déterminés par l’historique des versions.</aside>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-les-plus-responsables-sont-les-plus-stables" class="anchor" href="#les-plus-responsables-sont-les-plus-stables" aria-hidden="true"></a>Les plus responsables sont les plus stables</h3>
+<p>Les packages « les plus responsables » engendrent le <strong>plus de dépendances</strong> et devraient être plus stables.</p>
+<p><img src="/assets/larman/F29.1.png" alt="larman/F29.1" class="plain" width="65%"></p>
+<p class="fragment shape-up">Quel GRASP pour rendre un package plus stable?</p>
+<aside class="notes"> Protections de variations propose de créer une interface stable</aside>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-factoriser-les-types" class="anchor" href="#factoriser-les-types" aria-hidden="true"></a>Factoriser les types</h2>
+<p>Organiser les types qui peuvent être utilisés indépendamment ou dans des contextes différents en packages distincts.</p>
+<p><img src="/assets/larman/F29.2.png" alt="larman/F29.2" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h4><a id="user-content-fabriques-pour-découpler" class="anchor" href="#fabriques-pour-découpler" aria-hidden="true"></a>Fabriques pour découpler</h4>
+<h4><a id="user-content-des-classes-concrètes" class="anchor" href="#des-classes-concrètes" aria-hidden="true"></a>des classes concrètes</h4>
+<p>Renforcer la stabilité des packages consiste à réduire leur dépendance à des classes concrètes qui <strong>appartiennent à d’autres packages</strong></p>
+<p><img src="/assets/larman/F29.4.png" alt="larman/F29.4" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-visibilité-et-encapsulation-dans-les-packages" class="anchor" href="#visibilité-et-encapsulation-dans-les-packages" aria-hidden="true"></a>Visibilité et encapsulation dans les packages</h3>
+<p>Organiser les classes dans un package avec la bonne visibilité</p>
+<p><img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/openClosePrivate.png" alt="openClosePrivate" class="plain" width="70%"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-visibilité-et-encapsulation-dans-les-packages-1" class="anchor" href="#visibilité-et-encapsulation-dans-les-packages-1" aria-hidden="true"></a>Visibilité et encapsulation dans les packages</h3>
+<ul>
+<li>Bloquer l’accès à un attribut ou une méthode d’une classe avec <code>private</code></li>
+<li>Bloquer l’accès à une classe dans un package?
+<ul>
+<li>Déclarer la classe <code>class X {...}</code> (package protection, sans mot clé)</li>
+<li>GRASP Protection des variations
+<ul>
+<li>Client ne devrait pas accéder aux implémentations de Forme.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-visibilité-et-encapsulation-dans-les-packages-2" class="anchor" href="#visibilité-et-encapsulation-dans-les-packages-2" aria-hidden="true"></a>Visibilité et encapsulation dans les packages</h3>
+<ul>
+<li>Cette visibilité empêche les transgressions de l’encapsulation
+<img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/image12.png" alt="image12" class="plain" width="90%"></li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-comment-instancier-les-classes-invisibles" class="anchor" href="#comment-instancier-les-classes-invisibles" aria-hidden="true"></a>Comment instancier les classes invisibles?</h3>
+<ul>
+<li>FabriqueForme permet à Client d’instancier les Formes concrètes, bien qu’elles lui soient invisibles</li>
+</ul>
+<p><img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/fabrique-forme.png" alt="fabrique-forme" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-principe-pas-de-cycles-dans-les-packages" class="anchor" href="#principe-pas-de-cycles-dans-les-packages" aria-hidden="true"></a>Principe: pas de cycles dans les packages</h3>
+<div style="font-size:0.7em" class="block">
+<ul>
+<li>Si un groupe de packages a une dépendance cyclique, on peut devoir les traiter comme un seul grand package. Cela n’est pas souhaitable, car la livraison de packages volumineux (ou d’agrégats de packages) aggrave le risque d’effets néfastes.</li>
+<li>Factoriser les types participant au cycle dans un package plus petit.</li>
+<li>Rompre le cycle à l’aide d’une interface.</li>
+</ul>
+<p><img src="/assets/larman/F29.5.png" alt="larman/F29.5" class="plain"></p>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-combinaison-des-patrons-de-packaging" class="anchor" href="#combinaison-des-patrons-de-packaging" aria-hidden="true"></a>Combinaison des patrons de packaging</h3>
+<p><img src="/assets/03-chp29F-36A-Conception-de-packages-18.pptx/image16.png" alt="larman/F29.5" class="plain" width="125%"></p>
+<div style="font-size:0.5em" class="block">
+<p>ref: <a href="http://www.techrepublic.com/article/commonly-used-architectural-patterns-in-java-applications">Commonly used architectural patterns in Java applications</a></p>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-quest-ce-quune-couche" class="anchor" href="#quest-ce-quune-couche" aria-hidden="true"></a>Qu’est-ce qu’une couche?</h2>
+<ul>
+<li>Groupement à forte granularité de classes, packages et sous-systèmes</li>
+<li>Possède un thème « cohésif »</li>
+<li>Une couche plus « haute » fait appel aux couches plus « basses », mais pas l’inverse</li>
+<li>Couches OO typiques
+<ul>
+<li>Présentation (IHM)</li>
+<li>Logique applicative (objets du domaine)</li>
+<li>Services techniques (persistance, journalisation, etc.)</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-concevoir-une-architecture-en-couches" class="anchor" href="#concevoir-une-architecture-en-couches" aria-hidden="true"></a>Concevoir une architecture en couches</h3>
+<ul>
+<li>Séparation nette et cohésive</li>
+<li>Collaboration et couplage vont du haut vers le bas</li>
+</ul>
+<p><img src="/assets/larman/F12.2.svg" alt="larman/F12.2" class="plain" width="30%"></p>
+<p>fig F12.2, A13.2</p>
+<ul>
+<li>Séparation Modèle-Vue est un cas simple</li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-architecture----modèle--vue--contrôleur" class="anchor" href="#architecture----modèle--vue--contrôleur" aria-hidden="true"></a>Architecture  - Modèle / Vue / Contrôleur</h3>
+<div style="font-size:0.7em" class="block">
+<ul>
+<li>Vues/contrôleurs modifient le modèle</li>
+<li>Modèle informe les vues des changements</li>
+<li>Vues se mettent à jour de nouveau en conséquence</li>
+</ul>
+<p><img src="/assets/02-chp12F-13-diagrammes_de_package_16.pptx/mvc.png" alt="mvc" class="plain" width:75%=""></p>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-avantages-de-la-modélisation-en-couches" class="anchor" href="#avantages-de-la-modélisation-en-couches" aria-hidden="true"></a>Avantages de la modélisation en couches</h3>
+<ul>
+<li>Séparation de fonctions/services -&gt; couplage réduit, cohésion améliorée</li>
+<li>La complexité est encapsulée (décomposable)</li>
+<li>On peut remplacer certaines couches</li>
+<li>Les couches basses contiennent des fonctions réutilisables</li>
+<li>Certaines couches (Domaine) peuvent être distribuées</li>
+<li>Segmentation logique facilite développement en équipe</li>
+</ul>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h5><a id="user-content-architecture-multi-couches" class="anchor" href="#architecture-multi-couches" aria-hidden="true"></a>Architecture multi-couches</h5>
+<p><img src="/assets/larman/F12.4.svg" alt="couches Figure F12.4" title="Figure F12.4" class="plain" width="65%"></p>
+<!-- --
+
+## Architecture web multi-couches
+![image16](/assets/02-chp12F-13-diagrammes_de_package_16.pptx/image16.png ""){.plain}{width=70%} -->
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h3><a id="user-content-relation-entre-couche-domaine-et-dcc" class="anchor" href="#relation-entre-couche-domaine-et-dcc" aria-hidden="true"></a>Relation entre couche domaine et DCC</h3>
+<p><img src="/assets/larman/F12.5.svg" alt="larman/F12.5" title="Larman Figure F12.5" class="plain" width="90%"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-relation-entre-dss-et-couches" class="anchor" href="#relation-entre-dss-et-couches" aria-hidden="true"></a>Relation entre DSS et couches</h2>
+<p><img src="/assets/larman/F12.8.png" alt="larman/F12.8" title="larman/F12.8" class="plain"></p>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h4><a id="user-content-influence-des-artefacts-du-processus-unifié" class="anchor" href="#influence-des-artefacts-du-processus-unifié" aria-hidden="true"></a>Influence des artefacts du Processus Unifié</h4>
+<p><img src="/assets/larman/F12.1.png" alt="larman/F12.1" title="larman/F12.1" class="plain" width="50%"></p>
+<div style="font-size:0.5em" class="block">
+<p>fig A13.1, F12.1</p>
+</div>
+
+            </section>
+        
+            <section class="packageslide">
+                <!-- .slide:  class="packageslide" -->
+<h2><a id="user-content-résumé-3" class="anchor" href="#résumé-3" aria-hidden="true"></a>Résumé</h2>
+<ul>
+<li>Architecture logique est importante pour les conceptions de systèmes complexes</li>
+<li>Modèle en couches est populaire
+<ul>
+<li>Extension du principe de séparation Modèle-Vue</li>
+<li>Java est organisé en couches</li>
+<li>Android aussi</li>
+</ul>
+</li>
+<li>DSS relie la couche présentation avec la couche du domaine à travers les opérations système</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section id="tdd" class="codeslide">
+            <!-- .slide: id="tdd" class="codeslide"   -->
+<h2><a id="user-content-log210-séance-08-7" class="anchor" href="#log210-séance-08-7" aria-hidden="true"></a>LOG210 Séance #08</h2>
+<h2><a id="user-content-analyse-et-conception-de-logiciels-7" class="anchor" href="#analyse-et-conception-de-logiciels-7" aria-hidden="true"></a>Analyse et conception de logiciels</h2>
+<div style="font-size:0.8em" class="block">
+<ol>
+<li><a href="#administration">Administration</a></li>
+<li><a href="#equipe">Équipe</a></li>
+<li><a href="#etude">Première étude de la conception</a></li>
+<li><a href="#outilsUML">Outils UML</a></li>
+<li><a href="#grasp">GRASP</a></li>
+<li><a href="#gofrevision">GOF Révision</a></li>
+<li><a href="#package">Diagramme de package</a></li>
+<li><a href="#tdd">TDD en pratique</a><img src="assets/Fleche-gauche-rouge-icon-64b.png" alt="" :="" class="arrow"></li>
+</ol>
+</div>
+
+            </section>
+        
+            <section id="tdd" class="codeslide">
+                <!-- .slide: id="tdd" class="codeslide"  -->
+<h2><a id="user-content-tdd" class="anchor" href="#tdd" aria-hidden="true"></a>TDD</h2>
+<ol>
+<li><a href="https://github.com/profcfuhrmanets/typescript-tdd-kata">Kata TDD avec TypeScript</a></li>
+</ol>
+<ul>
+<li>Développer un fonction permettant d’extraire les mots uniques d’une phrase</li>
+<li>Développer une fonction permettant de faire l’intesection des mots de deux phrases</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+        <section class="feedbackslide">
+            
+            <!-- .slide: class="feedbackslide"  -->
+<h2><a id="user-content-séance-08" class="anchor" href="#séance-08" aria-hidden="true"></a>Séance #08</h2>
+<h3><a id="user-content-rétroaction-page-dune-minute" class="anchor" href="#rétroaction-page-dune-minute" aria-hidden="true"></a><a href="https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs">Rétroaction: Page d’une Minute</a></h3>
+<ol>
+<li>Quels sont les deux [trois, quatre, cinq] plus importants [utiles, significatives,
+surprenantes, dérangeantes] choses que vous avez apprises au cours de cette session?</li>
+<li>Quelle (s) question (s) reste (s) en tête dans votre esprit?</li>
+<li>Y a-t-il quelque chose que tu n’as pas compris?</li>
+</ol>
+<p><a href="https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs">https://1drv.ms/u/s!An6-F73ulxAOhVyiCB46jTelNVLs</a></p>
+
+            </section>
+    
+
+
+    </div>
+
+
+  </div>
+
+  <script src="libs/reveal.js/3.8.0/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js/3.8.0/js/reveal.js"></script>
+
+  <script>
+
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+
+        controls: true,
+        controlsTutorial: true,
+        controlsLayout: 'bottom-right',
+        controlsBackArrows: 'faded',
+        progress: true,
+        slideNumber: true,
+        history: true,
+        keyboard: true,
+        overview: true,
+        center: false,
+        touch: true,
+        loop: false,
+        rtl: false,
+        shuffle: false,
+        fragments: true,
+        fragmentInURL: false,
+        embedded: false,
+        help: true,
+        showNotes: false,
+        autoPlayMedia: false,
+        autoSlide: 0,
+        autoSlideStoppable: true,
+        autoSlideMethod: Reveal.navigateNext,
+        defaultTiming: 120,
+        mouseWheel: true,
+        hideAddressBar: true,
+        previewLinks: false,
+        transition: 'none',
+        transitionSpeed: 'fast',
+        backgroundTransition: 'default',
+        viewDistance: 3,
+        parallaxBackgroundImage: '',
+        parallaxBackgroundSize: '',
+        parallaxBackgroundHorizontal: 0,
+        parallaxBackgroundVertical: 0,
+        display: 'block',
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            // { src: 'libs/reveal.js/3.8.0/lib/js/classList.js', condition: function () { return !document.body.classList; } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+            // { src: 'libs/reveal.js/3.8.0/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+            { src: 'libs/reveal.js/3.8.0/plugin/notes/notes.js', async: true },
+            { src: 'libs/reveal.js/3.8.0/plugin/chart/Chart.min.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/chart/csv2chart.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/embed-tweet/embed-tweet.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/math/math.js', async: true },
+            { src: 'libs/highlight.js/9.12.0/highlight.js', async: true },
+            { src: 'libs/reveal.js/3.8.0/plugin/anything/anything.js' },
+            { src: 'libs/reveal.js/3.8.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() {mermaid.initialize({startOnLoad:false})} },	
+
+           
+        { src: 'libs/reveal.js/3.8.0/plugin/search/search.js', async: true },
+           
+
+           
+        { src: 'libs/reveal.js/3.8.0/plugin/zoom-js/zoom.js', async: true },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/chalkboard/chalkboard.js' },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/menu/menu.js' },
+            
+
+            
+        { src: 'libs/reveal.js/3.8.0/plugin/title-footer/title-footer.js', async: true, callback: function () { title_footer.initialize(); } },
+            
+
+        {
+            src: 'libs/highlight.js/9.12.0/reveal-code-focus-1.0.0-mod.js',
+            async: true,
+            callback: function () {
+                RevealCodeFocus();
+            }
+        },
+            // { src: 'libs/reveal.js/3.8.0/plugin/reveal-code-focus/highlight.pack.js' },
+            // { src: 'libs/reveal.js/3.8.0/plugin/reveal-code-focus/reveal-code-focus.js', async: true, callback: function() { RevealCodeFocus(); } },
+           // {src: 'libs/reveal.js/3.8.0/plugin/line-numbers/line-numbers.js'}
+        ]
+        ,
+    keyboard: {
+        67: function () { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+        66: function () { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+        46: function () { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+        8: function () { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+        68: function () { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+    },
+    math: {
+       // mathjax: 'libs/reveal.js/3.8.0/plugin/math/MathJax.js',
+             mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+            config: 'TeX-AMS_HTML-full'
+    },
+    chart: {
+        defaults: {
+            global: {
+                title: { fontColor: "#FFF" },
+                legend: {
+                    position: "bottom",
+                        labels: { fontColor: "#FFF" },
+                },
+                tooltips: {
+                    labels: { fontColor: "#FFF" },
+                },
+            },
+            scale: {
+                scaleLabel: { fontColor: "#FFF" },
+                gridLines: { color: "#FFF", zeroLineColor: "#FFF" },
+                ticks: { fontColor: "#FFF" },
+            }
+        },
+        line: { borderColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"], "borderDash": [[5, 10], [0, 0]] },
+        bar: { backgroundColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"] },
+        pie: { backgroundColor: [["rgba(0,0,0,.8)", "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"]] },
+        radar: { borderColor: ["rgba(20,220,220,.8)", "rgba(220,120,120,.8)", "rgba(20,120,220,.8)"] },
+    },
+    anything: [ 
+	 {
+	  className: "mermaid"
+	 },
+	 // ...
+	],
+    menu: {
+        // Specifies which side of the presentation the menu will 
+        // be shown. Use 'left' or 'right'.
+        side: 'left',
+
+            // Specifies the width of the menu.
+            // Can be one of the following:
+            // 'normal', 'wide', 'third', 'half', 'full', or
+            // any valid css length value
+            width: 'normal',
+
+                // Add slide numbers to the titles in the slide list.
+                // Use 'true' or format string (same as reveal.js slide numbers)
+                numbers: false,
+
+                    // Specifies which slide elements will be used for generating
+                    // the slide titles in the menu. The default selects the first
+                    // heading element found in the slide, but you can specify any
+                    // valid css selector and the text from the first matching
+                    // element will be used.
+                    // Note: that a section data-menu-title attribute or an element
+                    // with a menu-title class will take precedence over this option
+                    titleSelector: 'h1, h2, h3, h4, h5, h6',
+
+                        // If slides do not have a matching title, attempt to use the
+                        // start of the text content as the title instead
+                        useTextContentForMissingTitles: false,
+
+                            // Hide slides from the menu that do not have a title.
+                            // Set to 'true' to only list slides with titles.
+                            hideMissingTitles: false,
+
+                                // Adds markers to the slide titles to indicate the 
+                                // progress through the presentation. Set to 'false'
+                                // to hide the markers.
+                                markers: true,
+
+                                    // Specify custom panels to be included in the menu, by
+                                    // providing an array of objects with 'title', 'icon'
+                                    // properties, and either a 'src' or 'content' property.
+                                    // custom: false,
+                                    custom: [],
+                                        // Specifies the themes that will be available in the themes
+                                        // menu panel. Set to 'true' to show the themes menu panel
+                                        // with the default themes list. Alternatively, provide an
+                                        // array to specify the themes to make available in the
+                                        // themes menu panel, for example...
+                                        // [
+                                        //     { name: 'Black', theme: 'css/theme/black.css' },
+                                        //     { name: 'White', theme: 'css/theme/white.css' },
+                                        //     { name: 'League', theme: 'css/theme/league.css' }
+                                        // ]
+                                        themes: false,
+
+                                            // Specifies the path to the default theme files. If your
+                                            // presentation uses a different path to the standard reveal
+                                            // layout then you need to provide this option, but only
+                                            // when 'themes' is set to 'true'. If you provide your own 
+                                            // list of themes or 'themes' is set to 'false' the 
+                                            // 'themesPath' option is ignored.
+                                            themesPath: 'css/theme/',
+
+                                                // Specifies if the transitions menu panel will be shown.
+                                                // Set to 'true' to show the transitions menu panel with
+                                                // the default transitions list. Alternatively, provide an
+                                                // array to specify the transitions to make available in
+                                                // the transitions panel, for example...
+                                                // ['None', 'Fade', 'Slide']
+                                                transitions: false,
+
+                                                    // Adds a menu button to the slides to open the menu panel.
+                                                    // Set to 'false' to hide the button.
+                                                    openButton: true,
+
+                                                        // If 'true' allows the slide number in the presentation to
+                                                        // open the menu panel. The reveal.js slideNumber option must 
+                                                        // be displayed for this to take effect
+                                                        openSlideNumber: false,
+
+                                                            // If true allows the user to open and navigate the menu using
+                                                            // the keyboard. Standard keyboard interaction with reveal
+                                                            // will be disabled while the menu is open.
+                                                            keyboard: true,
+
+                                                                // Normally the menu will close on user actions such as
+                                                                // selecting a menu item, or clicking the presentation area.
+                                                                // If 'true', the sticky option will leave the menu open
+                                                                // until it is explicitly closed, that is, using the close
+                                                                // button or pressing the ESC or m key (when the keyboard 
+                                                                // interaction option is enabled).
+                                                                sticky: false,
+
+                                                                    // If 'true' standard menu items will be automatically opened
+                                                                    // when navigating using the keyboard. Note: this only takes 
+                                                                    // effect when both the 'keyboard' and 'sticky' options are enabled.
+                                                                    autoOpen: true,
+
+                                                                        // If 'true' the menu will not be created until it is explicitly
+                                                                        // requested by calling RevealMenu.init(). Note this will delay
+                                                                        // the creation of all menu panels, including custom panels, and
+                                                                        // the menu button.
+                                                                        delayInit: false,
+
+                                                                            // If 'true' the menu will be shown when the menu is initialised.
+                                                                            openOnInit: false,
+
+                                                                                // By default the menu will load it's own font-awesome library
+                                                                                // icons. If your presentation needs to load a different
+                                                                                // font-awesome library the 'loadIcons' option can be set to false
+                                                                                // and the menu will not attempt to load the font-awesome library.
+                                                                                loadIcons: false
+    },
+    chalkboard: {
+        toggleChalkboardButton: { left: "60px", bottom: "30px", top: "auto", right: "auto" },
+        toggleNotesButton: { left: "90px", bottom: "30px", top: "auto", right: "auto" },
+
+    }
+    });
+
+
+
+</script>
+</body>
+
+</html>
