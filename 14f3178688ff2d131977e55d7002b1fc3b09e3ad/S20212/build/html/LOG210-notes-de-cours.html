@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-CA" xml:lang="fr-CA">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Christopher Fuhrman" />
+  <meta name="author" content="Yvan Ross" />
+  <title>LOG210 Analyse et conception de logiciels</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">LOG210 Analyse et conception de logiciels</h1>
+<p class="subtitle">Notes de cours</p>
+<p class="author">Christopher Fuhrman</p>
+<p class="author">Yvan Ross</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#analyse-et-conception-de-logiciels">Analyse et conception de logiciels</a>
+<ul>
+<li><a href="#livre-obligatoire">Livre obligatoire</a></li>
+<li><a href="#analyse-vs-conception">Analyse vs Conception</a></li>
+<li><a href="#décalage-des-représentations">Décalage des représentations</a></li>
+<li><a href="#survol-de-la-méthodologie">Survol de la méthodologie</a></li>
+<li><a href="#développement-itératif-évolutif-et-agile">Développement itératif, évolutif et agile</a></li>
+</ul></li>
+<li><a href="#besoins-exigences">Besoins (exigences)</a>
+<ul>
+<li><a href="#furps">FURPS+</a></li>
+</ul></li>
+<li><a href="#cas-dutilisation">Cas d’utilisation</a>
+<ul>
+<li><a href="#exemple-jeu-de-risk">Exemple: jeu de Risk</a></li>
+</ul></li>
+<li><a href="#modèle-du-domaine-mdd-modèle-conceptuel">Modèle du domaine (MDD, modèle conceptuel)</a>
+<ul>
+<li><a href="#classes-conceptuelles">Classes conceptuelles</a></li>
+<li><a href="#attributs">Attributs</a></li>
+<li><a href="#associations">Associations</a></li>
+<li><a href="#exemple-de-mdd-pour-le-jeu-de-risk">Exemple de MDD pour le jeu de Risk</a></li>
+<li><a href="#attributs-dérivés">Attributs dérivés</a></li>
+<li><a href="#classes-dassociation">Classes d’association</a></li>
+<li><a href="#affinement-du-mdd">Affinement du MDD</a></li>
+<li><a href="#faq-mdd">FAQ MDD</a></li>
+</ul></li>
+<li><a href="#diagrammes-de-séquence-système-dss">Diagrammes de séquence système (DSS)</a>
+<ul>
+<li><a href="#exemple-dss-pour-attaquer-un-pays">Exemple: DSS pour Attaquer un pays</a></li>
+<li><a href="#les-dss-font-abstraction-de-la-couche-présentation">Les DSS font abstraction de la couche présentation</a></li>
+<li><a href="#faq-dss">FAQ DSS</a></li>
+</ul></li>
+<li><a href="#principes-grasp">Principes GRASP</a>
+<ul>
+<li><a href="#SpectreDeLaConception">Spectre de la conception</a></li>
+<li><a href="#GRASPTable">Tableau des principes GRASP</a></li>
+<li><a href="#grasp-et-rdcu">GRASP et RDCU</a></li>
+<li><a href="#grasp-et-patterns-gof">GRASP et Patterns GoF</a></li>
+</ul></li>
+<li><a href="#DetteTechnique">Dette technique</a></li>
+<li><a href="#contrats-dopération">Contrats d’opération</a>
+<ul>
+<li><a href="#quest-ce-quun-contrat-dopération">Qu’est-ce qu’un contrat d’opération</a></li>
+<li><a href="#exemple-contrats-dopération-pour-attaquer-un-pays">Exemple: Contrats d’opération pour Attaquer un pays</a></li>
+</ul></li>
+<li><a href="#sec:RDCU">Réalisations de cas d’utilisation (RDCU)</a>
+<ul>
+<li><a href="#spécifier-le-contrôleur">Spécifier le contrôleur</a></li>
+<li><a href="#satisfaire-les-postconditions">Satisfaire les postconditions</a></li>
+<li><a href="#Visibilite">Visibilité</a></li>
+<li><a href="#TransformerIDenObjets">Transformer identifiants en objets</a></li>
+<li><a href="#UtilisationMap">Utilisation de tableau associatif (<code>Map&lt;clé, objet&gt;</code>)</a></li>
+<li><a href="#RDCU_Demarrer">RDCU pour l’initialisation, le scénario Démarrer</a></li>
+</ul></li>
+<li><a href="#développement-piloté-par-les-tests">Développement piloté par les tests</a>
+<ul>
+<li><a href="#kata-tdd">Kata TDD</a></li>
+</ul></li>
+<li><a href="#Refactoring">Réusinage (Refactorisation)</a>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#symptômes-de-la-mauvaise-conception---code-smells">Symptômes de la mauvaise conception - Code smells</a></li>
+<li><a href="#automatisation-du-réusinage-par-les-ide">Automatisation du réusinage par les IDE</a></li>
+<li><a href="#impropriété">Impropriété</a></li>
+</ul></li>
+<li><a href="#développement-de-logiciel-en-équipe">Développement de logiciel en équipe</a>
+<ul>
+<li><a href="#humilité-respect-confiance">Humilité, Respect, Confiance</a></li>
+<li><a href="#Bus_Factor">Redondance des compétences dans l’équipe (Bus Factor)</a></li>
+<li><a href="#mentorat">Mentorat</a></li>
+<li><a href="#scénarios">Scénarios</a></li>
+</ul></li>
+<li><a href="#outils-pour-la-modélisation-uml">Outils pour la modélisation UML</a>
+<ul>
+<li><a href="#exemples-de-diagramme-avec-plantuml-pour-log210">Exemples de diagramme avec PlantUML pour LOG210</a></li>
+<li><a href="#astuces-plantuml">Astuces PlantUML</a></li>
+</ul></li>
+<li><a href="#sec:GRASP-GoF">Décortiquer les patterns GoF avec GRASP</a>
+<ul>
+<li><a href="#exemple-avec-adaptateur">Exemple avec Adaptateur</a></li>
+<li><a href="#imaginer-le-code-sans-le-pattern-gof">Imaginer le code sans le pattern GoF</a></li>
+<li><a href="#identifier-les-grasp-dans-les-gof">Identifier les GRASP dans les GoF</a></li>
+<li><a href="#grasp-et-réusinage">GRASP et réusinage</a></li>
+</ul></li>
+<li><a href="#fiabilité">Fiabilité</a></li>
+<li><a href="#diagrammes-dactivités">Diagrammes d’activités</a></li>
+<li><a href="#diagrammes-détat">Diagrammes d’état</a></li>
+<li><a href="#conception-de-packages">Conception de packages</a></li>
+<li><a href="#diagrammes-de-déploiement-et-de-composants">Diagrammes de déploiement et de composants</a>
+<ul>
+<li><a href="#diagrammes-de-déploiement">Diagrammes de déploiement</a></li>
+</ul></li>
+<li><a href="#Laboratoires">Laboratoires</a>
+<ul>
+<li><a href="#javascripttypescript">JavaScript/TypeScript</a></li>
+<li><a href="#ContributionsEquipe">Contributions de l’équipe</a></li>
+<li><a href="#todo">TODO</a></li>
+</ul></li>
+<li><a href="#bibliographie">Bibliographie</a></li>
+</ul>
+</nav>
+<div id="acoo"/>
+<h1 id="analyse-et-conception-de-logiciels">Analyse et conception de logiciels</h1>
+<p>Voici le descriptif du cours, selon le plan de cours:</p>
+<blockquote>
+<p>À la suite de ce cours, l’étudiant sera en mesure :</p>
+<ul>
+<li>de maîtriser et appliquer des patrons de conception logicielle;</li>
+<li>de concevoir un logiciel orienté objet en appliquant un ensemble de principes et des méthodes heuristiques de génie logiciel;</li>
+<li>de réaliser un logiciel en suivant un processus itératif et évolutif incluant les activités d’analyse et de conception par objets.</li>
+</ul>
+<p>Méthodes et techniques de modélisation orientés objet, langage de modélisation, cas d’utilisation, analyse orientée objet, modèle du domaine, conception et programmation orientées objet, principes GRASP, patrons de conception, processus itératif et évolutif.</p>
+<p>Séances de laboratoire axées sur l’application des notions d’analyse, de conception et de programmation orientées objet vues en classe. Mise en œuvre d’un modèle d’objet à partir d’une spécification de logiciel et à l’aide d’un langage orienté objet contemporain. Conception d’applications utilisant les outils UML ainsi que des techniques et des outils utiles au génie logiciel, tels qu’un environnement de développement intégré, la compilation automatique et les tests automatiques.</p>
+</blockquote>
+<figure>
+<img src="images/LOG210wordle_ordre_alph.png" alt="Nuage de mots importants du plan de cours de LOG210." /><figcaption aria-hidden="true">Nuage de mots importants du plan de cours de LOG210.</figcaption>
+</figure>
+<h2 id="livre-obligatoire">Livre obligatoire</h2>
+<p>Le livre obligatoire <span class="citation" data-cites="craig_uml_2005">[@craig_uml_2005]</span> pour ce cours est indiqué dans le plan de cours. <strong>Le présent document n’est pas un substitut pour le livre obligatoire.</strong></p>
+<p>Les références au livre obligatoire seront indiquées par l’icône du livre .</p>
+<h2 id="analyse-vs-conception">Analyse vs Conception</h2>
+<p>Ce sujet est abordé en détail dans le chapitre 1  du livre du cours.</p>
+<p>L’<strong>analyse</strong> met l’accent sur une investigation du problème et des besoins plutôt que sur la recherche d’une solution.</p>
+<p>La <strong>conception</strong> sous-entend l’élaboration d’une solution conceptuelle répondant aux besoins plutôt que la mise en œuvre de cette solution.</p>
+<p>Dans LOG210, c’est une modélisation objet qui est utilisée et pour l’analyse (classes conceptuelles décrivant le problème et les besoins) et pour la conception (classes logicielles proposant une la solution dont sa représentation est proche de la modélisation du problème).</p>
+<h2 id="décalage-des-représentations">Décalage des représentations</h2>
+<p>Plus une solution (conception) ressemble à une description du problème, plus elle est facile à comprendre. La distance entre la représentation d’un problème et la représentation de sa solution s’appelle le <em>décalage des représentations</em>. Pour des explications de Larman, lisez la section 9.3  du livre du cours.</p>
+<p>Imaginez un jeu qui est joué dans la vraie vie avec un dé à six faces. Ensuite, on veut construire un logiciel pour ce jeu et donc on peut spécifier un besoin de générer un nombre aléatoire entre 1 et 6 (comme un dé à six faces). On peut aussi modéliser ce besoin (un élément du problème) par une classe conceptuelle <code>Dé</code> ayant un attribut <code>face</code> dont sa valeur est un type <code>int</code>. Les personnes travaillant sur un projet vont facilement comprendre ce modèle, car les gens comprennent les objets qui représentent des aspects de la vraie vie.</p>
+<p>Ensuite, imaginez des solutions à ce problème suivantes:</p>
+<ol type="1">
+<li>On peut définir un programme en langage assembleur pour générer un nombre réel entre 0.00000 et 1.00000. Le programme sera assez complexe, car les métaphores en assembleur sont des registres, des adresses, peut-être des modules, etc.</li>
+<li>On peut utiliser un langage orienté objet (comme Java ou TypeScript) pour définir une classe <code>GénérateurNombreAléatoire</code> qui a une fonction <code>générer()</code> qui retourne une valeur réelle aléatoire entre 0.000000 et 1.000000. Il faudra travailler un peu avec le code pour obtenir un nombre entier entre 1 et 6, mais c’est possible. Lorsqu’on lit le nom de la classe, il est possible de deviner à quelle partie du problème ça correspond, mais le lien n’est pas aussi évident.</li>
+<li>On peut utiliser encore un langage orienté objet, mais cette fois on définit une classe <code>Dé</code> ayant une fonction <code>brasser</code> qui retourne une valeur aléatoire entière entre 1 et 6.</li>
+</ol>
+<p>Parmi toutes les solutions au problème, laquelle a le plus faible décalage de représentation? C’est la troisième, car elle utilise la même notion de classe <code>Dé</code> qui a été utilisée pour modéliser le problème. Cet exemple est trivial, mais le principe est encore plus important lorsque le problème est complexe.</p>
+<p>Un défi dans la programmation est d’éviter d’augmenter trop l’écart des représentations. Sinon, la solution devient moins évidente par rapport à son problème. Cette notion est aussi reliée à la facilité de la traçabilité. C’est-à-dire que chaque élément de la solution devrait être facilement traçable au problème. La méthodologie enseignée dans LOG210 cherche à réduire le décalage des représentations, car c’est un bénéfice des langages orientés objet si on fait attention.</p>
+<h2 id="survol-de-la-méthodologie">Survol de la méthodologie</h2>
+<p>La figure  présente la méthode d’analyse et de conception enseignée dans le cours. C’est une adaptation de plusieurs figures présentées dans le livre du cours.</p>
+<figure>
+<img src="images/FigA.1-avec-contrats.png" id="SurvolMethodologie" alt="Survol de la méthodologie." /><figcaption aria-hidden="true">Survol de la méthodologie.</figcaption>
+</figure>
+<h2 id="développement-itératif-évolutif-et-agile">Développement itératif, évolutif et agile</h2>
+<p>Le chapitre 2 du livre  définit un processus itératif et adaptatif ainsi que les concepts fondamentaux du Processus Unifié.</p>
+<p>Les points importants sont les suivants:</p>
+<ul>
+<li>Le développement itératif et évolutif implique de programmer et de tester précocement un système partiel selon des cycles répétitifs.</li>
+<li>Un cycle est nommé une itération et dure un temps fixe (par exemple, 3 semaines) comprenant les activités d’analyse, de conception, de programmation et de test, ainsi qu’une démonstration pour solliciter du feedback du client (voir la figure ).</li>
+<li>La durée d’une itération est limitée dans le temps (<em>timeboxed</em> en anglais), de 2 à 6 semaines. Il n’est pas permis d’ajouter du temps à la durée d’une itération si le projet avance plus lentement que prévu, car cela impliquerait un retard de la rétroaction du client. Si le respect des délais semble compromis, on supprime plutôt des tâches ou des spécifications et on les inclut dans l’itération suivante.</li>
+<li>Les premières itérations peuvent sembler chaotiques, car elles sont loin de la “bonne voie”. Avec la rétroaction du client et l’adaptation, le système à développer converge vers une solution appropriée (voir la figure ).</li>
+<li>Il y a plusieurs avantages du développement itératif et incrémental:
+<ul>
+<li>moins d’échecs, amélioration de la productivité et de la qualité;</li>
+<li>gestion précoce des risques élevés (risques techniques, exigences, objectifs, convivialité, etc.)</li>
+<li>progrès immédiatement visibles;</li>
+<li>rétroaction, implication des utilisateurs et adaptation précoces;</li>
+<li>complexité gérée (par itération);</li>
+<li>possibilité d’exploiter méthodiquement les leçons tirées d’une itération.</li>
+</ul></li>
+</ul>
+<figure>
+<embed src="images/A2.1.pdf" id="DevIteratifIncremental" /><figcaption aria-hidden="true">Le développement itératif et incrémental (Figure 2.1 du livre).</figcaption>
+</figure>
+<figure>
+<embed src="images/F2.2.pdf" id="StabiliteDansLesIterations" /><figcaption aria-hidden="true">Rétroaction et adaptation itératives convergent vers le système souhaité (Figure 2.2 du livre).</figcaption>
+</figure>
+<figure>
+<img src="images/iteratif-evolutif.png" id="IteratifEvolutif" alt="Processus itératif et évolutif." /><figcaption aria-hidden="true">Processus itératif et évolutif.</figcaption>
+</figure>
+<div id='exigences'/>
+<h1 id="besoins-exigences">Besoins (exigences)</h1>
+<p>Un exemple d’une exigence d’un système pourrait être qu’il doit afficher le nombre d’utilisateurs dans un forum de discussion en ligne. Il s’agit d’une exigence de fonctionnalité. Si cette information doit être actualisée toutes les 2 secondes, alors il s’agit d’une exigence sur <em>la qualité de la performance</em> du système. Pour les qualités d’un système comme la performance, on peut les appeler <em>exigences non fonctionnelles</em>, car elles ne sont pas les fonctionnalités. Il y a beaucoup d’exemples d’exigences non fonctionnelles, par exemple sur <a href="https://en.wikipedia.org/wiki/Non-functional_requirement#Examples">Wikipedia </a>.</p>
+<figure>
+<img src="images/RamasserBesoins.jpg" style="width:60.0%" alt="Besoins non fonctionnels?" /><figcaption aria-hidden="true">Besoins non fonctionnels?</figcaption>
+</figure>
+<h2 id="furps">FURPS+</h2>
+<p>Le chapitre 5  du livre du cours traite le sujet des besoins et leur évolution. FURPS+ est un modèle (avec un acronyme) pour classer les exigences (besoins) d’un logiciel. Voici un résumé, mais la section 5.4  du livre explique en détail:</p>
+<ul>
+<li><strong>Fonctionnalité</strong> (<em>Functionality</em>). Ce sont les exigences exprimées souvent par les cas d’utilisation, par exemple, <em>Traiter une vente</em>. La sécurité est aussi considérée dans ce volet.</li>
+<li><strong>Aptitude à l’utilisation</strong> (<em>Usability</em>). Convivialité - les facteurs humains du logiciel, par exemple le nombre de clics que ça prend pour réaliser une fonctionnalité, à quel point une interface est facile à comprendre par un utilisateur, etc.</li>
+<li><strong>Fiabilité</strong> (<em>Reliability</em>). Comment le logiciel doit se comporter lorsqu’il y a des problèmes ou des pannes. Par exemple, un traitement texte produit un fichier de sauvegarde de secours, ou une application continue à fonctionner même si le réseau est coupé.</li>
+<li><strong>Performance</strong> (<em>Performance</em>). Comment un logiciel doit se comporter lors d’une charge importante sur le système. Par exemple, lors de la période d’inscription, Cheminot doit avoir un temps de réponse de moins de 2 secondes.</li>
+<li><strong>Possibilités de prise en charge</strong> (<em>Supportability</em>). Adaptabilité ou maintenabilité - à quel point le logiciel sera facile à modifier face aux changements prévus. Par exemple, lors d’un changement de lois fiscales, quelles sont les caractéristiques de la conception qui vont faciliter le développement d’une nouvelle version du logiciel.</li>
+<li><strong>+</strong> : Comprend toutes les autres choses:
+<ul>
+<li><strong>Implémentation</strong>. Par exemple, le projet doit être réalisé avec des langages et des bibliothèques qui ne sont pas payants (logiciel libre).</li>
+<li><strong>Interface</strong>. Par exemple, contraintes d’interfaçage avec un système externe.</li>
+<li><strong>Exploitation</strong>. Par exemple, utilisation de système d’intégration continue.</li>
+<li><strong>Aspects juridiques</strong>. Par exemple, la licence du logiciel, les politiques de confidentialité, etc.</li>
+</ul></li>
+</ul>
+<div id='cu'/>
+<h1 id="cas-dutilisation">Cas d’utilisation</h1>
+<p>Le chapitre 6  du livre du cours présente les cas d’utilisation. Il s’agit des documents textuels décrivant l’interaction entre un système (logiciel à développer) et un ou plusieurs acteurs (les utilisateurs ou systèmes externes). Le cas d’utilisation décrit plusieurs scénarios, mais en général il y a un scénario principal (<em>“Happy Path”</em>) représentant ce qui se passe lorsqu’il n’y a pas d’anomalie.</p>
+<p>La notation UML inclut les diagrammes de cas d’utilisation, qui sont comme une table des matières pour les fonctionnalités d’un système.</p>
+<p>Dans LOG210, la théorie sur comment écrire les cas d’utilisation ne fait pas partie du cours; c’est un élément expliqué dans un autre cours (<em>LOG410 Analyse de besoins et spécifications</em>).</p>
+<h2 id="exemple-jeu-de-risk">Exemple: jeu de Risk</h2>
+<p>L’exemple suivant concerne le jeu de Risk.</p>
+<figure>
+<img src="images/Risk-dice-example.jpg" width="300" alt="Cinq dés utilisés dans le jeu de Risk." /><figcaption aria-hidden="true">Cinq dés utilisés dans le jeu de Risk<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</figcaption>
+</figure>
+<p>Selon “Risk”. 2019. Wikipédia. https://fr.wikipedia.org/w/index.php?title=Risk&amp;oldid=164264587 (9 décembre 2019):</p>
+<blockquote>
+<p>L’attaquant jette un à trois dés suivant le nombre de régiments qu’il désire engager (avec un maximum de trois régiments engagés, et en considérant qu’un régiment au moins doit rester libre d’engagements sur le territoire attaquant) et le défenseur deux dés (un s’il n’a plus qu’un régiment). On compare le dé le plus fort de l’attaquant au dé le plus fort du défenseur et le deuxième dé le plus fort de l’attaquant au deuxième dé du défenseur. Chaque fois que le dé du défenseur est supérieur ou égal à celui de l’attaquant, l’attaquant perd un régiment; dans le cas contraire, c’est le défenseur qui en perd un.</p>
+</blockquote>
+<h3 id="scénario-attaquer-un-pays">Scénario: Attaquer un pays</h3>
+<ol type="1">
+<li>Le Joueur attaquant choisit d’attaquer un pays voisin du Joueur défenseur.</li>
+<li>Le Joueur attaquant annonce combien de régiments il va utiliser pour son attaque.</li>
+<li>Le Joueur défenseur annonce combien de régiments il va utiliser pour sa défense.</li>
+<li>Les deux Joueurs jettent le nombre de dés selon leur stratégie choisie aux étapes précédentes.</li>
+<li>Le Système compare les dés et élimine les régiments de l’attaquant ou du défenseur selon les règles et affiche le résultat.</li>
+</ol>
+<p><em>Les Joueurs répètent l’étape 2 jusqu’à ce que l’attaquant ne puisse plus attaquer ou ne veuille plus attaquer.</em></p>
+<h3 id="diagramme-de-cas-dutilisation">Diagramme de cas d’utilisation</h3>
+<figure>
+<embed src="build/images/diag_UC.pdf" id="uml-uc" /><figcaption aria-hidden="true">Diagramme de cas d’utilisation. <a href="http://www.plantuml.com/plantuml/uml/VL9BJiGm3DrNuWuMB60MCu8RW00XXbcCA9yD6zDwsgYfCpYEe4BS1yx1nN3AWeh5I94J-JtRptPEew9ewdqHEyTR5EmXwk39hBWg8tiJw1chhf6GkAw23m8goD4WOjqh3a5R5y4EGejSlufJ9OPDO0N7yEYu3g_HY7y9QzfWyfefZ3t1ZRYOOwxlpertrr8a2DgIHF0XTD08uPYiVBY2enux4vg4h38DXtOxjeQyfzgg2fojLd1VNjwMa_9mSZoRjlHVGSGc6zwjyvexM8OaZ7udxwshQYWhSLlToLkJZKhYLDXqX2g9YbYXxUMayBHHq03YcbQXTaALki2JqAsjoTeenqLckC1ARHwcc980HbWMsOtS666_7A9-V_Qq3-y5mD5YiPXbpZZtx3XJnPT4yiI9BVSGHtYvpjZ5zrUF8YGpEF1PK2Cu6B24-VoNChv-StqKfyIr_QaV">(PlantUML)</a></figcaption>
+</figure>
+<p>Notes:</p>
+<ul>
+<li>Le cas d’utilisation “…” signifie tous les autres cas d’utilisation du jeu, par exemple pour distribuer les régiments à chaque tour, etc.</li>
+<li>Le cas d’utilisation <em>Démarrer</em> n’est pas normalement indiqué dans un diagramme. C’est une astuce pédagogique pour la méthodologie du cours, car il faudra concevoir et coder ce scénario, bien qu’il ne soit pas une fonctionnalité connue par l’utilisateur.</li>
+</ul>
+<div id='mdd'/>
+<h1 id="modèle-du-domaine-mdd-modèle-conceptuel">Modèle du domaine (MDD, modèle conceptuel)</h1>
+<p>Les MDD sont expliqués en détail dans le chapitre 9  du livre du cours, mais voici des points importants pour LOG210:</p>
+<ul>
+<li>Les classes conceptuelles ne sont pas des classes logicielles. Ainsi, selon la méthodologie de Larman, <em>elles n’ont pas de méthodes</em>.</li>
+<li>Les classes ont des noms commençant avec une lettre majuscule, par exemple <code>Joueur</code> et elles ne sont jamais au pluriel, par exemple <del><code>Joueurs</code></del>.</li>
+</ul>
+<h2 id="classes-conceptuelles">Classes conceptuelles</h2>
+<p>Il y a trois stratégies pour identifier les classes conceptuelles:</p>
+<ol type="1">
+<li>Réutiliser ou modifier des modèles existants.</li>
+<li>Utiliser une liste de catégories.</li>
+<li>Identifier des groupes nominaux.</li>
+</ol>
+<h3 id="catégories-pour-identifier-des-classes-conceptuelles">Catégories pour identifier des classes conceptuelles</h3>
+<table>
+<caption>Extrait du tableau 9.1  du livre du cours.</caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Catégorie</th>
+<th style="text-align: left;">Exemples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Transactions métier</strong>Elles sont essentielles, commencez l’analyse par les transactions. </td>
+<td style="text-align: left;"><em>Vente</em>, <em>Attaque</em>, <em>Réservation</em>, <em>Inscription</em>, <em>EmpruntVélo</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Lignes d’une transaction</strong>Éléments compris dans une transaction. </td>
+<td style="text-align: left;"><em>LigneArticles</em>, <em>ExemplaireLivre</em>, <em>GroupeCours</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Produit ou service lié à une transaction ou une ligne de transaction</strong>Pour quel concept sont faites des transactions? </td>
+<td style="text-align: left;"><em>Article</em>, <em>Vélo</em>, <em>Vol</em>, <em>Livre</em>, <em>Cours</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Où la transaction est-elle enregistré?</strong></td>
+<td style="text-align: left;"><em>Caisse</em>, <em>GrandLivre</em>, <em>ManifesteDeVol</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Rôle des personnes liées à la transaction</strong>Qui sont les parties impliquées dans une transaction? </td>
+<td style="text-align: left;"><em>Caissier</em>, <em>Client</em>, <em>JoueurDeMonopoly</em>, <em>Passager</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Organisations liées à la transaction</strong>Quelles sont les organisations impliquées dans une transaction?</td>
+<td style="text-align: left;"><em>Magasin</em>, <em>CompagnieAérienne</em>, <em>Bibliothèque</em>, <em>Université</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Lieu de la transaction; lieu du service</strong></td>
+<td style="text-align: left;"><em>Magasin</em>, <em>Aéroport</em>, <em>Avion</em>, <em>Siège</em>, <em>LocalCours</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Événements notables, à mémoriser</strong></td>
+<td style="text-align: left;"><em>Vente</em>, <em>Paiement</em>, <em>JeuDeMonopoly</em>, <em>Vol</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Objets physiques</strong>Important surtout lorsqu’il s’agit d’un logiciel de contrôle d’équipements ou de simulation. </td>
+<td style="text-align: left;"><em>Article</em>, <em>Caisse</em>, <em>Plateau</em>, <em>Pion</em>, <em>Dé</em>, <em>Vélo</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Description d’entités</strong>Voir section 9.13 pour plus d’informations.</td>
+<td style="text-align: left;"><em>DescriptionProduit</em>, <em>DescriptionVol</em>, <em>Livre</em> (en opposition avec <em>Exemplaire</em>), <em>Cours</em> (en opposition avec <em>CoursGroupe</em>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Catalogues</strong>Les descriptions se trouvent souvent dans des catalogues </td>
+<td style="text-align: left;"><em>CatalogueProduits</em>, <em>CatalogueVols</em>, <em>CatalogueLivres</em>, <em>CatalogueCours</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Conteneurs</strong>Un conteneur peut contenir des objets physiques ou des informations. </td>
+<td style="text-align: left;"><em>Magasin</em>, <em>Rayonnage</em>, <em>Plateau</em>, <em>Avion</em>, <em>Bibliothèque</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Contenu d’un conteneur</strong></td>
+<td style="text-align: left;"><em>Article</em>, <em>Case (sur un Plateau de jeu)</em>, <em>Passager</em>, <em>Exemplaire</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Autres systèmes externes</strong></td>
+<td style="text-align: left;"><em>SystèmeAutorisationPaiementsACrédit</em>, <em>SystèmeGestionBorderaux</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Documents financiers, contrats, documents légaux</strong></td>
+<td style="text-align: left;"><em>Reçus</em>, <em>GrandLivre</em>, <em>JournalDeMaintenance</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Instruments financiers</strong></td>
+<td style="text-align: left;"><em>Espèces</em>, <em>Chèque</em>, <em>LigneDeCrédit</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Plannings, manuels, documents régulièrement consultés pour effectuer un travail</strong></td>
+<td style="text-align: left;"><em>MiseAJourTarifs</em>, <em>PlanningRéparations</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="attributs">Attributs</h2>
+<p>Les attributs sont le sujet de la section 9.16  du livre. Comme c’est le cas pour les classes et les associations, on fait figurer les attributs <em>quand les cas d’utilisation suggèrent la nécessité de mémoriser des informations</em>.</p>
+<p>Pour l’UML, la syntaxe complète d’un attribut est :</p>
+<p><strong>visibilité nom : type multiplicité = défaut {propriété} </strong></p>
+<p>Voici des points importants:</p>
+<ul>
+<li><em>Le type d’un attribut est important et il faut les spécifier dans un MDD</em>, même si dans le livre du cours il y a plusieurs exemples sans type.</li>
+<li>On ne se soucie pas de la visibilité des attributs dans un MDD.</li>
+<li>Faites attention à l’attribut qui devrait être une classe. Si on ne pense pas un attribut <em>X</em> en termes alphanumériques dans le monde réel, alors il s’agit probablement d’une classe conceptuelle. Voir la section 9.12  du livre.</li>
+<li>De la même manière, faites attention aux informations qui sont mieux modélisées par des associations, par exemple dans la figure  la classe <code>Pays</code> n’a pas un <em>attribut</em> <code>joueur:Joueur</code> (qui contrôle le Pays), mais elle a plutôt une <em>association</em> avec la classe <code>Joueur</code> et un verbe <code>contrôle</code>.</li>
+</ul>
+<blockquote>
+<p> Il est vrai que dans un langage de programmation, les associations doivent être les attributs dans les classes. Cependant, dans un modèle du domaine on cherche à éviter des attributs si une association peut mieux décrire la relation. La relation relie visuellement les deux classes et elle est décrite avec un verbe.</p>
+</blockquote>
+<h2 id="associations">Associations</h2>
+<p>Les associations dans le MDD sont le sujet de la section 9.14  du livre du cours. Il faut se référer au contenu du livre pour les détails. Une association est une relation entre des classes (ou des instances de classes). Elle indique une connexion significative ou intéressante. Voici des points importants:</p>
+<ul>
+<li>Il est facile de trouver beaucoup d’associations, mais il faut se limiter à celles qui doivent être conservées un certain temps. Pensez à la <strong>mémorabilité</strong> d’une association dans le contexte du logiciel à développer. Par exemple, considérez les associations de la figure :
+<ul>
+<li>Il existe une association entre <code>Joueur</code> et <code>Pays</code>, car il est important de savoir quel joueur contrôle quel pays dans le jeu de Risk.</li>
+<li>Il n’y a pas d’association entre <code>JeuRisk</code> et <code>Attaque</code>, même si les attaques font partie du jeu. Il n’est pas essentiel de mémoriser l’historique de toutes les attaques réalisées dans le jeu.</li>
+</ul></li>
+<li>Il y a des associations dérivées de la liste des associations courantes. Voir le tableau .</li>
+<li>En UML les associations sont représentées par des lignes entre classes.
+<ul>
+<li>Elles sont nommées (avec un verbe commençant par une lettre majuscule).</li>
+<li>Des noms simples comme “A”, “Utilise”, “Possède”, “Contient”, etc. sont généralement des choix médiocres, car ils n’aident pas notre compréhension du domaine. Essayez de trouver des noms plus riches, si possible.</li>
+<li>Une flèche (triangle) de “sens de lecture” optionnelle indique la direction dans laquelle lire l’association. Si la flèche est absente, on lit l’association de gauche à droite ou de haut en bas.</li>
+<li>Les extrémités des associations ont une expression de la multiplicité indiquant une relation numérique entre les instances des classes. Vous pouvez en trouver plusieurs exemples dans la figure .</li>
+</ul></li>
+</ul>
+<table>
+<caption>Extrait du tableau 9.2  du livre du cours.</caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Catégorie</strong></th>
+<th style="text-align: left;"><strong>Exemple</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>A est une transaction liée à une transaction B</strong></td>
+<td style="text-align: left;"><em>PaiementEnEspèces – Vente</em><br />
+<em>Réservation – Annulation</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>A est un élément d’une transaction B</strong></td>
+<td style="text-align: left;"><em>LigneArticles – Vente</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>A est un produit pour une transaction (ou un élément de transaction) B</strong></td>
+<td style="text-align: left;"><em>Article – LigneArticles (ou Vente)</em><br />
+<em>Vol – Réservation</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>A est un rôle lié à une transaction B</strong></td>
+<td style="text-align: left;"><em>Client – Paiement</em><br />
+<em>Passager – Billet</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>A est une partie logique ou physique de B</strong></td>
+<td style="text-align: left;"><em>Tiroir – Registre</em><br />
+<em>Case – Plateau</em><br />
+<em>Siège – Avion</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>A est physiquement ou logiquement contenu dans B</strong></td>
+<td style="text-align: left;"><em>Registre – Magasin</em><br />
+<em>Joueur – Monopoly</em><br />
+<em>Passager – Avion</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>A est une description de B</strong></td>
+<td style="text-align: left;"><em>DescriptionProduit – Article</em><br />
+<em>DescriptionVol – Vol</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>A est connu/consigné/enregistré/saisi dans B</strong></td>
+<td style="text-align: left;"><em>Vente – Registre</em><br />
+<em>Pion – Case</em><br />
+<em>Réservation – ManifesteDeVol</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>A est un membre de B</strong></td>
+<td style="text-align: left;"><em>Caissier – Magasin</em><br />
+<em>Joueur – Monopoly</em><br />
+<em>Pilote – CompagnieAérienne</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>A est une sous-unité organisationnelle de B</strong></td>
+<td style="text-align: left;"><em>Rayon – Magasin</em><br />
+<em>Maintenance – CompagnieAérienne</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>A utilise, gère ou possède B</strong></td>
+<td style="text-align: left;"><em>Caissier – Registre</em><br />
+<em>Joueur – Pion</em> <em>Pilote – Avion</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>A est voisin de B</strong></td>
+<td style="text-align: left;"><em>Article – Article</em><br />
+<em>Case – Case</em><br />
+<em>Ville – Ville</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemple-de-mdd-pour-le-jeu-de-risk">Exemple de MDD pour le jeu de Risk</h2>
+<figure>
+<embed src="build/images/diag_MDD.pdf" id="MDD-jeu-de-risk" /><figcaption aria-hidden="true">Modèle du domaine du jeu de Risk. <a href="http://www.plantuml.com/plantuml/uml/VPJDRjD04CVlbleE8r_ILab42XHXeQfLgQf29QAamAMNhJrr5gzdmtwaH0W9teRUUOEy2K_2h1tNReWgHUlOyvllltridJ3EbogoXQIvCA84wvOA-JGo3PQTZkb6f4LkjASirKeRS4QGPHEIsubwu6RI0ly4p0HbTqOwXmItcXn8Wi-ICdrd6Mm3PdWhl7818L4Yl3VI1f-BgrFchcPe4RIReR6Wj2uWDoYgODDFvx1RYe8BzGOvCovxV9N43Ic56MSrS79v2H-dPvDf9psCdkrrMzgim8ey7FHqdHTKm3lj3Gdr9FUjI3EOfaREtPFS67bKndOBwuxG6O-HJGNlPHJDP8Q0vTmjeSJoXjsYL0bhGq7e3NoF04YNaC2KTqXvz6DjVxkwhumBZiDSmbDnR6oyqK-aBPhRUAo4Gr4zYq5O64yQqrWixROiQ_E9S-AhnvgugUy4Iw3E5vvn8RT8TaiH7zBKpuMJcjRkazLzBalMbstHyGJYKGpxWm74BmxYkfu4JdcOaaauUaGSnhM5iAhXpBh1DMLo8Utgdl_nT8-Y5cW3zm_xr_Ig_vhFKPladDK_nv0Yt0SwmAFXSFy12HaMMbf9WooGwy7Mi1fKLowm1hzepsMmXZV1ZC6NSRMpXEMMAXyQwu6IEGNHomNF525jclO4oAzYYg24OGdl_ltvQozQIo8-I0xRv4sUf59CIBocjdKJHcDMVrJWTckmNzdsO3Zix2lgRKJX40_BsuZJQuUd_YVVmDXej_gT8wz7Upv4hQZeiLjTPgEs12u5fLitSqrTh1PVDWYJCzkwxn_qdpU3VnVUIsQYOtRXZ-4_">(PlantUML)</a></figcaption>
+</figure>
+<h2 id="attributs-dérivés">Attributs dérivés</h2>
+<p>Les attributs dérivés sont expliqués en détail dans la section 9.16  du livre du cours. Il s’agit des attributs qui sont calculés à partir d’autres informations reliées à la classe. Ils sont indiqués par le symbole <code>/</code> devant leur nom. L’exemple à la figure  s’applique à la règle du jeu de Risk spécifiant qu’un joueur reçoit un certain nombre de renforts selon le nombre de pays occupés. La classe Joueur pourrait avoir un attribut dérivé <code>/nbPaysOccupés</code> qui est calculé selon le nombre de Pays contrôlés par le joueur.</p>
+<figure>
+<embed src="build/images/attributs_derives_MDD.pdf" id="MDD-attribut-derive" /><figcaption aria-hidden="true">Classe d’association dans le MDD Jeu de Risk. <a href="http://www.plantuml.com/plantuml/uml/VPBFQXmn3CRlXho3s4kIqcowroKiAQ6Kf866JFwSDHvbnemjBx9DkfG-KEvzWtsnQcQtP6XXmTWO_VJfa-NBb55o2Twatl4Q1GEalF6akpWxH8uceHfjtqeitDZeeq0MvAGXudnaZY5tBe4kX0wvUHMNCp6yHCxW69uTD_4rAVWksD0B5fy7X34GV1ENXfphXolb7ZfA135t90byZ3sqGZYALKzVuIHWhqQBa5QcpR6UZhKXxwdHgWAVRs_XiVfoNqtAm-BJwRIbVnqaR8UD3_kyvXvkOX56Vv3xqTi6AYjkdGzoTwHF9MbgRFg4MGgPP57diZ2TQmWehFC60eLQquprcD9WY8h0JmF0CS0IAfqXjtgz6CUrh7sXrJdNTxX9twqjw-rRKinnlZWVYPNvjTSQaF-L_aR7PCmkyewfxxTlhGlw3VPwIkxTp1OpE3lJOpx_CDl9Bk5A-vRjRsrdPKvsuCSnTWhp-KJTN18t-WV_0000">(PlantUML)</a></figcaption>
+</figure>
+<h2 id="classes-dassociation">Classes d’association</h2>
+<p>Les classes d’association dans le MDD sont le sujet de la section A32.10/F26.10  du livre du cours.</p>
+<blockquote>
+<p>Une classe d’association permet de traiter une association comme une classe, et de la modéliser avec des attributs…</p>
+</blockquote>
+<p>Il pourrait être utile d’avoir une classe d’association dans un MDD si:</p>
+<ul>
+<li>un attribut est lié à une association;</li>
+<li>la durée de vie des instances de la classe d’association dépend de l’association;</li>
+<li>il y a une association <img style="vertical-align:middle" src="https://latex.codecogs.com/png.latex?%5Ctextstyle%20N" alt="N" title="N" class="math inline" />-<img style="vertical-align:middle" src="https://latex.codecogs.com/png.latex?%5Ctextstyle%20N" alt="N" title="N" class="math inline" /> entre deux concepts et des informations liées a l’association elle-même.</li>
+</ul>
+<p>Dans l’exemple à la figure , voici pourquoi il y a une classe d’association Occupation. Lorsqu’un Joueur contrôle un Pays, il doit y avoir des armées dans ce dernier. Le MDD pourrait avoir un attribut <code>nbRégiments</code> dans la classe Pays. Cependant, l’attribut <code>nbRégiments</code> est lié à l’association entre le Joueur et le Pays qu’il contrôle, alors on décide d’utiliser une classe d’association.</p>
+<p>Si un Joueur envahit un Pays, la nouvelle instance de la classe d’association Occupation sera créée (avec la nouvelle association). Pourtant, cette instance d’Occupation sera détruite si un autre Joueur arrive à prendre le contrôle du Pays. Alors, la durée de vie de cette instance dépend de l’association.</p>
+<p>Voir le livre obligatoire pour plus d’exemples.</p>
+<figure>
+<embed src="build/images/classe_association_MDD.pdf" id="MDD-classe-association" /><figcaption aria-hidden="true">Classe d’association dans le MDD Jeu de Risk. <a href="http://www.plantuml.com/plantuml/uml/VPBFIWD13CRl0xv3wALLRB5N3r8f8bL1wVhddCwckyFEP4fc5YtY0tdt3NmnirPm4ImCayFtI_9bChEKKN8Rl4cDumqA1aXvwqblSRPJ3dhI2crJIMovjD57WIp8IINYV626a6kNG0z2ZLm-YykP6DQHCpY69yTbV4uA_XOiQOsjpnt260YknQKkPt4_L-w-faGGSqsImCVOG2M4tyMAnqiO1MpKQ2kadMaxrEXO1_AUIkqgS7vp0m_5nRBejOVfoM5_fByE4bRTnVjzBhY1gzWAez_BlJIsXCAAs-Izt1tfKqdg6-i_OPQMJBAeUvcQsfK453Pv2u72IjECzPXIPuXQWLS3m370AHIwGwxCsuz-XzlqltfhRRl1x2BlcDNoyxroGLUR57QSbVpfC9WEO3pMC9aS3NPbJs6kiyZdXreyCwCTUFoj7S9aqgjkPiIb_gil">(PlantUML)</a></figcaption>
+</figure>
+<h2 id="affinement-du-mdd">Affinement du MDD</h2>
+<p>Lorsqu’on modélise un domaine, il est normal de commencer avec un modèle simple (à partir d’un ou deux cas d’utilisation) et ensuite on l’affine dans les itérations suivantes, où on y intègre d’autres éléments plus subtils ou complexes du problème qu’on étudie. Les détails de cette approche sont présentés dans le chapitre F26/A32  du livre du cours. Bien que la matière soit présentée plus tard dans le livre, ce sont des choses à savoir pour la modélisation d’un domaine, même dans une première itération.</p>
+<p>Voici un résumé des points importants traités dans ce chapitre, dont quelques-uns ont déjà été présentés plus haut:</p>
+<ul>
+<li>Composition/Agrégation</li>
+<li>Généralisation/spécialisation</li>
+<li>Attribut dérivé</li>
+<li>Hiérarchies dans un MDD et héritage dans l’implémentation</li>
+<li>Noms de rôles</li>
+<li>Organisation des classes conceptuelles en Packages</li>
+</ul>
+<h2 id="faq-mdd">FAQ MDD</h2>
+<p><strong>Question:</strong> Est-ce qu’il y a un MDD pour chaque cas d’utilisation?</p>
+<p><strong>Réponse:</strong> Selon la méthodologie du livre du cours, il n’y a qu’un seul MDD pour un domaine d’application. Une application peut avoir beaucoup de fonctionnalités (cas d’utilisation), mais il y a un seul MDD.</p>
+<p>Cela dit, la notion d’une <em>version</em> de MDD existe (par exemple, une version pour chaque itération). Le MDD évoluera normalement après chaque nouvelle analyse. Le MDD au début d’un projet est plus simple, puisqu’il porte sur seulement les cas d’utilisation ciblés à la première itération. Le MDD devient plus riche au fur et à mesure qu’on avance dans les itérations, parce qu’il a de plus en plus de fonctionnalités réalisées.</p>
+<div id='dss'/>
+<h1 id="diagrammes-de-séquence-système-dss">Diagrammes de séquence système (DSS)</h1>
+<p>Un diagramme de séquence système (DSS) est un diagramme UML (diagramme de séquence) limité à un acteur (provenant du scénario d’un cas d’utilisation) et le Système. Les DSS sont expliqués en détails dans le chapitre 10  du livre du cours, mais voici des points importants pour LOG210:</p>
+<ul>
+<li>Le DSS a toujours un titre.</li>
+<li>L’acteur est indiqué dans la notation par un bonhomme et est représenté comme une <em>instance</em> de la classe du bonhomme, comme <code>:Joueur</code> dans la figure  (le “:” signifie une instance).</li>
+<li>Le Système est un objet (une instance <code>:Système</code>) et n’est jamais détaillé plus.</li>
+<li>Le but du DSS est de définir des opérations système (Application Programming Interface) du système; il s’agit d’une conception de haut niveau.</li>
+<li>Le côté acteur du DSS n’est pas un acteur tout seul, mais une couche logicielle de présentation, comme une interface graphique ou un logiciel qui peut reconnaître la parole. Cette couche reconnaît des gestes de l’acteur (par exemple un clic sur un bouton dans l’interface, une demande “Hé Siri”, etc.) et envoie une opération système.</li>
+<li>Puisque la couche présentation reçoit des informations des êtres humains, <em>les opérations système ont des arguments de type primitif</em>. Il est difficile pour un utilisateur de spécifier une référence (pointeur en mémoire) à un objet. Alors, on peut donner le nom (de type <code>String</code>) d’un morceau de musique à jouer, ou spécifier une quantité (de type <code>Integer</code>).</li>
+<li>Puisque les types des arguments sont importants, on les spécifie dans les opérations système du DSS.</li>
+<li>Un message de retour (ligne pointillée avec flèche ouverte) vers l’acteur représente la communication des informations précises, par exemple les valeurs des dés dans l’attaque. Puisque la couche présentation a beaucoup de moyens pour afficher ces informations, <em>on ne va pas spécifier les messages de retour comme des méthodes</em>.</li>
+</ul>
+<h2 id="exemple-dss-pour-attaquer-un-pays">Exemple: DSS pour Attaquer un pays</h2>
+<p>La figure  est un exemple de DSS pour le cas d’utilisation <em>Attaquer un pays</em>. Vous pouvez noter tous les détails (titre, arguments, types).</p>
+<figure>
+<embed src="build/images/diag_DSS.pdf" id="DSS-attaquer-un-pays" /><figcaption aria-hidden="true">Diagramme de séquence système pour <em>Attaquer un pays</em>. <a href="http://www.plantuml.com/plantuml/uml/VLFBRjj03BmBo3yGlZW6uhP1RuPXn6YA8cqA557INd9XLhIyi4Ifv2uI_r7r7VgnSkFOKN8me1V4uN268rreG0cnhZBTU6vHi0ODsuhiAjwboicWz81kKqeJkN1DrGW4GLOh4OUJR0nXxHNiG5WZ5u_YGo26LSC1FCCVpqNpg0Py9IneXR4A2S9O4_mGhwddwlQBuMxNf0HDM9CeL4spWL88dydotz_WjCQD2Or2DfcsOxjxDaDLHOLD5LXUNyDT_lKc7uo7yq-JeQNt2XJBTE7ZEgzu0z-RA8pLKTpJnXMGE_5jE8hxHROgqQ6muGg3HChKeULo_k7pC2lw6uaT_IHDmfULBncSnK6I1HyCVvddq9fIcFl5CWGql41aQ76hyuz-aQ4BjghHpEnGb16WWikCFNZdMxJeHhDygw7_LzDpKJCtNIZCeEYx6aL8NcXF4-NkERND8BTFYCkpUqw5oxvR4QkDE5GccMNQcX85qrjxxhizDp8tPkj0pGytVLVwsfoz6U4vJDxtx2UzQTgzB8PTy_bqclgaxzIomA0MIphZ4rIOcFGi5LyOe2Kfei8z5mJL60ygA40HqpRs_cphpZprdLltdI4o6vm-ttQlTEVsrTqakp28_Ml_0G00">(PlantUML)</a></figcaption>
+</figure>
+<h2 id="les-dss-font-abstraction-de-la-couche-présentation">Les DSS font abstraction de la couche présentation</h2>
+<p>Le but du DSS est de se concentrer sur l’API (les opérations système) de la solution. Dans ce sens, c’est une conception de haut niveau. Le “Système” est modélisé comme une boîte noire. Par exemple, dans la figure  il y a l’acteur, le Système et une opération système. On ne rentre pas dans les détails, bien qu’ils existent et sont importants.</p>
+<figure>
+<embed src="build/images/diag_OS_DSS.pdf" id="DSS-abstraction" /><figcaption aria-hidden="true">Une opération système dans un DSS. C’est une abstraction. <a href="http://www.plantuml.com/plantuml/uml/VLB1IWD13Bqlz1z2Bwq7YyLR3z8Y8ce5SQkUusniXvtDr2HBxH_fT_J7pFRYug4mP0xl9Nd9ormDnTec5Lf7tg9W0shxH1ubXWuPzA1t3FLQSijLo2aBc22hGyGsA4PWcwZW3s63NEqacX73HsQ3oF0MkSexTU9VmOe-i4tMKHWRWWU9skNShQwTjzgG4cJRa2Yad6jO2-6nMFbw2-C6QnVQ2dbdse_yZ-m3fKILTnLOB9VmKjuybxtsCBquwu_qNu7YkWjyMkSTrt2VMs5C9tbVTQYW31AtTfBtHBugqRwm_WfDMYeqeFiodLpslQBFbZZG8sadV97YcY6u7IG51lCT36UkareP0Yg4mjCiXhX5zsGuA_TgX--6Zg0MuVnAOGRLuQT14PA56NhzyMGoEIlcn9MVmoy0">(PlantUML)</a></figcaption>
+</figure>
+<p>Plus tard, lorsque c’est le moment d’implémenter le code, les détails importants seront à respecter. Il faut faire attention aux principes de la séparation des couches présentation et domaine. Par exemple, la figure  rentre dans les détails de ce qui se passe réellement dans une opération système quand la solution fonctionne avec un service web:</p>
+<ul>
+<li>D’abord, l’acteur clique sur un bouton;</li>
+<li>Ce clic se transforme en service REST;</li>
+<li>Un routeur transforme l’appel REST en une opération système envoyée à un contrôleur GRASP. Notez que c’est un <strong>objet du domaine qui reçoit l’opération système</strong> – c’est l’essence du principe GRASP Contrôleur;</li>
+<li>Le contrôleur GRASP dirige la suite, selon la solution proposée dans la réalisation de cas d’utilisation (RDCU).</li>
+</ul>
+<figure>
+<embed src="build/images/diag_couches_DSS.pdf" id="DSS-details" /><figcaption aria-hidden="true">Une opération système est envoyée par la couche présentation et elle est reçue dans la couche domaine par son contrôleur GRASP. Ceci est un exemple avec un navigateur web, mais d’autres possibilités existent pour la couche présentation. <a href="http://www.plantuml.com/plantuml/uml/VLJ1RXen4Bslb7yOqKC2Ig6ebmf5gm29qgH9YrZIN7ePx06SDVPsx4r8lwYvzm_uiSwksdH1LQILlVAyUU_DZENJ495ZkRP9o8qha74D8JvPafMDgY87ZT0SLRvaNpgjlFKCaT452P6B1yaXn9K981_22fr-P1CZELXu5y4uk3DE-ySWm7-4cXPOsbX17Au9Fh49LSxbR2ousOe2WOyhuW3M-noMJ5YJPLylu6YDkHWjcKIPdWvbDquAifQqg38Chw_XDZkVPWrvwBzhDqlQTn1mMItkTP-NBeShNx93-ofkaoiDcM9Jn5Tn4v9MSMWQQxOmSab9K2XpwNVVDsT5tqjoYcueLCQ7rYmTA1a7SGCbQpJA5EZY1BKsRYbT-0_Bo6z6dZNnU7-w2Qee9ws154qbjm03t2Tplu7Ms9TgHL3mzZa84gFnhWLlj5uij4uQqf8zAcEief8zXvEJp_XWbXY5y8xcQGfxwAalurynhk1Uq_ccOAarJHDo6iJ0ZWdjrsWSrVALWJt2Aogd9kGreHB2iRIVjx-iY5nCXzb4M7SIkjrkZGqlOlVmDXNh0r3MICyucSj1Aku6y74scy35-UoRws5XUW_zdju-hv6PU1WZ2hedV8dpKQxq0t6TL9V8zQojx4T_ocid_CAhQOUaIN0CQW1VYkqprrs7y1JYzgTS9r5U66VaHoO8PrbMyqdD0-XqJeBvGOF-XtIF-KZijJkTH5NG8D1Tk-guFWnaHSaYJC_6jycfD4RUYDy0">(PlantUML)</a></figcaption>
+</figure>
+<blockquote>
+<p> La figure  est à titre d’information seulement. Les DSS sont censés être simples (sans rentrer dans les détails). C’est de la conception à haut niveau.</p>
+</blockquote>
+<h2 id="faq-dss">FAQ DSS</h2>
+<p><strong>Question:</strong> Comment faire si un cas d’utilisation a des <em>scénarios alternatifs?</em> Fait-on plusieurs DSS (un pour chaque scénario) ou utilise-t-on la notation UML (des blocs <code>opt</code> et <code>alt</code>) pour montrer des flots différents dans le même DSS?</p>
+<p><strong>Réponse:</strong> Un objectif de faire un DSS est de <strong>définir les opérations système</strong>. Donc, on peut se poser la question suivante: les scénarios alternatifs impliquent-ils une ou plusieurs opérations système n’ayant pas encore été définies? Si la réponse est non, on peut ignorer les scénarios alternatifs dans le DSS. Par contre, si la réponse est oui, il est essentiel de définir ces opérations système dans un DSS. Quant au choix de faire des DSS séparés ou d’utiliser la notation UML pour montrer les flots différents sur le même DSS, ça dépend de la complexité de la logique des flots. Un DSS devrait être <em>facile à comprendre</em>. C’est à vous de juger si votre DSS avec des <code>opt</code> ou <code>alt</code> est assez simple ou fait du spaghetti. Utilisez un autre DSS (ou plusieurs) ayant le nom des scénarios alternatifs si cela vous semble plus clair.</p>
+<p><strong>Question:</strong> Puisqu’une opération système doit avoir seulement des arguments de type primitif, j’ai plusieurs opérations système avec de nombreux (plus que 5) arguments. Pourquoi il n’est pas permis de passer des objets comme argument?</p>
+<p><strong>Réponse:</strong> Il n’est pas conseillé de passer des <em>objets du domaine</em> comme argument, puisque c’est la couche présentation qui invoque l’opération système. Si cette couche manipule les objets du domaine, cela ne respecte pas la séparation des couches. Une solution est d’appliquer un  pour le <em>smell</em> nommé <em>Long Parameter List</em>, par exemple <a href="https://refactoring.com/catalog/introduceParameterObject.html">Introduce Parameter Object</a>. Notez que l’objet que vous introduisez n’est pas un objet (classe) du domaine! La distinction est importante, car la logique d’affaires est toujours en dehors de la couche de présentation.</p>
+<p><strong>Question:</strong> Décortiquer toutes les informations dans un formulaire web est compliqué, puis on doit passer tout ça à un contrôleur GRASP comme des arguments de type primitif. Ne serait-il pas plus simple de passer l’objet <code>body</code> de la page web au contrôleur GRASP et le laisser faire le décorticage?</p>
+<p><strong>Réponse:</strong> Dans un sens ça serait plus simple (pour le code de la couche de présentation). Cependant, le but de séparer les couches est de favoriser l’utilisation d’autres couches présentation, par exemple à travers une application iOS ou Android. Si vous mettez la logique de la couche présentation (décortiquer un formulaire web) dans la couche domaine (le contrôleur GRASP), ça ne respecte pas les responsabilités des couches. Imaginez un tel contrôleur GRASP si vous avez 3 types d’application frontale (navigateur web, application iOS et application Android). Le contrôleur GRASP recevra des représentations de “formulaire” de chaque couche présentation différente (<code>body</code> n’a rien à voir avec une interface Android). Ce pauvre contrôleur serait obligé de connaître alors toutes les trois formes (web, iOS, Android) et ainsi sa cohésion sera beaucoup plus faible. Laisser la couche présentation faire le décorticage et construire une opération système selon l’API définie dans le DSS simplifie le contrôleur GRASP et respecte les responsabilités des couches.</p>
+<div id='grasp'/>
+<h1 id="principes-grasp">Principes GRASP</h1>
+<p>GRASP est un acronyme de l’expression anglaise “General Responsibility Assignment Software Patterns” c’est-à-dire les principes pour affecter les responsabilités logicielles dans les classes.</p>
+<p>Une approche GRASP devrait amener un design vers la modularité et la maintenabilité.</p>
+<p>L’acronyme d’une expression vulgarisée pourrait être POMM: “Principes pour déterminer Où Mettre une Méthode”.</p>
+<p>En tant qu’ingénieur logiciel, vous devez décider souvent où placer une méthode (dans quelle classe) et cette décision ne devrait pas être prise de manière arbitraire, mais plutôt en suivant les directives d’ingénierie favorisant la modularité.</p>
+<p>Alors, les GRASP sont les directives qui vous aident à prendre des décisions de conception, menant à un design avec moins de couplage inutile et des classes plus cohésives. Les classes cohésives sont plus faciles à comprendre, à maintenir et à réutiliser.</p>
+<blockquote>
+<p> Avez-vous déjà une bonne expérience en programmation? Avez-vous l’habitude de coder rapidement des solutions qui fonctionnent? Si la réponse est oui, alors travailler avec les principes GRASP peut être un défi pour vous. Vous devez être en mesure de justifier vos choix de conception et cela va vous ralentir au début. Le but avec GRASP (et le cours LOG210) est d’apprendre à faire du code facile à maintenir. C’est normal au début que ça prenne plus de temps. Mais une fois que vous avez l’habitude à l’utiliser, vous serez aussi rapide avec votre développement, mais en plus votre design sera meilleur sur le plan de la maintenabilité.</p>
+</blockquote>
+<h2 id="SpectreDeLaConception">Spectre de la conception</h2>
+<p>Neal Ford <span class="citation" data-cites="Ford2009">[-@Ford2009]</span> a <a href="https://www.ibm.com/developerworks/library/j-eaed1/index.html">proposé</a> la notion d’effort pour la conception qu’il a nommée le “Spectre de la conception”. La figure  illustre le principe.</p>
+<figure>
+<embed src="build/images/spectre.pdf" id="Spectre_conception" /><figcaption aria-hidden="true">Spectre de la conception, adapté de Neal Ford. <a href="http://www.plantuml.com/plantuml/uml/VLJRRjf047stb7yOvIK95LNIlbK81KWlQQEgAg5zW3oiTmTxvVMkjHTHyaTHFw5loOzrriR4X0Z9CjAPCsTcpW4kdMVMXr8bhf2wOfQLuFnQ8RsjvB5or2cbZ1UPDK4BRfInu2tJZage_L5o0ZwN3kXXa3CjLbPwZngMHdkG6dvBBSpA4V5PKE2I1UKZHRCIuPkLBlPStqw8TvkZGp0-H-j06LD0Pf7LOjDVd-6qP0Kj6YpIP5oVqAVKT91IA6YgXT7D3Soc7tzEE-FXuloiUzBB3HpBuaiVtlDQ5_3L1AkPEiZxKt01KsvbvG_oVY1PPLrtiQw5tWPC76UKoyNRTnqILyoviR42xQHE99T2eDvZR7Cxn1fPQrOD8LNKaH0jVX7Gel7h2bq3O5dvDPHOfhHnKdV2yS39U_pm_dnuTmpCmOfHrvAIQEkFVs72w0Bghs9WZ_zgtdTUjOnUxqslLuEf24iO34fQKk5ms1B6o08teIBp5feRpR7oqkY5PW74qqCQ_4AVZgzcdyuQwIYpB_wwzan3XII3z3YPlH2T6eheMVXLNPP9IcTVUHJnfe-rsDLcnjD3YJQZ7yz65_VSdDULdCAGEkju-QL1W9jLQjPRD_CasJeFVOLBFq-D4dVzsjEaDdO7ZkWUM9-ID0Vj5DezEaC6_J0NpEKOwp7D9ho-wA1fEsMN7D6DQpjqWLkuIsV9PlmBUfvSeXRqH_KV">(PlantUML)</a></figcaption>
+</figure>
+<p>À une extrémité il y a la notion de mettre presque zéro effort pour une conception, que l’on nomme “Hacking cowboy”. C’est le cas lors d’un hackathon (un marathon de programmation durant 24 ou 48 heures où il faut produire une solution rapidement). Vous ne feriez pas un logiciel avec 10 patrons GoF ou les diagrammes UML pour réfléchir à votre architecture. Mais vous savez aussi que le code qui est produit lors d’un hackathon ne sera pas facile à maintenir. Le seul but est de faire du code qui marche.</p>
+<p>Au fait, dans certains contextes d’entreprise (par exemple une entreprise en démarrage qui a seulement six mois de financement), c’est une attitude similaire. Si une solution de <a href="https://en.wikipedia.org/wiki/Minimum_viable_product">“produit minimum viable” (MVP en anglais)</a> n’existe pas à la fin de la période de financement, l’entreprise n’existera plus, car il n’y aura pas une deuxième période de financement. Si la compagnie est financée pour une deuxième période, la conception du code aura besoin de beaucoup de soins, car elle a été négligée. Cette négligence à la conception est aussi nommée la .</p>
+<p>À l’autre extrémité du spectre, c’est beaucoup d’effort dépensé sur la conception, que l’on nomme “Cascade pure”. Dans le cycle de vie en cascade, on met un temps fixe, par exemple plusieurs mois, à étudier la conception. Comme toute chose poussée à l’extrême, ce n’est pas idéal non plus. Dans le livre du cours, Larman explique en détail des problèmes posés par une approche en cascade. Dans certains domaines, par exemple les logiciels pour le contrôle d’avion ou des appareils médicaux, une approche en cascade est toujours utilisée, en dépit des problèmes dus à l’approche. La sécurité des logiciels est très importante, alors on passe beaucoup de temps à vérifier et valider la conception. Puisque les exigences sont plus stables (et les développeurs ont <em>a priori</em> une meilleure compréhension du domaine), l’approche en cascade n’est pas si mal. Pourtant le coût pour produire des logiciels certifiés est énorme.</p>
+<p>Le spectre de la conception est très important pour LOG210, parce que c’est le contexte de l’entreprise pour laquelle vous travaillez qui déterminera combien d’effort à mettre sur la conception. Si vous négligez complètement la conception, vous pouvez peut-être produire du code qui fonctionne plus vite à court terme. Mais il faudra repayer la dette technique un jour. Un moyen de gérer cette dette technique est de <em>réusiner</em> (anglais refactor).</p>
+<h2 id="GRASPTable">Tableau des principes GRASP</h2>
+<p>Voici un extrait du livre du cours, <strong>UML 2 et les design patterns</strong> de Craig Larman.</p>
+<table>
+<caption>Patterns (principes) GRASP </caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Expert en information <em>F16.11/A17.11</em> </td>
+<td><p>Un principe général de conception d’objets et d’affectation des responsabilités. </p>
+<p>Affecter une responsabilité à l’expert – la classe qui possède les informations nécessaires pour s’en acquitter. </p></td>
+</tr>
+<tr class="even">
+<td>Créateur <em>F16.10/A17.10</em> </td>
+<td><p>Qui crée?  (Notez que Fabrique Concrète est une solution de rechange courante.) Affectez à la classe B la responsabilité de créer une instance de la classe A si l’une des assertions suivantes est vraie:</p>
+<ol type="1">
+<li>B contient A</li>
+<li>B agrège A</li>
+<li>B a les données pour initialiser A</li>
+<li>B enregistre A</li>
+<li>B utilise étroitement A</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td>Contrôleur <em>F16.13/A17.13</em> </td>
+<td><p>Quel est le premier objet en dehors de la couche présentation qui reçoit et coordonne (“contrôle”) les opérations système? Affectez une responsabilité à la classe qui correspond à l’une de ces définitions:</p>
+<ol type="1">
+<li>Elle représente le système global, un “objet racine”, un équipement ou un sous-système (contrôleur de façade).</li>
+<li>Elle représente un scénario de cas d’utilisation dans lequel l’opération système se produit (<em>contrôleur de session</em> ou contrôleur de cas d’utilisation). On la nomme GestionnaireX, où X est le nom du cas d’utilisation</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td>Faible Couplage (évaluation) <em>F16.12/A17.12</em> </td>
+<td>Comment minimiser les dépendances? Affectez les responsabilités de sorte que le couplage (inutile) demeure faible. Employez ce principe pour évaluer les alternatives. </td>
+</tr>
+<tr class="odd">
+<td>Forte Cohésion (évaluation) <em>F16.14/A17.14</em> </td>
+<td>Comment conserver les objets cohésifs, compréhensibles, gérables et, en conséquence, obtenir un Faible Couplage? Affectez les responsabilités de sorte que les classes demeurent cohésives. Employez ce principe pour évaluer les différentes solutions. </td>
+</tr>
+<tr class="even">
+<td>Polymorphisme <em>F22.1/A25.1</em> </td>
+<td>Qui est responsable quand le comportement varie selon le type? Lorsqu’un comportement varie selon le type (classe), affectez la responsabilité de ce comportement — avec des opérations polymorphes — aux types pour lesquels le comportement varie. </td>
+</tr>
+<tr class="odd">
+<td>Fabrication Pure <em>F22.2/A25.2</em> </td>
+<td>En cas de situation désespérée, que faire quand vous ne voulez pas transgresser les principes de faible couplage et de forte cohésion? Affectez un ensemble très cohésif de responsabilités à une classe “comportementale” artificielle qui ne représente pas un concept du domaine — une entité fabriquée pour augmenter la cohésion, diminuer le couplage et faciliter la réutilisation.</td>
+</tr>
+<tr class="even">
+<td>Indirection <em>F22.3/A25.3</em> </td>
+<td>Comment affecter les responsabilités pour éviter le couplage direct? Affectez la responsabilité à un objet qui sert d’intermédiaire avec les autres composants ou services.</td>
+</tr>
+<tr class="odd">
+<td>Protection des variations <em>F22.4/A25.4</em> </td>
+<td>Comment affecter les responsabilités aux objets, sous-systèmes et systèmes de sorte que les variations ou l’instabilité de ces éléments n’aient pas d’impact négatif sur les autres? Identifiez les points de variation ou d’instabilité prévisibles et affectez les responsabilités afin de créer une « interface » stable autour d’eux.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grasp-et-rdcu">GRASP et RDCU</h2>
+<p>Les principes GRASP sont utilisés dans les réalisations de cas d’utilisation (RDCU). On s’en sert pour annoter des décisions de conception, pour rendre explicite (documenter) les choix. Voir la section  pour plus d’informations.</p>
+<h2 id="grasp-et-patterns-gof">GRASP et Patterns GoF</h2>
+<p>On peut voir les principes GRASP comme des généralisations (principes de base) des patterns GoF. Voir la section  pour plus d’informations.</p>
+<div id='dette'/>
+<h1 id="DetteTechnique">Dette technique</h1>
+<p>Ce chapitre contient des informations sur le concept de la <a href="https://fr.wikipedia.org/wiki/Dette_technique">dette technique</a>, qui n’est pas un sujet du livre du cours.</p>
+<p>Pour rajouter une nouvelle fonctionnalité à un système, les développeurs ont souvent un choix entre deux façons de procéder. La première est facile à mettre en place (le “Hacking cowboy” sur ), mais elle est souvent désordonnée et rendra sûrement plus difficiles des changements au système dans le futur. L’autre est une solution élégante et donc plus difficile à rendre opérationnelle, mais elle facilitera des modifications à venir. Comment prendre la décision? La <em>dette technique</em> est une métaphore pour aider à comprendre des conséquences à long terme pour des choix de conception permettant de livrer une fonctionnalité à court terme.</p>
+<p>La dette est une forme de risque qui peut apporter des bénéfices ou des pertes. Tout dépend de la quantité d’intérêt à payer. L’inventeur du wiki, Ward Cunningham (réf), a utilisé la métaphore de la dette dans un projet de développement de logiciel de gestion de portefeuille réalisé dans une variante du langage Smalltalk:</p>
+<blockquote>
+<p>Un autre piège plus sérieux est l’échec à consolider [un design]. Bien que le code non raffiné puisse fonctionner correctement et être totalement acceptable pour le client, des quantités excessives de ce genre de code rendront le programme impossible à maîtriser, ce qui entraînera une surspécialisation des programmeurs et, finalement, un produit inflexible. Livrer du code non raffiné équivaut à s’endetter. Une petite dette accélère le développement tant qu’elle est remboursée rapidement avec une réécriture. [Le paradigme des] objets rendent le coût de cette transaction tolérable. Le danger survient lorsque la dette n’est pas remboursée. Chaque minute passée sur un code qui n’est pas tout à fait correct compte comme un intérêt sur cette dette. Des organisations entières peuvent être bloquées par l’endettement d’une implémentation non consolidée, orientée objet ou autre.</p>
+</blockquote>
+<p>Comme c’est une métaphore puissante, beaucoup de développeurs l’utilisent et c’est un terme avec une certaine popularité, comme on peut voir à la figure . Dans une <a href="https://www.youtube.com/watch?v=pqeJFYwnkjE">vidéo</a> plus récente, Cunningham a rappelé que la notion originale de la métaphore s’inspire du code qui est incohérent par rapport à un problème complexe plutôt que du code simplement “mal écrit”:</p>
+<blockquote>
+<p>L’explication que j’ai donnée à mon patron, et c’était un logiciel financier, était une analogie financière que j’ai appelée “la métaphore de la dette”. Et cela veut dire que si nous ne parvenions pas à aligner notre programme sur ce que nous considérions alors comme la bonne façon de penser à nos objets financiers, alors nous allions continuellement trébucher sur ce désaccord et cela nous ralentirait, comme payer des intérêts sur un prêt.<br />
+ <br />
+[…]<br />
+ <br />
+Beaucoup de gens (au moins des blogueurs) ont expliqué la métaphore de la dette et l’ont confondue, je pense, avec l’idée que vous pourriez écrire mal le code avec l’intention de faire du bon travail plus tard et de penser que c’était la principale source de dette. Je ne suis jamais favorable à l’écriture médiocre du code, mais je suis en faveur de l’écriture de code pour refléter votre compréhension actuelle d’un problème, même si cette compréhension est partielle.</p>
+</blockquote>
+<p>Fowler a également <a href="https://martinfowler.com/bliki/TechnicalDebtQuadrant.html">abordé le sujet de la dette</a>, notamment à propos de la distinction entre du code “mal écrit” et les compromis de conception faits avec une intention d’accélérer le développement:</p>
+<blockquote>
+<p>Je pense que la métaphore de la dette fonctionne bien dans les deux cas - la différence est dans la nature de la dette. Le code mal écrit est une dette imprudente qui se traduit par des paiements d’intérêts paralysants ou une longue période de remboursement du principal. Il y a quelques projets où nous avons pris en charge une base de code avec une dette élevée et avons trouvé la métaphore très utile pour discuter avec la direction de notre client de comment l’aborder.<br />
+ <br />
+La métaphore de la dette nous rappelle les choix que nous pouvons faire avec les anomalies de conception. La dette prudente qui a permis de compléter une version du logiciel ne vaut peut-être pas la peine d’être remboursée si les paiements d’intérêts sont suffisamment faibles, par exemple si les anomalies sont dans une partie rarement touchée de la base de code.<br />
+ <br />
+La distinction utile n’est donc pas entre dette ou non-dette, mais entre <strong>dette prudente et imprudente</strong>.<br />
+ <br />
+[…] Il y a aussi une différence entre la <strong>dette délibérée et involontaire</strong>. L’exemple de la dette prudente est délibéré parce que l’équipe sait qu’elle s’endette et réfléchit donc à la question de savoir si le bénéfice de livrer plus tôt une version du logiciel est supérieur au coût de son remboursement. Une équipe ignorante des pratiques de conception prend sa dette imprudente sans même constater à quel point elle s’endette.<br />
+ <br />
+La dette imprudente pourrait aussi être délibérée. Une équipe peut connaître les bonnes pratiques de conception, voire être capable de les mettre en pratique, mais décide finalement d’aller “à la va-vite” parce qu’elle pense qu’elle ne peut pas se permettre le temps nécessaire pour écrire du code propre.</p>
+</blockquote>
+<figure>
+<embed src="images/TechnicalDebtGoogleTrends.pdf" id="TechnicalDebtGoogleTrends" /><figcaption aria-hidden="true">Tendances Google (trends.google.com) pour le terme “dette technique” (anglais <em>technical debt</em>)</figcaption>
+</figure>
+<p>La dette peut être classifiée dans un quadrant comme dans le tableau  proposé par Fowler. Selon lui, la dette dont Ward Cunningham a parlé dans sa vidéo peut être classifiée comme “prudente et involontaire”. Fowler remarque que selon son expérience, la dette “imprudente et délibérée” est rarement rentable.</p>
+<table>
+<caption>Classification de la dette selon Fowler (2009)</caption>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dette</th>
+<th style="text-align: left;">Imprudente</th>
+<th style="text-align: left;">Prudente</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Délibérée</td>
+<td style="text-align: left;"><em>On n’a pas le temps pour la conception!</em> Cette forme de dette est rarement rentable.</td>
+<td style="text-align: left;"><em>Il faut livrer maintenant puis en assumer les conséquences.</em> Exemple: La dette est due à une partie limitée du code.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Involontaire</td>
+<td style="text-align: left;"><em>C’est quoi la séparation en couches?</em> Il s’agit de l’ignorance de bonnes pratiques.</td>
+<td style="text-align: left;"><em>Maintenant on sait comment on aurait dû le faire.</em> C’est tenter une solution malgré une compréhension limitée du problème.</td>
+</tr>
+</tbody>
+</table>
+<div id='contrat'/>
+<h1 id="contrats-dopération">Contrats d’opération</h1>
+<p>Les contrats d’opération sont le sujet du chapitre 11  du livre du cours. Voici les points importants pour le cours:</p>
+<ul>
+<li>On ne spécifie pas les préconditions dans les contrats.</li>
+<li>Un contrat d’opération correspond à une opération système provenant d’un DSS.</li>
+<li>Ne pas confondre les postconditions d’un contrat d’opération et d’un cas d’utilisation. Ce sont deux choses différentes.</li>
+<li>Une postcondition décrit les modifications de l’état des objets dans le modèle du domaine après une opération système.</li>
+<li>Le vocabulaire pour les postconditions provient du modèle du domaine. Il s’agit des noms de classes, d’attributs et d’associations qu’on trouve dans le MDD.</li>
+<li>Chaque postcondition doit avoir la bonne forme:
+<ul>
+<li>création (ou suppression) d’instances;</li>
+<li>modification des valeurs des attributs;</li>
+<li>formation (ou rupture) d’associations.</li>
+</ul></li>
+<li>En rédigeant les contrats, il est normal de découvrir dans le modèle du domaine des incohérences ou des éléments manquants. Il <em>faut</em> les corriger (il faut changer le MDD), car cela fait partie d’un processus itératif et évolutif.</li>
+</ul>
+<h2 id="quest-ce-quun-contrat-dopération">Qu’est-ce qu’un contrat d’opération</h2>
+<p>Un contrat d’opération est un document décrivant ce qui est arrivé après l’exécution d’une opération système. Cette description est présentée sous forme de postconditions utilisant le vocabulaire du modèle du domaine.</p>
+<p>Le MDD décrit la vraie vie. Il y a des classes conceptuelles (comme Vente) mais aussi des <em>instances</em> de ces classes. Dans un magasin, pour chaque nouvelle vente, on imagine une nouvelle instance de la classe Vente. S’il y a eu 72 clients qui ont acheté des choses dans un magasin dans une journée, on imagine 72 instances de Vente, une pour chaque client.</p>
+<p>Dans la figure , l’opération système <code>créerNouvelleVente()</code> provient d’un diagramme de séquence système lié au cas d’utilisation <em>Traiter Vente</em>. Elle correspond au moment où le caissier démarre une nouvelle vente pour un client. Avant l’exécution de cette opération, l’instance de la classe Vente indiquée dans le modèle du domaine n’existe pas. Cependant, après l’exécution de l’opération système, l’instance de Vente devrait exister. Le contrat d’opération spécifie ce fait dans une postcondition (avec le passé composé en français): “une instance <em>v</em> de Vente a été créée”.</p>
+<p>Un contrat d’opération permet de spécifier tous les changements dans le MDD qui doivent avoir lieu lors de l’opération système. Les postconditions du contrat saisissent l’évolution du MDD.</p>
+<figure>
+<embed src="images/SurvolContrats.pdf" id="ContratExempleCreerNouvelleVente" /><figcaption aria-hidden="true">Pendant l’opération système <code>créerNouvelleVente</code>, une instance de Vente doit être créée. Le contrat d’opération le spécifie dans une postcondition.</figcaption>
+</figure>
+<h2 id="exemple-contrats-dopération-pour-attaquer-un-pays">Exemple: Contrats d’opération pour Attaquer un pays</h2>
+<h3 id="attaquer-un-pays">Attaquer un pays</h3>
+<h4 id="opération-démarrerattaquepaysattaquantstring-paysdéfenseurstring">Opération: <code>démarrerAttaque(paysAttaquant:String, paysDéfenseur:String)</code></h4>
+<h5 id="postconditions">Postconditions</h5>
+<ul>
+<li>une nouvelle instance <em>a</em> de Attaque a été créée</li>
+<li><em>a</em> a été associée au Pays sur une base de correspondance avec paysAttaquant</li>
+<li><em>a</em> a été associée au Pays sur une base de correspondance avec paysDéfenseur</li>
+</ul>
+<h4 id="opération-annoncerattaquenbrégimentsattaquantint">Opération: <code>annoncerAttaque(nbRégimentsAttaquant:int)</code></h4>
+<h5 id="postconditions-1">Postconditions</h5>
+<ul>
+<li>a.nbAttaquant est devenu nbRégimentsAttaquant</li>
+</ul>
+<h4 id="opération-annoncerdéfensenbrégimentsdéfendantint">Opération: <code>annoncerDéfense(nbRégimentsDéfendant:int)</code></h4>
+<h5 id="postconditions-2">Postconditions</h5>
+<ul>
+<li>a.nbDéfendant est devenu nbRégimentsDéfendant</li>
+<li>L’attribut valeur des d1 à d5 est devenue un nombre entier aléatoire entre 1 et 6</li>
+<li>Occupation.nbRégiments est ajusté selon le résultat des valeurs sur une base de correspondance avec paysAttaquant.</li>
+<li>Occupation.nbRégiments est ajusté selon le résultat des valeurs sur une base de correspondance avec paysDéfendant.</li>
+</ul>
+<h4 id="opération-terminerattaque">Opération: <code>terminerAttaque()</code></h4>
+<h5 id="postconditions-3">Postconditions</h5>
+<ul>
+<li>TODO: Handle the change of Occupation?</li>
+</ul>
+<div id='rdcu'/>
+<h1 id="sec:RDCU">Réalisations de cas d’utilisation (RDCU)</h1>
+<p>Les réalisations de cas d’utilisation (RDCU) sont le sujet du chapitre F17/A18  du livre du cours. Voici les points importants pour le cours:</p>
+<ul>
+<li>Une RDCU est une synthèse des informations spécifiées dans le MDD, le DSS et les contrats d’opération. Si vous n’avez pas bien compris ces autres éléments, il est difficile de réussir les RDCU. Mais, d’une autre part, c’est aussi une étape pour valider votre compréhension. Il est normal de ne pas tout comprendre au début.</li>
+<li>De manière générale, toute bonne RDCU doit faire les choses suivantes:
+<ul>
+<li>spécifier un contrôleur (pour la première opération système dans un DSS, qui sera le même pour le reste des opérations dans le DSS);</li>
+<li>satisfaire les postconditions du contrat d’opération correspondant;</li>
+<li>rechercher les informations qui sont éventuellement rendues à l’acteur dans le DSS.</li>
+</ul></li>
+<li>Il s’agit d’un diagramme de séquence en UML. Il faut alors maîtriser la notation UML pour ces diagrammes, mais on applique la notation de manière agile:
+<ul>
+<li>Il n’est pas nécessaire de faire les boîtes d’activation, car ça prend du temps à les faire correctement lorsqu’on dessine à la main un diagramme.</li>
+<li>On doit se servir des annotations pour documenter les choix (GRASP).</li>
+<li>On dessine à la main des diagrammes puisqu’on peut faire ça en équipe à un tableau blanc. Mais aussi, à l’examen vous devez faire des diagrammes à la main.</li>
+<li>Au lieu d’un message pointillé indiquant le retour d’une valeur à la fin de l’exécution d’une méthode, on utilise l’affectation sur le message (comme dans la programmation), par exemple <code>c = getClient(...)</code> à la figure </li>
+</ul></li>
+<li>Le livre présente quelques RDCU qui sont des <em>diagrammes de communication</em>. Cette notation n’est pas utilisée dans le cours, car elle est plus complexe à utiliser et elle est comparable à la notation des diagrammes de séquence.</li>
+<li>Faire des RDCU est plus agile que coder, car dans un diagramme on peut voir le flux de plusieurs messages à travers plusieurs classes. Dans le code source, il serait nécessaire d’ouvrir plusieurs fichiers en même temps et on ne peut pas voir toute la dynamique de la même manière. Faire des changements à un diagramme est aussi plus facile que changer tout le code source. On peut également se servir des structures (<code>List</code>, <code>Array</code>, <code>Map</code>, etc.) avant que celles-ci ne soient créées.</li>
+<li>Faire des RDCU est une activité créative, mais <em>le codage dans un langage de programmation est la seule manière de valider une RDCU</em>. Évidemment, la programmation prend beaucoup plus de temps et n’est pas triviale. Faire une RDCU est comme faire un <em>plan</em> pour un bâtiment tandis que faire de la programmation est comme la <em>construction</em> du bâtiment. Si un plan contient des erreurs de conception, on va les savoir lors de la construction.</li>
+</ul>
+<p>Tout le processus de proposer une solution (RDCU) peut être visualisé comme un diagramme d’activités, comme dans la figure .</p>
+<figure>
+<embed src="build/images/rdcu-aide-memoire.pdf" id="RDCU_Aide_Memoire" /><figcaption aria-hidden="true">Aide mémoire pour faire une RDCU. L’étape en rouge nécessite beaucoup de pratique, selon la complexité des postconditions. Vous pouvez vous attendre à ne pas la réussir du premier coup. <a href="http://www.plantuml.com/plantuml/uml/TLHDJnin4BtxLqp3WMILBaALMXGG8YLjLQb55RGzSJ7hsOsBrtOzTg3_gBdt7-mVwtYJG8BWubtPy_7clMUVKPGXfjQ0s7-bRMMIGYZBWzg55alF1-jDGRVQUXba2pINojrfsq0j3MsVl9VLRHDSikhS6HTWhfL2knKmmrec4x_ZVPmQtTWMROIA5mnRKHSkucw8mJgA7Yg8W1ubVoUNk70wWDbtlbi66RMpG7yeTdzRF0PXkGe4tSpZ1F2-XC6WAAhGBJ5SkBH0O_1dRZmS5SLW8FQKgckb9hDkoM1QRP4h8rJEnj3zCvZ2yKx5gVT6_quSLHIVBgTNt-3yCRGehktmV2wzZW7Xu-7Ryl3DmVJm7Nz66RZq7irM0nv7RKtn1FmN96xY7KKELZf7K56Cyr3ZQmklVrW4RPaTMo6SwDF5oO4-1TQndmyay4ZT4lBiF7tEU0ZQd4aYLsa-1PdW4XjD33n7phYtZ37ecnGfrtn8PTphP6qPapIQkYLjv15xcKtcarcfLZeDCKAGTPsf7K6oeBHiMEuMUNYTBI2hF9lmBhsWwfXv8DwYMcgI322w597944LX6EbJZa2bPma6Z9mHaDE3pNKC0yYMNxT3mokBqoAHR1WVzYrM2QkoiwkhSQ-V9AQXcdTBhhDj4V6CGrW16Nj_Z45iTZ_SUmmnRnN5vncW1NVp2sEMM62iIjWnqb7leoE1La5kjhaETtFDQ8O1AMQyJxd81baJnuHTMvSWJynXZ1zjvRZycWzs0OtWnRgFBDA3BXnEqNbXiCcuyc--mnF8rYHdKa-hOhj8RKos6PU37WlqQbTpoKp1CvAN86PieJ5emmaf0jTYgwqkpre4seXCEoht-doTCQNv0I7X0xzbsdFuYlXLPmJEN32kCdEwca2SyS9ltty0">(PlantUML)</a></figcaption>
+</figure>
+<h2 id="spécifier-le-contrôleur">Spécifier le contrôleur</h2>
+<p>Pour commencer une RDCU, on spécifie le contrôleur selon GRASP. Dans les travaux pour le cours, vous devez indiquer <em>pourquoi vous avez choisi telle classe pour être le contrôleur</em>. Ce n’est pas un choix arbitraire. Référez-vous à la définition dans .</p>
+<p>Pour initialiser les liens entre la couche présentation et les contrôleurs GRASP, Larman vous propose de le faire dans la .</p>
+<h2 id="satisfaire-les-postconditions">Satisfaire les postconditions</h2>
+<h3 id="créer-une-instance">Créer une instance</h3>
+<p>Certaines postconditions concernent la création d’une instance. Dans votre RDCU, vous devez respecter le GRASP Créateur. Référez-vous à la définition dans le .</p>
+<blockquote>
+<p> Une erreur potentielle est de donner la responsabilité de créer à un contrôleur, puisqu’<em>il a les données pour initialiser</em> l’objet. Bien que ce soit justifiable par le principe GRASP Créateur, il vaut mieux favoriser une classe qui <em>agrège</em> l’objet à créer, le cas échéant.</p>
+</blockquote>
+<h3 id="former-une-association">Former une association</h3>
+<p>Pour les postconditions où il faut former une association entre un objet <em>a</em> et <em>b</em>, il y a plusieurs façons de faire.</p>
+<ul>
+<li>S’il y a une agrégation entre les objets, il s’agit probablement d’une méthode <code>add()</code> sur l’objet qui agrège.</li>
+<li>S’il y a une association simple, il faut considérer la navigabilité de l’association. Est-ce qu’il faut pouvoir retrouver l’objet <em>a</em> à partir de l’objet <em>b</em> ou vice-versa? Il s’agira d’une méthode <code>setB(b)</code> sur l’objet <code>a</code> (pour trouver <em>b</em> à partir de <em>a</em>), etc.</li>
+<li>S’il faut former une association entre un objet et un autre “sur une base de correspondance avec” un identifiant passé comme argument, alors il faut repérer le bon objet d’abord. Voir la section .</li>
+</ul>
+<p>Dans la plupart des cas, la justification GRASP pour former une association est Expert, défini dans le .  Il faut faire attention à la .</p>
+<h3 id="modifier-un-attribut">Modifier un attribut</h3>
+<p>Pour les postconditions où il faut modifier un attribut, c’est assez évident. Il suffit de suivre le principe GRASP Expert, défini dans le . Très souvent, c’est une méthode <code>setX(valeur)</code> où <code>X</code> correspond à l’attribut qui sera modifié à <code>valeur</code>.  Attention à la .</p>
+<p>Lorsque l’attribut d’un objet doit être modifié juste après la création de ce dernier, ça peut se faire dans le constructeur, comme on voit dans la figure .</p>
+<figure>
+<embed src="build/images/diag_constructeur_modification.pdf" id="RDCU_Constructeur_Modification" /><figcaption aria-hidden="true">Combiner la création d’instance et une modification de son attribut dans un constructeur. <a href="http://www.plantuml.com/plantuml/uml/VL9DRy8m3BrNuZzON833fg7TEA0XD4riJ48hsyvUQjgegTCvhXZ_VYuxhEA053aVxyL-Vib3KXJjcf2bsdEBWWqaFGMoADxro6W0VQ6hIuaT5ow6AA22d0mYrb4s0Qry0Xi85N9n5AzA38V82fxXqtCHZyc8_maBEc0NjASmDWGlubD_PxDV6szVKIA8Mf4a237MK0hXELd-yGJJ1ciJsWbPPJfDRFPi3OL0XLKLM6sty9u_lkM3yZ2_cmrRkbIGiEm3NzUvuHgUOoUCuIhlftO5v4vygrTvEpAh90s53IrKwIXB3krTvhVtmxUYxuxOqIkbNlWg-98Xq44pmzKxtwAPFrxi0YfXDmPCq5vWQqnq1bnc7hUPwpqcsxLmiro2WmNy7KqvDhECk80pxy5MzZz-0G00">(PlantUML)</a></figcaption>
+</figure>
+<h2 id="Visibilite">Visibilité</h2>
+<p>Dans tous les cas, si un message est envoyé à un objet, ce dernier doit être <em>visible</em> à l’objet qui lui envoie le message. Régler les problèmes de visibilité nécessite de la créativité. Il est difficile à enseigner cette démarche, mais les points suivants peuvent aider:</p>
+<ul>
+<li>Pour un objet racine (par exemple <code>Université</code>) il peut s’agir d’un objet Singleton, qui aura une visibilité globale. C’est-à-dire que n’importe quel objet pourrait lui envoyer un message. Cependant, les objets Singleton posent des problèmes de conception, notamment pour les tests. Il vaut mieux éviter ce choix, si possible.<br />
+  Voir <a href="https://stackoverflow.com/a/2085988/1168342">cette réponse sur stackoverflow</a>.</li>
+<li>Sinon, il faudra que l’objet émetteur ait une référence de l’objet récepteur. Par exemple dans la figure , la référence à <em>b</em> peut être:
+<ul>
+<li>stockée comme un attribut de <em>a</em>,</li>
+<li>passée comme un argument dans un message antérieur, ou</li>
+<li>affectée dans une variable locale de la méthode où <code>unMessage()</code> sera envoyé.</li>
+</ul></li>
+</ul>
+<p>Pour plus de détails, voir le chapitre sur la Visibilité  du livre du cours.</p>
+<figure>
+<embed src="build/images/diag_visibilite_RDCU.pdf" id="RDCU_Visibilite1" /><figcaption aria-hidden="true">L’objet <em>b</em> doit être visible à l’objet <em>a</em> si <em>a</em> veut lui envoyer un message. <a href="http://www.plantuml.com/plantuml/uml/VLB1JiCm3BrNsZzOksmSg9YuxO3M8eG6Gq9imDbBlJPgwWmdqTZVumua2eT9aIFxlTZFTXOXeiJKkIoqblSes468HqTgnPeU6GsWBPgs5f-uCjvvWIZ8GI7YECec41iRG0z2WrmTnCP833lF4Ip3k-NA7u8IVnDMjCFaOazXx0WUnOR-pN9pgxnDGu70nuOaWFE-XLe8JydMR_SmxR1LeKb8AzDnehTbRSWvghIgGB5QmUlwxcKzA0-pgujXI_yL1Anxm-TrBhc51v-4qPtbVRQcWhKHkuzdUS-aev8m53OSOPH4MJ2eUvdbryDTqKSYDlH4eHTUE5ipEDh5JF5eZTsZ3d-Cys8C6A3u6zxEorEup2vle80vv7cU5Q1EgKxYdwpJYwpiWz_uWhZIR_45">(PlantUML)</a></figcaption>
+</figure>
+<p>Pour initialiser les références nécessaires pour la bonne visibilité, Larman vous propose de faire ça dans la .</p>
+<h2 id="TransformerIDenObjets">Transformer identifiants en objets</h2>
+<p>La directive d’utiliser les types primitifs pour les opérations système nous mène à un problème récurrent dans les RDCU : transformer un identifiant (souvent de type <code>String</code> ou <code>int</code>) en objet. Larman vous propose un idiome (pas vraiment un patron) nommé <strong>Transformer identifiant en objet</strong> qui sert à repérer la référence d’un objet qui correspond à l’identifiant.</p>
+<p>Il y a un exemple à la figure  provenant du chapitre sur <strong>l’Application des patterns GoF (Figure 23.18)</strong>  du livre du cours. Un autre exemple du livre du cours est l’identifiant <code>codeArticle</code> transformé en objet <code>DescriptionProduit</code> par la méthode<br />
+<code>CatalogueProduits.getDescProduit(codeArticle:String):DescriptionProduit</code>.</p>
+<figure>
+<embed src="build/images/diag_transformer_id_objet_RDCU.pdf" id="RDCU_ID_en_objets" /><figcaption aria-hidden="true">Un identifiant <code>idClient:String</code> est transformé en objet <code>c:Client</code>, qui est ensuite envoyé à la Vente en cours. <a href="http://www.plantuml.com/plantuml/uml/VLB1Qjn03BqRyWyYboGBBTsheIKX2MNRB0GxJI-zJCQAhNgisKho9ldxohk4ke4i33CmxytJqzESgmMnSKY5ziIR8640jPU4lWl52JcQGGyXzgtaaPkOKnOm2QmE8TjHSGBMaOAl05tWvad831aUCniGmq_Y9Z-f4_y9DlWOncGJXSE0y5r8fpUhkqldtNMe2Daw58MKSm-jODY9rVTVuNG8lHiT1RqolfpuIUmDfOIDLnMukBc17_LrLS_Am_BJsRobjmuqjDF6Xtskk8TlUHGEwI3lkOyDr55eOmTvj-XHYSwDpICq6R7G67mkou_B-QpmpuWSSOqw6Rz8r3947mTAuGoZI9lWyH-N5ROUhU0n18Ng3RWERL3Y7RR-7zkMzvFS3jeM7xv01QNdGqfocSYXMu-Xme4KJwdPNvqL5JXpxSm8dw55sz_F29mDGQZjh8GQKsQuVjwW6A3zuiKYeSBg2hpr_F0RJHUBlUJs_UAnVDK-Hsxyu_u5">(PlantUML)</a></figcaption>
+</figure>
+<p>La section  explique comment implémenter la transformation avec un tableau associatif.</p>
+<h2 id="UtilisationMap">Utilisation de tableau associatif (<code>Map&lt;clé, objet&gt;</code>)</h2>
+<p>Pour <em>transformer un ID en objets</em>, il est pratique d’utiliser un <a href="https://fr.wikipedia.org/wiki/Tableau_associatif">tableau associatif (aussi appelé dictionnaire ou map en anglais)</a>. L’exemple du livre du cours concerne le problème de repérer une <code>Case</code> Monopoly à partir de son nom (<code>String</code>). C’est la figure A17.7 ou F17.7  du livre du cours. Voir les détails dans le livre.</p>
+<p>Notez que les exemples du livre ne montrent qu’un seul <em>type</em> dans le tableau associatif, par exemple <code>Map&lt;Case&gt;</code>, tandis que normalement il faut spécifier aussi le type de la clé, par exemple <code>Map&lt;String, Case&gt;</code>.</p>
+<p>Un tableau associatif fournit une méthode <code>get</code> ou <code>find</code> pour rechercher un objet à partir de sa clé (son identifiant). La figure  en est un exemple.</p>
+<figure>
+<embed src="build/images/diag_map_monopoly_RDCU.pdf" id="Map_Case_Monopoly" /><figcaption aria-hidden="true">Exemple de l’utilisation de tableau associatif pour trouver une Case Monopoly à partir de son nom. <a href="http://www.plantuml.com/plantuml/uml/VLBBQjn04BmB_0-DBsj3OhpN9J4s9WI_G4IRvE9BPzIM1erwvEcUEFuZvplsnz8Z6wBai21QYAgfggdMkIWcpMEePF0yOS8HH9y3sKpU5UHW0Vr0DtGfPcvT33619cGnY5WFgXLexmNiGUYHswVaLOdX8RA2P_ZkkOrFOiI_WYqzO0vQA8mZmKtoKivSRI-Dj-r92ABsb0H2Z0DqYN0MQxvzXgCH1mkQ4vapFQ_ixTak50ArvfhWulOMlZQVlZGBUrYV7Y-lz7y2mQuCtf_pYWUuZZanXhsyNuDheN79JxgNLvDLbMGPR5cXfaoLEBIzh4_MortHOoPsT4TIWby4tp4uMmUboXZgdP_GwZ_Sr06LC1y22jJ_OkuEftlUsFpGsDQvUtU9GcSpTQpUdq4D6n3u21rfGOuuZiSLHoL8lklLq3Trm2xjNgn0ZLd9TaPop-M802bCKMJtqX9aXjaIVv834mCNHol1XTtlasfLmvjboVNgkftbPg5gXiS2ls9p6liiQ7LEtDe_-mS0">(PlantUML)</a></figcaption>
+</figure>
+<p>Dans la section suivante, l’initialisation des éléments utilisés dans les RDCU (comme des tableaux associatifs) est expliquée.</p>
+<h2 id="RDCU_Demarrer">RDCU pour l’initialisation, le scénario Démarrer</h2>
+<p>Le lancement de l’application correspond à la RDCU “Démarrer”. La section <strong>Initialisation et cas d’utilisation Démarrer</strong> (Sec. 17.4, p.345 dans le livre en français) ou <strong>Initialization and the ‘Start Up’ Use Case</strong> (Sec. 18.4, p.274 dans le livre en anglais)  traite ce sujet important. C’est dans cette conception où il faut mettre en place tous les éléments importants pour les hypothèses faites dans les autres RDCU, par exemple les classes de collection (Map), les références pour la visibilité, l’initialisation des contrôleurs, etc.</p>
+<p>Voici quelques points importants:</p>
+<ul>
+<li>Le lancement d’une application dépend du langage de programmation et du système d’exploitation.</li>
+<li>À chaque nouvelle RDCU, on doit possiblement actualiser la RDCU “Démarrer” pour tenir compte des hypothèses faites dans la dernière RDCU. Elle est assez “instable” pour cette raison. Larman recommande de faire sa conception en dernier lieu.</li>
+<li>Il faut choisir l’objet du domaine initial, qui est souvent l’objet racine, mais ça dépend du domaine. Cet objet aura la responsabilité, lors de sa création, de générer ses “enfants” directs, puis chaque enfant aura à faire la même chose selon la structure. Par exemple, selon le MDD pour le jeu de Risk à la figure , <code>JeuRisk</code> pourrait être l’objet racine, qui devra créer l’objet <code>PlateauRisk</code> et les cinq instances de <code>Dé</code>. L’objet <code>PlateauRisk</code>, lors de son initialisation, pourra instancier les 42 objets <code>Pays</code> et les six objets <code>Continent</code>, en passant à chaque <code>Continent</code> leurs objets <code>Pays</code> lors de son initialisation. Si <code>PlateauRisk</code> fournit une méthode <code>getPays(nom)</code> qui dépend d’un tableau associatif selon , alors c’est dans l’initialisation de cette classe où l’instance de <code>Map&lt;String,Pays&gt;</code> sera créée.</li>
+<li>Selon l’application, les objets peuvent être chargés en mémoire à partir d’un système de persistance, par exemple une base de données ou un fichier. Pour l’exemple de Risk, <code>PlateauRisk</code> pourrait charger, à partir d’un fichier JSON, des données pour initialiser toutes les instances de <code>Pays</code>. Pour une application d’inscription de cours à l’université, il se peut que toutes les descriptions de cours soient chargées en mémoire à partir d’une base de données. Une base de données amène un lot d’avantages et d’inconvénients, et elle n’est pas toujours nécessaire. Dans LOG210, on n’aborde pas le problème de base de données (c’est le sujet d’un autre cours).</li>
+</ul>
+<figure>
+<embed src="build/images/diag_initialisation_RDCU.pdf" id="DemarrerRisk" /><figcaption aria-hidden="true">Exemple de l’initialisation partielle du jeu de Risk. <a href="http://www.plantuml.com/plantuml/uml/ZLLDJzj04BrRuZ-Ck2H88Ig7NYoAG6bLGQ4WGji3uR3i3lR6zknsTqrBVr7pE_B7EdPYnvYF8aKRP-VDcpTlHiwX3yA5iiWZdscomea2V7Z8aK-dPHNPweHkXSmIPqfIqkJ6GN22F8UGmbOqW91g3_mHa0fIlvmE0Gdk30NG13yqAVFBCt13gF1Eb7ce82GAX2zE-ohd-6h2kAiKFO89AJeFkJ4P90v5JJRz_Xc6XSXOQEcGA-F3WByrSKDvZeghEZWwFOLlqq-Nqqvvs7ktqssfhy2Bf3heTPt7bC69AHs9_5NSxqmgc4gdRNWLTu5ibVDTOLqBWokHqwNWmUoDzxh3mfybaiGpz9Noermd19BdWIvYHD1IMy7-RyVdjtCCPqBJDWWFfWnUA-nXJh2yr3wh4VC-mSVbeWwetlr5BWAAJQBj9qwuIqsigGxBnr4RNuW7lqhiHSw4dL7Cv_wKbv6IqOmgx44DBY9PxG9MEjVDmExkmG7_XXXMiOWC0vnEqX33kZT07o0VcCeDS4Aoi8XNouBUVzzGgeX9QZB5N6gvyDVw1ZuyOZNtwBZMICN0gc7YbWkEbMv6JI6HkELVNYRsBK9IrGBRfW9xr9ImVRqDitN_fUvOtp0NaLqJ5ynRUVYSSEj6HOyzxhAr5JhkrzxNx8tePgx-w1vb5RvcbsOaK-4IT9CduSuyE7soWa6El5E6QBb0FoCrAFcLeMMgENGoFV_AxvLDeMPKJqkFlVw3ZGcoDK6svWwVaQjlncIA4Op7uvt7xiWtkTEskD8rtt--Xkthiwq-MmsfdT3mvVph-OjQxPkqrWDOJQ_Q3A7KqEwiB-JcejtKzk6Gd_X_u1y0">(PlantUML)</a></figcaption>
+</figure>
+<div id='tdd'/>
+<h1 id="développement-piloté-par-les-tests">Développement piloté par les tests</h1>
+<p>Si on écrivait des logiciels pouvant se tester automatiquement? Le développement piloté par les tests (anglais, <em>test-driven development, TDD</em>) est une pratique populaire et intéressante. Il s’agit d’écrire des logiciels avec un composant d’autovalidation (des tests automatisés). Mais, écrire beaucoup de tests n’est pas toujours une tâche agréable pour des développeurs. Historiquement, si on attend la fin d’un projet pour écrire des tests, il ne reste plus beaucoup de temps et l’équipe laisse tomber les tests. Pour pallier ce problème, le développement piloté par les tests propose de travailler <strong>en petits pas</strong>. C’est-à-dire écrire un test simple (en premier), puis écrire la partie du logiciel pour passer le test de manière simple (le plus simple). Ça fait moins de codage entre les validations et c’est possiblement même plus stimulant pour les développeurs.</p>
+<p>Ainsi, il y a toujours des tests pour les fonctionnalités et le développement se fait en petits incréments qui sont validés par les tests. Faire les <em>petits pas</em> réduit le risque associé à de gros changements dans un logiciel sans validation intermédiaire. Au fur et à mesure qu’on développe un logiciel, on développe également quelques tests de ce dernier. Puisque les tests sont automatiques, ils sont aussi faciles à exécuter que le compilateur.</p>
+<p>Il y a une discipline imposée dans le TDD qui nécessite d’écrire un <em>test en premier</em>, c’est-à-dire <em>avant</em> d’écrire le code. La démarche est illustrée par la figure . Beaucoup d’outils (IDE) favorisent ce genre de développement. Nous pouvons écrire un test qui appelle à une fonction qui n’existe pas encore et l’IDE va nous proposer un squelette de la méthode, avec les arguments et une valeur de retour même. Un puriste du TDD insistera que le test soit écrit toujours en premier! Cette discipline est parfois culturelle.</p>
+<p>Plusieurs chercheurs ont mené des expériences, par exemple <span class="citation" data-cites="Karac_TDD_2018">[@Karac_TDD_2018]</span>, pour voir si tester en premier avait un vrai bénéfice. Les résultats de leurs analyses n’ont pas toujours montré que c’est le cas (ce genre d’expérience est difficile de faire, en partie parce qu’il n’y a pas beaucoup de développeurs en industrie qui le pratiquent). Les chercheurs ont trouvé que faire un petit test <em>après</em> avoir écrit le code a aussi un bénéfice sur le plan de la qualité. Dans tous les cas, des chercheurs ont trouvé que le fait de travailler en <em>petits pas</em> apporte <em>toujours</em> un avantage sur le plan de la qualité. Travailler en <em>petits pas</em> est utile, même sans faire du TDD.</p>
+<p>Sachez qu’il existe beaucoup d’intergiciels (anglais <em>frameworks</em>) pour faciliter l’exécution automatique des tests réalisés dans le cadre du TDD. Pour Java il y a JUnit, mais il y en a pour pratiquement tous les langages et environnements. En ce qui concerne le squelette pour le laboratoire de LOG210, la version TypeScript utilise <a href="https://mochajs.org/index.html">Mocha</a> avec <a href="https://www.chaijs.com/">Chai</a>. La version Python utilise <a href="https://docs.pytest.org/en/latest/">PyTest</a>.</p>
+<p>L’exécution de tests peut être même faite à chaque commit du code dans un dépôt comme GitHub. Le squelette de LOG210 utilise <a href="https://travis-ci.org/">Travis</a> pour cela. Cependant, pour un dépôt privé, Travis nécessite un compte payant.</p>
+<p>Il est possible de mesurer la <a href="https://fr.wikipedia.org/wiki/Couverture_de_code">couverture de code </a> atteinte par les tests (mais ce sujet commence à sortir du cadre de la matière du cours). Les deux versions du squelette utilisent <a href="https://coveralls.io/">Coveralls</a> pour ce faire.</p>
+<figure>
+<embed src="build/images/diag_etats_TDD.pdf" id="TDD_states" /><figcaption aria-hidden="true">États du développement piloté par les tests. <a href="http://www.plantuml.com/plantuml/uml/RLJDQXin4BxhAGONwgJ43eLIYZ5B4fj0BgKqII_T7kJToLf4AsqraerxwhLlqTxgv_2Rz4awqgx_WY_BelbclX_DxXLvwNoejPYh4W7hng-WH2gSQhooHj2pCerqiWRoAutyTAf83VlAlPSURwmhqKsijWvcMXRFBm6trlYsl9mhZwVAzubYPdLvigf-8Bnz_x9qxPnT7jRxUy0KdsJGFbO_oXgXTu-LHNYyWvieiIVwNdcctFpYIGHbW7ApNg2sJOCr6W-DqjPlri3ZG2E1H_8aAFB2Pnig14dGkmvGMsKeDy4aI6usws9k0_RWbSEoQ_Y2pYVyWmsCtStBMIqHqp6wSeYcmt-Iz32TfevnaPBZMHcV0X_dvk1iJEnzzEv3Ddxjvw6U3KgxDDduCY4o7hj2hUrIV7tp3GPELNC_o3hz8vYupHfTRemD2vGXDr6KQAi3ny2aUyGXyLOuXCAMo99jSF0a-Q2JxvAPCpeVKsYoVp__Z2_ZYqZT0tr0c9lJb2ronzVvIubajv49Wk702wyMYYzbQs-NH8laDURfWPIH5NPQVhTQjXqT4rDjCpvs1oHDUpT2OuMcX89l1vqu7lTug0QEUC7qkPlNXc8hiLiePE2G16z8u-nCR_xoFie55j3jp10cs32NDFw2cxI41eCNqZcru72_1znl831pjpFGw4207fJcwmYbawAmt5Dn3t_8Up8QYkERkTE90VOC_KuAa5KUQgbZ6cpjJCKtunNpHGCpMmKy7y8qnbH4QtG1ra17p3hR6FbxIiv4ZB1DKbpnWtyV_m40">(PlantUML)</a></figcaption>
+</figure>
+<p>Les activités de réusinage sont expliquées dans la section .</p>
+<h2 id="kata-tdd">Kata TDD</h2>
+<p>Pour apprendre à faire du développement piloté par les tests (et pour apprendre les cadriciels supportant l’automatisation des tests), il existe une activité nommée “kata TDD”. <em>Kata</em> est un terme japonais désignant une séquence de techniques réalisée dans le vide dans les arts martiaux japonais. <a href="https://www.youtube.com/watch?v=DmPk_A-RU50">En voici une vidéo </a>. C’est un outil de transmission de techniques et de principes de combat.</p>
+<figure>
+<img src="images/karate.jpg" style="width:40.0%" alt="Étudiante de karaté faisant le kata Basai Dai (photo “Karate” (CC BY-SA 2.0) par The Consortium)." /><figcaption aria-hidden="true">Étudiante de karaté faisant le kata <em>Basai Dai</em> (photo <a href="https://www.flickr.com/photos/the-consortium/4507180302/">“Karate”</a> <a href="https://creativecommons.org/licenses/by-sa/2.0/">(CC BY-SA 2.0)</a> par <a href="https://www.flickr.com/people/the-consortium/">The Consortium</a>).</figcaption>
+</figure>
+<p>Alors, le “kata TDD” a été proposé par Dave Thomas et le but est de développer la fluidité avec le développement piloté par les tests. Un kata TDD se pratique avec un IDE (environnement de développement logiciel) et un support pour les tests (par exemple JUnit). Pratiquer le même kata peut améliorer votre habileté de programmation. On peut pratiquer le même kata dans un langage différent ou avec un IDE ou environnement de test différent. Le kata vous permet d’avoir une facilité avec les aspects techniques de développement dans plusieurs dimensions (complétion de code pour test et pour l’application, API de l’environnement de test, etc.).</p>
+<p>En plus, les activités de réusinage sont normalement intégrées dans un kata. Le fait de travailler en <em>petits pas</em> peut faire en sorte que la dette technique s’accumule. Les IDE facilitent l’application des activités de réusinage. Un langage fortement typé comme Java permet d’avoir plus de fonctionnalités automatisées de réusinage dans un IDE qu’un langage dynamique comme JavaScript ou Python. Une activité de base de réusinage est le renommage d’une variable ou d’une fonction. Le réusinage rend le code plus facile à comprendre et à maintenir.</p>
+<h3 id="exemple-de-kata-tdd-fizzbuzz">Exemple de Kata TDD FizzBuzz</h3>
+<p>L’inspiration de cet exercice vient de http://codingdojo.org/kata/FizzBuzz/.</p>
+<p>Dans cet exercice, il faut écrire par le développement piloté par les tests un programme qui imprime les nombres de 1 à 100. Mais pour les multiples de trois, il faut imprimer <code>Fizz</code> au lieu du nombre et pour les multiples de cinq, il faut imprimer <code>Buzz</code>. Pour les nombres étant des multiples de trois et cinq il faut imprimer <code>FizzBuzz</code>. Voici un exemple des sorties:</p>
+<pre><code>1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+... etc. jusqu&#39;à 100</code></pre>
+<h4 id="préalables">Préalables</h4>
+<p>Il faut installer un IDE qui supporte les activités de réusinage (refactorings) comme VisualStudio Code, Eclipse, IntelliJ, etc. puis un framework de test (JUnit, Mocha/Chai, unittest, etc.). Pour un exemple qui fonctionne en TypeScript, vous pouvez cloner le code à <a href="https://github.com/profcfuhrmanets/typescript-tdd-kata">ce dépôt</a>.</p>
+<h4 id="déroulement">Déroulement</h4>
+<p>Cet exercice peut se faire individuellement ou en équipe de deux. En équipe, une personne écrit le test et l’autre écrit le code pour passer le test (c’est la variante ping-pong). Chacun réfléchit aux activités de réusinage éventuelles lorsque le projet est dans l’état vert (figure ). Les membres de l’équipe peuvent changer de rôle (testeur, codeur) après un certain nombre d’étapes, ou après avoir terminé le kata entier.</p>
+<p>Pour respecter la philosophie de <em>petits pas,</em> il vaut mieux:</p>
+<ul>
+<li>ne lire que l’étape courante;</li>
+<li>ne travailler que sur l’étape courante;</li>
+<li>ne faire que les tests avec les entrées valides.</li>
+</ul>
+<h4 id="kata-pour-fizzbuzz">Kata pour FizzBuzz</h4>
+<p>Les étapes sont simples et précises. Il s’agit de créer une classe ayant une méthode acceptant un entier et retournant une valeur selon les exigences de FizzBuzz décrite plus haut.</p>
+<ol type="1">
+<li><p>Un argument de 1 retourne <code>1</code>.</p></li>
+<li><p>Un argument de 2 retourne <code>2</code></p></li>
+<li><p>Un argument de 3 retourne <code>Fizz</code></p></li>
+<li><p>Un argument de 6 retourne <code>Fizz</code></p></li>
+<li><p>Un argument de 5 retourne <code>Buzz</code></p></li>
+<li><p>Un argument de 10 retourne <code>Buzz</code></p></li>
+<li><p>Un argument de 15 retourne <code>FizzBuzz</code></p></li>
+<li><p>Un argument de 30 retourne <code>FizzBuzz</code></p></li>
+<li><p>Supporter des exigences qui évoluent:</p>
+<ol type="a">
+<li>Il faut imprimer Fizz au lieu du nombre si le nombre est un multiple de 3 ou contient un 3 (ex. 13 → <code>Fizz</code>).</li>
+<li>Il faut imprimer Buzz au lieu du nombre si le nombre est un multiple de 5 ou contient un 5 (ex. 51 → <code>Fizz</code>).</li>
+<li>Il faut imprimer FizzBuzz si le nombre est un multiple de 5 et de 3 ou contient un 5 et un 3 (ex. 53 → <code>FizzBuzz</code>).</li>
+</ol></li>
+</ol>
+<div id='reusinage'/>
+<h1 id="Refactoring">Réusinage (Refactorisation)</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Considérez l’histoire suivante, provenant de la 2e édition du livre <em>Refactoring</em> de Martin Fowler (2019):</p>
+<blockquote>
+<p>Il était une fois, un consultant qui a rendu visite à un projet de développement afin de regarder une partie du code qui avait été écrit. En parcourant la hiérarchie des classes au centre du système, le consultant l’a trouvée plutôt désordonnée. Les classes de niveau supérieur ont émis certaines hypothèses sur la façon dont les classes fonctionneraient, hypothèses incorporées dans le code hérité. Ce code n’était pas cohérent avec toutes les sous-classes, cependant, et a été redéfini à beaucoup d’endroits. De légères modifications à la superclasse auraient considérablement réduit la nécessité de la redéfinir. À d’autres endroits, l’intention de la superclasse n’avait pas été bien comprise et le comportement présent dans la superclasse était dupliqué. Dans d’autres endroits encore, plusieurs sous-classes ont fait la même chose avec du code qui pouvait clairement être déplacé dans la hiérarchie.  Le consultant a recommandé à la direction du projet que le code soit examiné et nettoyé, mais la direction du projet n’était pas enthousiaste. Le code semblait fonctionner et il y avait des contraintes sur l’emploi du temps considérables. Les gestionnaires ont dit qu’ils y parviendraient ultérieurement.  Le consultant a également montré ce qui se passait aux programmeurs travaillant sur la hiérarchie. Les programmeurs étaient enthousiastes et ont vu le problème. Ils savaient que ce n’était pas vraiment de leur faute; parfois, l’évaluation par une autre personne est nécessaire pour détecter le problème. Les programmeurs ont donc passé un jour ou deux à nettoyer la hiérarchie. Une fois terminés, ils avaient supprimé la moitié du code de la hiérarchie sans réduire sa fonctionnalité. Ils étaient satisfaits du résultat et ont constaté qu’il était devenu plus rapide et plus facile d’ajouter de nouvelles classes et d’utiliser les classes dans le reste du système.  La direction du projet n’était pas contente. L’échéancier était serré et il y avait beaucoup de travail à faire. Ces deux programmeurs avaient passé deux jours à effectuer un travail qui n’ajoutait rien aux nombreuses fonctionnalités que le système devait offrir en quelques mois. L’ancien code avait très bien fonctionné. Oui, la conception était un peu plus “pure” et un peu plus “propre”. Mais le projet devait expédier du code qui fonctionnait, pas du code qui plairait à un universitaire. Le consultant a suggéré qu’un nettoyage similaire soit effectué sur d’autres parties centrales du système, ce qui pourrait interrompre le projet pendant une semaine ou deux. Tout cela était pour rendre le code plus beau, pas pour lui faire faire ce qu’il ne faisait pas déjà.</p>
+</blockquote>
+<p>Cette histoire est un bon exemple des deux forces constamment en jeu lors d’un développement de logiciel. D’un côté, on veut que le code fonctionne (pour satisfaire les fonctionnalités) et d’un autre côté, on veut que la conception soit acceptable puisqu’il y a d’autres exigences sur un logiciel telles que la maintenabilité, l’extensibilité, etc. La section sur le  aborde cette dynamique.</p>
+<p>Le réusinage (anglais <em>refactoring</em>) est, selon Fowler, “l’amélioration de la conception du code après avoir écrit celui-ci”. Il s’agit de retravailler le code source de façon à en améliorer la lisibilité ou la structure, sans en modifier le fonctionnement. C’est une manière de gérer la dette technique, car grâce au réusinage on peut transformer du code chaotique (écrit peut-être par les gens en mode “hacking cowboy”) en code bien structuré. De plus, beaucoup d’IDE supportent l’automatisation d’activités de réusinage, rendant le processus plus facile et robuste. Probablement vous avez déjà “renommé” une variable dans le code source, à travers un menu “Refactoring”.</p>
+<h2 id="symptômes-de-la-mauvaise-conception---code-smells">Symptômes de la mauvaise conception - Code smells</h2>
+<p>En anglais, le terme “Code smell” a été proposé par Fowler pour les symptômes d’une mauvaise conception. Le but est de savoir à quel moment il faut affecter des activités de réusinage.</p>
+<p>Par exemple, le premier “smell” dans son livre est “Mysterious Name”. Il apparaît lorsqu’on voit une variable ou une méthode dont le nom est incohérent avec son utilisation. Cela arrive puisqu’il n’est pas toujours facile de trouver un bon nom au moment où on est en train d’écrire du code. Plutôt que de rester bloqué sur le choix, on met un nom arbitraire (ou peut-être par naïveté on se trompe carrément de nom). Alors, si vous observez ce problème (smell) dans un logiciel, vous n’avez qu’à appliquer l’activité de réusinage nommée <a href="https://refactoring.com/catalog/changeFunctionDeclaration.html">Change Function Declaration</a>, <a href="https://refactoring.com/catalog/renameField.html">Rename Field</a> ou <a href="https://refactoring.com/catalog/renameVariable.html">Rename Variable</a>, selon le cas.</p>
+<p>Un autre exemple serait que vous avez un programme assez complexe, mais avec seulement une ou deux classes. Ces classes ont beaucoup d’attributs et de méthodes. Alors, ce “smell” s’appelle “Large class” et la solution est d’appliquer des activités de réusinage <a href="https://refactoring.com/catalog/extractClass.html">Extract Class</a>, ou éventuellement <a href="https://refactoring.com/catalog/extractSuperclass.html">Extract Superclass</a> ou <a href="https://refactoring.com/catalog/replaceTypeCodeWithSubclasses.html">Replace Type Code with Subclasses</a>. Avec un IDE dominant et un langage populaire, vous aurez probablement des fonctionnalités pour supporter l’automatisation de ces activités de réusinage.</p>
+<p>Certaines activités traitent des sujets avancés en conception, mais c’est très intéressant pour ceux qui aiment le bon design. Voici la liste complète des “smells” ainsi que les activités de réusinage à appliquer (voir le catalogue sur le site web pour les détails).</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Symptôme de mauvaise conception (“Smell”)</th>
+<th style="text-align: left;">Activités de réusinage à appliquer éventuellement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mysterious Name</td>
+<td style="text-align: left;"><a href="https://refactoring.com/catalog/changeFunctionDeclaration.html">Change Function Declaration</a>, <a href="https://refactoring.com/catalog/renameVariable.html">Rename Variable</a>, <a href="https://refactoring.com/catalog/renameField.html">Rename Field</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Duplicated Code</td>
+<td style="text-align: left;">Extract Function, Slide Statements, Pull Up Method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Long Function</td>
+<td style="text-align: left;">Extract Function, Replace Temp with Query, Introduce Parameter Object, Preserve Whole Object, Replace Function with Command, Decompose Conditional, Replace Conditional with Polymorphism, Split Loop</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Long Parameter List</td>
+<td style="text-align: left;">Replace Parameter with Query, Preserve Whole Object, Introduce Parameter Object, Remove Flag Argument, Combine Functions into Class</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Global Data</td>
+<td style="text-align: left;">Encapsulate Variable</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mutable Data</td>
+<td style="text-align: left;">Encapsulate Variable, Split Variable, Slide Statements, Extract Function, Separate Query from Modifier, Remove Setting Method, Replace Derived Variable with Query, Use Combine Functions into Class, Combine functions into Transform, Change Reference to Value</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Divergent Change</td>
+<td style="text-align: left;">Split Phase, Move Function, Extract Function, Extract Class</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shotgun Surgery</td>
+<td style="text-align: left;">Move Function, Move Field, Combine Functions into Class, Combine Functions into Transform, Split Phase, Inline Function, Inline Class</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Feature Envy</td>
+<td style="text-align: left;">Move Function, Extract Function</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Data Clumps</td>
+<td style="text-align: left;">Extract Class, Introduce Parameter Object, Preserve Whole Object</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Primitive Obsession</td>
+<td style="text-align: left;">Replace Primitive with Object, Type Code with Subclasses, Replace Conditional with Polymorphism, Extract Class, Introduce Parameter Object</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Repeated Switches</td>
+<td style="text-align: left;">Replace Conditional with Polymorphism</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Loops</td>
+<td style="text-align: left;">Replace Loop with Pipeline</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lazy Element</td>
+<td style="text-align: left;">Inline Function, Inline Class, Collapse Hierarchy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Speculative Generality</td>
+<td style="text-align: left;">Collapse Hierarchy, Inline Function, Inline Class, Change Function Declaration, Remove Dead Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Temporary Field</td>
+<td style="text-align: left;">Extract Class, Move Function, Introduce Special Case</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Message Chains</td>
+<td style="text-align: left;">Hide Delegate, Extract Function, Move Function</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Middle Man</td>
+<td style="text-align: left;">Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Insider Trading</td>
+<td style="text-align: left;">Move Function, Move Field, Hide Delegate, Replace Subclass with Delegate, Replace Superclass with Delegate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Large Class</td>
+<td style="text-align: left;">Extract Class, Extract Superclass, Replace Type Code with Subclasses</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alternative Classes withDifferent Interfaces</td>
+<td style="text-align: left;">Change Function Declaration, Move Function, Extract Superclass</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Data Class</td>
+<td style="text-align: left;">Encapsulate Record, Remove Setting Method, Move Function, Extract Function, Split Phase</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Refused Bequest</td>
+<td style="text-align: left;">Push Down Method, Push Down Field, Replace Subclass with Delegate, Replace Superclass with Delegate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Comments</td>
+<td style="text-align: left;">Extract Function, Change Function Declaration, Introduce Assertion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="automatisation-du-réusinage-par-les-ide">Automatisation du réusinage par les IDE</h2>
+<p>À la <strong>section F19.2/A22.2</strong> du livre du cours, le sujet de réusinage est abordé. Il y a plusieurs exemples de base détaillés qui sont automatisés par les IDE dominants tels que Eclipse, IntelliJ IDEA, JetBrains PyCharm, Visual Studio Code, etc. Il se peut que dans un avenir proche le réusinage (l’amélioration du design) devienne une activité réalisée par des algorithmes d’intelligence artificielle.</p>
+<p>Pour plus d’activités de réusinage, il y a le catalogue du site <a href="https://refactoring.com/catalog/">refactoring.com</a>.</p>
+<p>Voir <a href="https://code.visualstudio.com/docs/editor/refactoring">cette page web pour savoir comment les activités de réusinage sont faites dans Visual Studio Code</a>. D’autres automatisations sont implémentées par des extensions.</p>
+<h2 id="impropriété">Impropriété</h2>
+<p>Si quelqu’un dit que son code est cassé pendant plusieurs jours parce qu’il fait du réusinage, ce n’est pas la bonne utilisation du terme <a href="https://martinfowler.com/bliki/RefactoringMalapropism.html">selon Martin Fowler</a>. Il s’agit de la <em>restructuration</em> dans ce cas.</p>
+<p>Le réusinage est basé sur les petites transformations qui ne changent pas le comportement du logiciel.</p>
+<div id='equipe'/>
+<h1 id="développement-de-logiciel-en-équipe">Développement de logiciel en équipe</h1>
+<p>Le développement de logiciels se fait souvent en équipe. Cependant, il y a des défis pour travailler en équipe. Souvent, avant l’université on apprend comment s’organiser en équipe, faire des rencontres, répartir le travail, planifier, etc. Pourtant, il y a d’autres défis dans ce travail, des défis sur le plan humain. C’est le sujet du livre “Team Geek” <span class="citation" data-cites="fitzpatrick_team_2012">[-@fitzpatrick_team_2012]</span> écrit par Brian W. Fitzpatrick (anciennement de Google) et Ben Collins-Sussman (Subversion, Google).</p>
+<p>Aujourd’hui, la demande pour le talent en technologies de l’information est importante. Les technologies évoluent constamment. Qui développe du code pour <a href="https://fr.wikipedia.org/wiki/Adobe_Flash">Flash </a> ces jours-ci? Cette technologie est quasiment désuète. Cependant, une chose qui ne change pas (beaucoup) est le comportement humain.</p>
+<p>Les auteurs de “Team Geek” abordent les problèmes dus aux tendances comportementales chez les développeurs. Par exemple, une personne n’a pas toujours envie de montrer son code source à ses coéquipiers pour plusieurs raisons:</p>
+<ul>
+<li>Son code n’est pas fini.</li>
+<li>Elle a peur d’être jugée.</li>
+<li>Elle a peur que quelqu’un vole son idée.</li>
+</ul>
+<p>Dans tous ces cas, il s’agit de l’insécurité et c’est tout à fait normal. Par contre, ce genre de comportement augmente certains risques dans le développement:</p>
+<ul>
+<li>de faire des erreurs dans la conception initiale;</li>
+<li>de “réinventer la roue”;</li>
+<li>de terminer le travail plus tard que son compétiteur, qui, lui, a collaboré avec son équipe.</li>
+</ul>
+<p>Les auteurs le disent et c’est un fait: si nous sommes tous plus ou moins compétents sur le plan technique, ce qui fera la différence importante dans une carrière est notre habileté à collaborer avec les autres.</p>
+<figure>
+<embed src="images/HRC_venn.pdf" id="HRC_venn" style="width:40.0%" /><figcaption aria-hidden="true">Pratiquement tout conflit social est dû à un manque d’humilité, de respect ou de confiance.</figcaption>
+</figure>
+<h2 id="humilité-respect-confiance">Humilité, Respect, Confiance</h2>
+<p>L’humilité, le respect et la confiance (voir la figure ) sont les qualités de base pour le bon travail en équipe. Cette section présente ces aspects en détail.</p>
+<h3 id="humilité">Humilité</h3>
+<p>Voici la définition d’<em>humilité</em> selon Antidote:</p>
+<blockquote>
+<p><em>Disposition à s’abaisser volontairement, par sentiment de sa propre faiblesse.</em></p>
+</blockquote>
+<p>Une personne humble pense ainsi:</p>
+<ul>
+<li>Je ne suis pas le centre de l’univers.</li>
+<li>Je ne suis ni omniscient ni infaillible.</li>
+<li>Je suis ouvert à m’améliorer.</li>
+</ul>
+<blockquote>
+<p> L’humilité ne veut pas dire “je n’ai pas de valeur” ou “j’accepte d’être mal traité.e par les autres”.</p>
+</blockquote>
+<figure>
+<img src="https://farm1.static.flickr.com/171/466060240_0f1914cbb3_b.jpg" width="200" alt="Éviter d’être le “Centre de l’univers” (CC BY-NC-ND 2.0) par Diamondduste." /><figcaption aria-hidden="true">Éviter d’être le <a href="https://www.flickr.com/photos/diamondduste/466060240/">“Centre de l’univers”</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND 2.0</a>) par <a href="https://www.flickr.com/people/diamondduste/">Diamondduste</a>.</figcaption>
+</figure>
+<figure>
+<img src="https://farm4.static.flickr.com/3135/2705041322_d1e23d37d6_b.jpg" width="200" alt="“Missing” (CC BY-SA 2.0) par smkybear." /><figcaption aria-hidden="true"><a href="https://www.flickr.com/photos/smkybear/2705041322/">“Missing”</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>) par <a href="https://www.flickr.com/people/smkybear/">smkybear</a>.</figcaption>
+</figure>
+<figure>
+<embed src="build/images/diag_moi_inf_equipe.pdf" /><figcaption aria-hidden="true">Un coéquipier humble va accepter une décision prise par l’équipe, même s’il n’était pas en accord à 100%. <a href="http://www.plantuml.com/plantuml/uml/JOz12i8m54JtFSMd7a0tRgIKqguzn4_oquOcF_4dHHGluBcyc2s2T5R3pF1WkbnGoX9ybMV72GK36BAu-68Z5yP0CCIOIA3tgEVTJ4WNvD5J7yMG3D57WIB8UUs9IpKvGq0XbGS42eea_oBjH7lQaVA49juTZs3HPwh-PAYRx9vqEP_QQtJGmETzMroYvhZ5RGq7QzMgbrARgJfYitxv0W00">(PlantUML)</a></figcaption>
+</figure>
+<p>Quelques exemples concrets d’humilité dans le développement:</p>
+<ul>
+<li>Un coéquipier débutant en JavaScript, git, etc. va le reconnaître et va même faire des exercices sur Internet pour s’améliorer.</li>
+<li>Un coéquipier (même le chef d’équipe) qui a pris une mauvaise décision (technique ou autre) va l’avouer. Il sait que les autres ne sont pas là pour l’attaquer (ils le respectent).</li>
+<li>Un coéquipier va travailler fort pour que <em>son équipe</em> réussisse.</li>
+<li>Un coéquipier qui reçoit une critique ne va pas la prendre personnellement. Il sait que la qualité de son code n’équivaut pas à son estime de soi. (Cela n’est pas toujours facile!)</li>
+</ul>
+<h3 id="respect">Respect</h3>
+<p>Une personne démontrant du respect pense ainsi:</p>
+<ul>
+<li>Je me soucie des gens avec qui je travaille.</li>
+<li>Je les traite comme des êtres humains.</li>
+<li>J’ai de l’estime pour leurs capacités et leurs réalisations.</li>
+</ul>
+<h3 id="confiance">Confiance</h3>
+<p>Une personne démontrant la confiance pense ainsi:</p>
+<ul>
+<li>Je crois que les autres coéquipiers sont compétents et qu’ils feront la bonne chose.</li>
+<li>Je suis à l’aise lorsqu’ils prennent le volant, le cas échéant.</li>
+</ul>
+<p>Le dernier point peut être extrêmement difficile si vous avez déjà été déçu par une personne incompétente à qui vous avez délégué une tâche.</p>
+<h2 id="Bus_Factor">Redondance des compétences dans l’équipe (Bus Factor)</h2>
+<p>Pour qu’une équipe soit robuste, il faut une redondance des compétences. Sinon, la perte d’un coéquipier (pour une raison quelconque) peut engendrer de graves conséquences, voire arrêter carrément le développement. Ce principe a été nommé en anglais <em>Bus factor</em>. C’est le nombre minimum de coéquipiers à perdre (heurtés par un bus) pour arrêter le projet par manque de personnel bien informé ou compétent. Par exemple, dans un projet de stage, si c’est vous qui écrivez tout le code, alors c’est un <em>bus factor</em> de 1. Si vous n’êtes plus présent, le projet s’arrête.</p>
+<p>Un coéquipier peut être absent (ou moins disponible) pour des raisons moins graves, par exemple, il part en vacances, il tombe malade, il prend un congé parental, il change d’emploi, ou il abandonne le cours. Cherchez à répartir les responsabilités dans l’équipe afin d’avoir un <em>bus factor</em> d’au moins 2. Partagez des compétences pour maintenir une équipe robuste. Vous pouvez également garder votre solution <em>simple</em> et garder la documentation de votre conception à jour.</p>
+<blockquote>
+<p> Si un coéquipier quitte en cours de la session, il n’est pas facile de maintenir le même rythme. Cependant, les enseignants et les chargés de laboratoire de LOG210 s’attendront à ce que vous ayez pensé à un plan B avant de perdre le coéquipier. Au moins un autre coéquipier doit être au courant de ce que faisait l’ancien coéquipier, pour que le projet ne soit pas complètement arrêté.</p>
+</blockquote>
+<h2 id="mentorat">Mentorat</h2>
+<p>En LOG210, ça peut être l’enseignant qui décide la composition des équipes. Ça veut dire que forcément certains coéquipiers ont plus d’expérience et de facilité à faire certaines tâches que d’autres. Les équipes doivent composer avec cette diversité. C’est une approche pédagogique reconnue par les experts.</p>
+<p>Selon TeamGeek:</p>
+<blockquote>
+<p>Si vous avez déjà un bon bagage en programmation, ça peut être pénible de voir un coéquipier moins expérimenté tente un travail qui lui prendra beaucoup de temps lorsque vous savez que ça vous prendra juste quelques minutes. Apprendre à quelqu’un comment faire une tâche et lui donner l’occasion d’évoluer tout seul est un défi au début, mais cela est une caractéristique importante du leadership.</p>
+</blockquote>
+<p>Si les plus forts n’aident pas les autres, ils risquent de les éloigner de l’équipe et de se trouver seuls sur le plan des contributions techniques. Voir la section sur la .</p>
+<p>Encadrer un coéquipier au début de la session peut prendre beaucoup de temps. Mais, si la personne devient plus autonome, c’est un gain pour toute l’équipe. Cela augmente également le <em>bus factor</em>.</p>
+<p>Voici quelques conseils pour le mentorat:</p>
+<ul>
+<li>avoir les compétences sur un plan technique;</li>
+<li>être capable d’expliquer des choses à quelqu’un d’autre;</li>
+<li>savoir combien d’aide à donner à la personne encadrée.</li>
+</ul>
+<p>Selon TeamGeek, le dernier point est important parce que si vous donnez trop d’information, la personne peut vous ignorer plutôt que vous dire gentiment qu’elle a compris.</p>
+<figure>
+<img src="https://farm8.static.flickr.com/7459/10081683216_2b02836f82_b.jpg" width="400" alt="Encadrer les coéquipiers est une habileté à mettre sur son CV “CultureTECH BT Monster Dojo” (CC BY 2.0) par connor2nz." /><figcaption aria-hidden="true">Encadrer les coéquipiers est une habileté à mettre sur son CV <a href="https://www.flickr.com/photos/24498081@N06/10081683216/">“CultureTECH BT Monster Dojo”</a> (<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>) par <a href="https://www.flickr.com/people/24498081@N06/">connor2nz</a>.</figcaption>
+</figure>
+<h2 id="scénarios">Scénarios</h2>
+<p>Voici des situations qui pourraient arriver dans une session de LOG210:</p>
+<ul>
+<li>un coéquipier se trouve à être le seul à faire de la programmation.
+<ul>
+<li>il ne fait plus confiance à ses coéquipiers, car leur code est trop bogué.</li>
+<li>il n’a pas la patience pour accommoder les coéquipiers moins expérimentés.</li>
+<li>il croit qu’ils auraient dû apprendre mieux à programmer dans les cours préalables.</li>
+</ul></li>
+<li>un coéquipier dit qu’il a “fait ses 3 heures de contribution” chaque dimanche chez lui et que ça devrait suffire pour sa partie (il a un emploi et n’a pas beaucoup de temps disponible pour l’équipe d’un laboratoire).</li>
+<li>un ou deux membres d’une équipe abandonnent le cours après l’examen intra, à cause du double-seuil du cours.</li>
+<li>un coéquipier suit cinq (!) cours en même temps et n’a pas le temps adéquat pour travailler correctement dans LOG210.</li>
+<li>plusieurs coéquipiers sont “expérimentés” mais ils ont de la difficulté à s’entendre sur la direction du projet.</li>
+<li>l’équipe n’est pas cohésive; chacun fait avancer sa partie, mais le code ne fonctionne pas ensemble.</li>
+</ul>
+<p>Vous devez en parler avec votre équipe. Si la situation ne s’améliore pas, vous pouvez en parler avec les chargés de laboratoire et l’enseignant.</p>
+<p>Pour mieux évaluer le travail de chacun dans l’équipe au laboratoire, il y a des conseils dans la section .</p>
+<div id='outil'/>
+<h1 id="outils-pour-la-modélisation-uml">Outils pour la modélisation UML</h1>
+<p>Le chapitre F20/A22  définit quelques termes importants pour la modélisation avec UML et les outils.</p>
+<p>En mode esquisse, lorsqu’on dessine un modèle sur un tableau blanc ou un papier, un outil pratique pour numériser le tout est <strong>Office Lens</strong> (<a href="https://play.google.com/store/apps/details?id=com.microsoft.office.officelens&amp;hl=fr_CA">Android</a> ou <a href="https://apps.apple.com/ca/app/microsoft-office-lens-pdf-scan/id975925059">iOS</a>). Les filtres pour supprimer les reflets sur les tableaux blancs sont impeccables.</p>
+<figure>
+<img src="images/OfficeLensWhiteBoard.JPG" width="200" alt="Office Lens peut détecter le cadre d’un dessin sur un tableau blanc ou papier et le transformer." /><figcaption aria-hidden="true">Office Lens peut détecter le cadre d’un dessin sur un tableau blanc ou papier et le transformer.</figcaption>
+</figure>
+<p>Dans LOG210, on exploite l’outil PlantUML pour faire beaucoup de modèles. C’est un outil qui a plusieurs avantages:</p>
+<ul>
+<li>il est basé sur un langage dédié simple (anglais <em>domain specific language</em> ou DSL), dont les fichiers peuvent être facilement mis sur contrôle de version (git);</li>
+<li>il est basé sur du code libre;</li>
+<li>il s’occupe de la mise en page des diagrammes (cela est parfois un inconvénient si un modèle est complexe);</li>
+<li>il est populaire (utilisé par des ingénieurs chez Google pour documenter Android, Pay, etc.);</li>
+<li>il existe plusieurs supports pour les outils de documentation:
+<ul>
+<li>extension <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml">PlantUML pour VisualStudio Code</a> (figure ) avec <a href="https://www.youtube.com/watch?v=xkwJ9GwgZJU">tutoriel</a> ;</li>
+<li>extension <a href="https://gsuite.google.com/marketplace/app/plantuml_gizmo/950520042571?pann=cwsdp&amp;hl=en">PlantUML Gizmo</a> pour Google Docs et Google Slides, développée en 2014 par le professeur Christopher Fuhrman dans le cadre de son travail à l’ÉTS (figure )</li>
+</ul></li>
+</ul>
+<blockquote>
+<p> Tous les travaux demandés pour les <strong>examens</strong> de LOG210 doivent être faits <em>à la main</em>. Pour cette raison, il vaut mieux pratiquer dessiner les modèles en mode esquisse (à la main).</p>
+</blockquote>
+<figure>
+<img src="images/PlantUMLVSCode.png" id="PlantUMLVSCode" alt="L’extension PlantUML pour VisualStudio Code." /><figcaption aria-hidden="true">L’extension PlantUML pour VisualStudio Code.</figcaption>
+</figure>
+<figure>
+<img src="images/PlantUMLGizmoSlides.png" id="PlantUMLGizmo" alt="PlantUML Gizmo pour Google Docs et Google Slides." /><figcaption aria-hidden="true">PlantUML Gizmo pour Google Docs et Google Slides.</figcaption>
+</figure>
+<p>Pour un débutant, le langage PlantUML peut sembler plus compliqué qu’utiliser un outil graphique comme Lucidchart. Cependant, pour beaucoup de diagrammes (comme les diagrammes de séquence), ça peut être plus long à créer ou à modifier. Bien que ces outils aient des gabarits ou des modes “UML”, ceux-ci ne sont pas toujours conviviaux ou complets. C’est souvent juste des objets groupés et le vrai sens de la notation UML n’est pas considéré (par exemple, une ligne de vie dans un diagramme de séquence est toujours verticale, mais un éditeur graphique quelconque permet de l’orienter dans n’importe quel sens). Ça peut prendre beaucoup de clics pour effectuer une modification et on peut obtenir des résultats intermédiaires qui n’ont aucun sens en UML (voir la figure ). Il est possible de corriger le diagramme, mais en combien de clics? C’est très vite tannant.</p>
+<h2 id="exemples-de-diagramme-avec-plantuml-pour-log210">Exemples de diagramme avec PlantUML pour LOG210</h2>
+<p>Dans le menu “Select sample diagram” de PlantUML Gizmo (Google Docs), il y a plusieurs exemples de diagrammes utilisés dans le cadre de LOG210 (voir la figure ).</p>
+<h2 id="astuces-plantuml">Astuces PlantUML</h2>
+<ul>
+<li><a href="https://stackoverflow.com/q/32203610/1168342">Comment intégrer PlantUML dans le <code>Readme.md</code> de GitHub/GitLab?</a> </li>
+<li>Le serveur de PlantUML.com génère un diagramme à partir d’un URL:<br />
+<code>https://plantuml.com/plantuml/{forme}/{clé}</code> qui contient une clé comme<br />
+<code>Syp9J4vLqBLJSCfFib9mB2t9ICqhoKnEBCdCprC8IYqiJIqkuGBAAUW2rJY256DHLLoGdrUS2W00</code>.<br />
+La clé est en fait une représentation compressée du code source.</li>
+<li>On peut changer la forme du diagramme en changeant la partie <code>{forme}</code> de l’URL:
+<ul>
+<li><code>{forme}</code> <img style="vertical-align:middle" src="https://latex.codecogs.com/png.latex?%5Ctextstyle%20%5Crightarrow" alt="\rightarrow" title="\rightarrow" class="math inline" /> <code>png</code>, <code>img</code> ou <code>svg</code> : représentation graphique correspondante;<br />
+</li>
+<li><code>{forme}</code> <img style="vertical-align:middle" src="https://latex.codecogs.com/png.latex?%5Ctextstyle%20%5Crightarrow" alt="\rightarrow" title="\rightarrow" class="math inline" /> <code>uml</code> : récupération du code source PlantUML (ça marche avec <code>http:</code> seulement);</li>
+</ul></li>
+<li>On peut également récupérer le code source d’un URL avec l’outil PlantUML localement avec l’option <code>-decodeurl {clé}</code> de la ligne de commande:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>      <span class="ex">$</span> java <span class="at">-jar</span> plantuml.jar <span class="at">-decodeurl</span> Syp9J4vLqBLJSCfFib9mB2t9ICqhoKnEBCdCprC8IYqiJIqkuGBAAUW2rJY256DHLLoGdrUS2W00</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">@startuml</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">Alice</span> <span class="at">-</span><span class="op">&gt;</span> Bob: Authentication Request</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="ex">Bob</span> <span class="at">--</span><span class="op">&gt;</span> Alice: Authentication Response</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="ex">@enduml</span></span></code></pre></div>
+<ul>
+<li>Les images <code>png</code> générées par le serveur ou par l’outil contiennent une copie du code source dans les meta-données PNG.
+<ul>
+<li>On peut <a href="https://twitter.com/thefuhrmanator/status/1193565869227556868">récupérer le code source PlantUML à partir d’une image PNG</a> avec un outil sur le Web comme <a href="http://exif.regex.info/exif.cgi">ceci</a>.</li>
+<li>On peut également utiliser l’option <code>-metadata</code> de la ligne de commande PlantUML:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">$</span> java <span class="at">-jar</span> plantuml.jar <span class="at">-metadata</span> diagram.png <span class="op">&gt;</span> diagram.puml</span></code></pre></div></li>
+</ul>
+<figure>
+<img src="images/SelectSampleDiagramGizmo.png" id="GizmoSamples" alt="PlantUML Gizmo offre plusieurs exemples de diagramme UML." /><figcaption aria-hidden="true">PlantUML Gizmo offre plusieurs exemples de diagramme UML.</figcaption>
+</figure>
+<figure>
+<img src="images/LucidchartDSSBotched.png" id="LucidchartUML" alt="Exemple de tentative de créer un diagramme de séquence système (DSS) avec Lucidcharts. C’est principalement un éditeur graphique avec les éléments graphiques UML qui sont essentiellement des éléments graphiques composés. Il n’y a pas de sémantique UML dans l’outil. Par exemple, un “messages” dans Lucidcharts est juste une ligne groupée avec un texte. Elle peut se coller dynamiquement à d’autres éléments en se transformant en courbe (!) lorsque vous déplacez un bloque “loop”. La ligne de vie de l’acteur Étudiant se transforme en diagonale lorsque l’acteur est déplacé à droite. Un vrai message UML est normalement toujours à l’horizontale et une vraie ligne de vie est toujours à la verticale. Puisque Lucidcharts ne connaît pas cette sémantique, vous risquez de perdre beaucoup de temps à faire des diagrammes UML avec ce genre d’outil." /><figcaption aria-hidden="true">Exemple de tentative de créer un diagramme de séquence système (DSS) avec Lucidcharts. C’est principalement un éditeur graphique avec les éléments graphiques UML qui sont essentiellement des éléments graphiques composés. Il n’y a pas de sémantique UML dans l’outil. Par exemple, un “messages” dans Lucidcharts est juste une ligne groupée avec un texte. Elle peut se coller dynamiquement à d’autres éléments en se transformant en courbe (!) lorsque vous déplacez un bloque “loop”. La ligne de vie de l’acteur Étudiant se transforme en diagonale lorsque l’acteur est déplacé à droite. Un vrai message UML est normalement toujours à l’horizontale et une vraie ligne de vie est toujours à la verticale. Puisque Lucidcharts ne connaît pas cette sémantique, vous risquez de perdre beaucoup de temps à faire des diagrammes UML avec ce genre d’outil.</figcaption>
+</figure>
+<div id='graspgof'/>
+<h1 id="sec:GRASP-GoF">Décortiquer les patterns GoF avec GRASP</h1>
+<p>Craig Larman a proposé les GRASP pour faciliter la compréhension des forces essentielles de la conception orientée-objet. Dans ce chapitre, on examine la présence des GRASP dans les patterns GoF. C’est une excellente façon de mieux comprendre et les principes GRASP et les patterns GoF.</p>
+<h2 id="exemple-avec-adaptateur">Exemple avec Adaptateur</h2>
+<p>Le chapitre A26/F23  du livre du cours présente l’exemple du pattern Adaptateur pour les calculateurs de taxes (figure  tirée du livre de Larman, Figure A26.3/F23.3).</p>
+<figure>
+<img src="images/Fig23.1.png" title="Figure A26.1/F23.1 du livre de Larman" id="Fig23-1" alt="Le pattern Adaptateur." /><figcaption aria-hidden="true">Le pattern Adaptateur.</figcaption>
+</figure>
+<h2 id="imaginer-le-code-sans-le-pattern-gof">Imaginer le code sans le pattern GoF</h2>
+<p>Chaque principe GRASP est défini avec un énoncé d’un problème de conception et une solution pour le résoudre. Pourtant, beaucoup d’exemples dans le livre de LOG210 sont des patterns déjà appliqués (et le problème initial n’est pas toujours expliqué en détail).</p>
+<p>Alors, pour mieux comprendre l’application des patterns GoF, on doit imaginer la situation du logiciel <em>avant</em> l’application du pattern. Dans l’exemple avec l’adaptateur pour les calculateurs de taxes, imaginez le code si on n’avait aucun adaptateur. À la place d’une méthode <code>getTaxes()</code> envoyée par la classe Vente à l’adaptateur, on serait obligé de faire un branchement selon le type de calculateur de taxes externe utilisé actuellement (si on veut supporter plusieurs calculateurs). Donc, dans la classe Vente, il y aurait du code comme ceci:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* calculateurTaxes est le nom du calculateur utilisé actuellement */</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>calculateurTaxes <span class="op">==</span> <span class="st">&quot;GoodAsGoldTaxPro&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* série d&#39;instructions pour intéragir avec le calculateur */</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>calculateurTaxes <span class="op">==</span> <span class="st">&quot;TaxMaster&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* série d&#39;instructions pour intéragir avec le calculateur */</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="co">/* ainsi de suite pour chacun des calculateurs */</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* ... */</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Pour supporter un nouveau calculateur de taxes, il faudrait coder une nouvelle branche dans le bloc de <code>if/then</code>. Ça nuirait à la lisibilité du code et la méthode qui contient tout ce code deviendrait de plus en plus longue. Même si on faisait une méthode pour encapsuler le code de chaque branche, ça ferait toujours augmenter les responsabilités de la classe Vente. Elle est responsable de connaître tous les détails (l’API distinct et immuable) de chaque calculateur de taxe externe, puisqu’elle communique directement (il y a du couplage) à ces derniers.</p>
+<p>Le pattern Adaptateur comprend les principes GRASP Faible couplage, Forte cohésion, Polymorphisme, Indirection, Fabrication pure et Protection des variations. La figure  (tirée du livre de Larman, Figure A26.3/F23.3) démontre la relation entre ces principes dans le cas d’Adaptateur.</p>
+<figure>
+<img src="images/Fig23.3.png" title="Figure A26.3/F23.3 du livre de Larman" id="Fig23-3" alt="Adaptateur et principes GRASP." /><figcaption aria-hidden="true">Adaptateur et principes GRASP.</figcaption>
+</figure>
+<p>On peut donc voir le pattern adaptateur comme <em>une spécialisation</em> de plusieurs principes GRASP:</p>
+<ul>
+<li>Polymorphisme</li>
+<li>Indirection</li>
+<li>Fabrication pure</li>
+<li>Faible couplage</li>
+<li>Forte cohésion</li>
+<li>Protection des variations</li>
+</ul>
+<p>Êtes-vous en mesure d’expliquer dans ce contexte comment Adaptateur est relié à ces principes? C’est-à-dire, pouvez-vous identifier les GRASP dans le pattern Adaptateur?</p>
+<h2 id="identifier-les-grasp-dans-les-gof">Identifier les GRASP dans les GoF</h2>
+<p>Pour identifier les principes GRASP dans un pattern GoF comme Adaptateur, on rappelle la définition de chaque principe GRASP et on essaie d’imaginer le problème qui pourrait exister et comment le principe (et le pattern GoF) résout le problème.</p>
+<p>Référez-vous à la figure  du pattern Adaptateur pour les sections suivantes.</p>
+<h3 id="polymorphisme">Polymorphisme</h3>
+<blockquote>
+<p><strong>Problème:</strong> Qui est responsable quand le comportement varie selon le type?<br />
+<strong>Solution:</strong> Lorsqu’un comportement varie selon le type (classe), affectez la responsabilité de ce comportement - avec des opérations polymorphes - aux types pour lesquels le comportement varie.</p>
+</blockquote>
+<p>Le “comportement qui varie” est la manière d’adapter les méthodes utilisées par le calculateur de taxes choisi à la méthode <code>getTaxes()</code>. Alors, cette “responsabilité” est affectée au type interface <code>IAdaptateurCalculTaxes</code> (et ces implémentations) dans l’opération polymorphe <code>getTaxes()</code>.</p>
+<h3 id="fabrication-pure">Fabrication pure</h3>
+<blockquote>
+<p><strong>Problème:</strong> En cas de situation désespérée, que faire quand vous ne voulez pas transgresser les principes de faible couplage et de forte cohésion?<br />
+<strong>Solution:</strong> Affectez un ensemble très cohésif de responsabilités à une classe « comportementale » artificielle qui ne représente pas un concept du domaine - une entité fabriquée pour augmenter la cohésion, diminuer le couplage et faciliter la réutilisation.</p>
+</blockquote>
+<p>La Fabrication pure est la classe “comportementale et artificielle” qui est la hiérarchie IAdaptateurCalculTaxes (comprenant chaque adaptateur concret). Elle est comportementale puisqu’elle ne fait qu’adapter des appels. Elle est artificielle puisqu’elle ne représente pas un élément dans le modèle du domaine.</p>
+<p>L’ensemble des adaptateurs concrets ont des “responsabilités cohésives” qui sont la manière d’adapter la méthode <code>getTaxes()</code> aux méthodes (immuables) des calculateurs de taxes externes. Elles ne font que ça. La cohésion est augmentée aussi dans la classe Vente qui n’a plus la responsabilité de s’adapter aux calculateurs de taxes externes. C’est le travail qui a été donné aux adaptateurs concrets.</p>
+<p>Le couplage est diminué, car la classe Vente n’est plus couplée directement aux calculateurs de taxes externes. La réutilisation des calculateurs est facilitée, car la classe Vente ne doit plus être modifiée si l’on veut utiliser un autre calculateur externe. Il suffit de créer un adaptateur pour ce dernier.</p>
+<h3 id="indirection">Indirection</h3>
+<blockquote>
+<p><strong>Problème:</strong> Comment affecter les responsabilités pour éviter le couplage direct?<br />
+<strong>Solution:</strong> Pour éviter le couplage direct, affectez la responsabilité à un objet qui sert d’intermédiaire avec les autres composants ou services.</p>
+</blockquote>
+<p>Le “couplage direct” qui est évité est le couplage entre la classe Vente et les calculateurs de taxes externes. Le pattern Adaptateur (général) cherche à découpler le Client des classes nommées Adaptee, car chaque Adaptee a une API différente pour le même genre de “service”. Alors, la responsabilité de s’adapter aux services différents est affectée à la hiérarchie de “classes intermédiaires”, soit l’interface type IAdaptateurCalculTaxes et ses implémentations.</p>
+<h3 id="protection-des-variations">Protection des variations</h3>
+<blockquote>
+<p><strong>Problème:</strong> Comment affecter les responsabilités aux objets, sous-systèmes et systèmes de sorte que les variations ou l’instabilité de ces éléments n’aient pas d’impact négatif sur les autres?<br />
+<strong>Solution:</strong> Identifiez les points de variation ou d’instabilité prévisibles et affectez les responsabilités afin de créer une « interface » stable autour d’eux.</p>
+</blockquote>
+<p>Les “variations ou l’instabilité” sont les calculateurs de taxes qui ne sont pas sous le contrôle des développeurs du projet (ce sont des modules externes ayant chacun une API différente). Quant à “l’impact négatif sur les autres”, il s’agit des modifications que les développeurs auraient à faire sur la classe Vente chaque fois que l’on décide de supporter un autre calculateur de taxes (ou si l’API de ce dernier évolue).</p>
+<p>Quant aux “responsabilités” à affecter, c’est la fonctionnalité commune de tous les calculateurs de taxes, soit le calcul de taxes. Pour ce qui est de “l’interface stable”, il s’agit de la méthode <code>getTaxes()</code> qui ne changera jamais. Elle est définie dans le type-interface IAdaptateurCalculTaxes. Cette définition isole (protège) la classe Vente des modifications (ajout de nouveaux calculateurs ou changements de leur API).</p>
+<h2 id="grasp-et-réusinage">GRASP et réusinage</h2>
+<p>Il y a des liens entre les GRASP et les activités de réusinage. Alors, un IDE qui automatise les refactorings peut vous aider à appliquer les GRASP:</p>
+<ul>
+<li>GRASP Polymorphisme est relié à <a href="https://refactoring.com/catalog/replaceTypeCodeWithSubclasses.html">Replace Type Code with Subclasses</a> et <a href="https://refactoring.com/catalog/replaceConditionalWithPolymorphism.html">Replace conditional with polymorphism</a> – attention, il vaut mieux appliquer ce dernier seulement quand il y a des instructions conditionnelles (<code>switch</code>) répétées à plusieurs endroits dans le code.</li>
+<li>GRASP Fabrication pure est relié à <a href="https://refactoring.com/catalog/extractClass.html">Extract class</a>.</li>
+<li>GRASP Indirection est relié à <a href="https://refactoring.com/catalog/extractFunction.html">Extract function</a> et <a href="https://refactoring.com/catalog/moveFunction.html">Move function</a>.</li>
+</ul>
+<div id='fiabilite'/>
+<h1 id="fiabilité">Fiabilité</h1>
+<p>Le chapitre A35/F30  du livre du cours présente le problème de la fiabilité pour le système NextGen POS. C’est le basculement sur un service local en cas d’échec d’un service distant.</p>
+<figure>
+<img src="images/PanneConnexionService.png" title="Comment tolérer une panne de connexion ou de service?" id="PanneConnexionService" style="width:70.0%" alt="Comment tolérer une panne de connexion ou de service?" /><figcaption aria-hidden="true">Comment tolérer une panne de connexion ou de service?</figcaption>
+</figure>
+<p>Voici les points importants:</p>
+<ul>
+<li>Définitions des termes, A35.3/F30.3 :
+<ul>
+<li><strong>Faute.</strong> La cause première du problème</li>
+<li><strong>Erreur.</strong> La manifestation de la faute lors de l’exécution. Les erreurs sont détectées (ou non).</li>
+<li><strong>Échec.</strong> Déni de service causé par une erreur.</li>
+</ul></li>
+<li>Les solutions proposées par l’architecte système et documentées par Larman impliquent les concepts suivants:
+<ul>
+<li>Mise en cache locale d’informations recherchées au service distant, A35.2/F30.2 </li>
+<li>Utilisation d’<em>Adaptateur [GoF]</em> pour réaliser le service redondant (lecture d’information), A35.2/F30.2  </li>
+<li>Réalisation d’un scénario dans le cas d’utilisation pour supporter l’échec de tout (rien ne va plus) en permettant au Caissier de saisir l’information (description et prix), A35.3/F30.3 . Dans ce cas, il faut bien gérer les exceptions.</li>
+<li>Utilisation de <em>Procuration (Proxy) de redirection [GoF]</em> pour basculer sur un service local en cas de panne (écriture d’information), A35.4/F30.4 </li>
+</ul></li>
+</ul>
+<blockquote>
+<p>Faire une conception pour la fiabilité nécessite de l’expérience (ou l’utilisation des patterns). Un bon livre est celui de R. Hanmer <span class="citation" data-cites="hanmer_patterns_2007">[@hanmer_patterns_2007]</span>.</p>
+</blockquote>
+<blockquote>
+<p>L’utilisation de services dans le nuage (infonuagique) amène une redondance de serveurs. Cependant, même un service web a besoin de <a href="https://aws.amazon.com/about-aws/global-infrastructure/">redondance dans les zones géographiques</a>, car une erreur de configuration ou une crise régionale (ouragan, tremblement de terre) pourrait affecter toute une grappe de serveurs.</p>
+</blockquote>
+<div id='activite'/>
+<h1 id="diagrammes-dactivités">Diagrammes d’activités</h1>
+<p>Ce chapitre contient des informations sur les diagrammes d’activités en UML. Les détails se trouvent dans le chapitre F25/A28  du livre du cours.</p>
+<blockquote>
+<p>Les diagrammes d’activités servent à modéliser des processus d’affaires (de métier), des enchaînements d’activités (workflows), des flots de données et des algorithmes complexes.</p>
+</blockquote>
+<p>Voici les éléments importants:</p>
+<ul>
+<li>début et fin (activité)</li>
+<li>partition</li>
+<li>action</li>
+<li>nœud d’objet</li>
+<li>débranchement et jointure (parallélisme)</li>
+<li>décision et fusion (exclusion mutuelle)</li>
+</ul>
+<p>Pour la modélisation de flot de données, il existe une notation pour les <a href="https://fr.wikipedia.org/wiki/Diagramme_de_flux_de_donn%C3%A9es">diagrammes de flots de données (DFD)</a>  . Il ne s’agit pas de l’UML, mais cette notation est encore utilisée (depuis les années 1970).</p>
+<p>Un exemple de diagramme d’activité utilisé dans le cadre du cours de LOG210 est dans la figure . Ce diagramme qui explique comment GitHub Classrooms permet à l’étudiant qui accepte un devoir (<em>assignment</em> en anglais) sur GitHub Classrooms de choisir son identité universitaire, mais seulement si l’enseignant a téléversé la liste de classe <em>avant</em> d’envoyer les invitations aux étudiants.</p>
+<!-- ```{#GitHubClassroomActivitiesSource .puml frame=single caption="Code source PlantUML pour la figure\ \ref{GitHubClassroomActivities}"}
+@startuml
+skinparam style strictuml
+skinparam backgroundcolor transparent
+skinparam DefaultTextAlignment center
+title Enchaînement d'activités pour chaque //Classroom// (groupe-cours)
+|Enseignant.e|
+start
+:Créer Classroom;
+#ffdddd:Importer liste de classe
+(Identifiants Moodle);
+:Créer Assignment
+(Individual/Team);
+:Partager (courriel) l'URL d'invitation;
+|#ddffdd|Étudiant.e|
+:Open URL;
+#ffdddd:Choisir identifiant Moodle;
+:Choisir équipe (ou créer équipe);
+|GitHub|
+:Dupliquer (fork) le dépôt
+(au besoin, avec le compte
+d'un membre de l'organisation);
+stop
+@enduml
+``` -->
+<figure>
+<embed src="build/images/GitHubClassroomActivity.pdf" id="GitHubClassroomActivities" /><figcaption aria-hidden="true">Diagramme d’activités pour les activités séquentielles de GitHub Classrooms. <a href="http://www.plantuml.com/plantuml/uml/NP91JXmn44NtFaL9B6P62lH-PWCQ420b2eh80JnszL0QkspiCWfINo17cKrMkK5VBDMJ5Y2yyCB_-zVxbY-hs28j1bCFnDaM6w7AQq3T2xbFoiwwmxwanjwba0f8iLnLGfOFhcliRGloYB_aAj2UeyhWTCDYX4IpRzWzsV4Fuqdo2-k4NaZ6OuMSMW5Ldnj2rss3hRMa5BiEbjFaZETE7NLbXXkkgEcMvG87S-fXrjio7h70sxsDEUjxhsjz7tCgYW21gY1u13UPq2pllL9GJvfKuLjAFk1gynPrLUlSGPtibTCt6xf7j75oFUXOkrVVSk8gX645OV7pnrUjHQobh53YZHdEl9z8Xl6tD4ypzVfxHWPrltDkdn9LAa3lL3FKn3IBu_6vKKPOfWRkF-Tyf4p3BSbTssdwTSk1z2MLha_be6HQV3pcyQ-MiGrsM1Fn5x0lw2RDfPW5ZLyqXeXnLqxl51Qfx2rJFLNH0LLIDfV8Nd_7Fm00">(PlantUML)</a></figcaption>
+</figure>
+<div id='etat'/>
+<h1 id="diagrammes-détat">Diagrammes d’état</h1>
+<p>Ce chapitre contient des informations sur les diagrammes d’état en UML. Le sujet est traité dans le chapitre A29/F25  du livre du cours.</p>
+<p>Il s’agit de la modélisation. Un état est une simplification de la réalité de quelque chose qui évolue dans le temps.</p>
+<p>Les points importants:</p>
+<ul>
+<li>Un diagramme d’état sert à modéliser les comportements. Un concept préalable:  <a href="https://fr.wikipedia.org/wiki/Automate_fini#Automates_UML">Automate fini</a></li>
+<li>Un diagramme d’état contient des éléments suivants:
+<ul>
+<li>Événement
+<ul>
+<li>occurrence d’un fait significatif ou remarquable</li>
+</ul></li>
+<li>État
+<ul>
+<li>la condition d’un objet à un moment donné, jusqu’à l’arrivée d’un nouvel événement</li>
+</ul></li>
+<li>Transition
+<ul>
+<li>relation état-événement-état</li>
+<li>indique que l’objet change d’état</li>
+</ul></li>
+</ul></li>
+<li>La différence entre les objets
+<ul>
+<li>Un objet répondant de la même manière à un événement donné est un objet <em>état-indépendant</em> (par rapport à l’événement)</li>
+<li>Un objet répondant différemment, selon son l’état, à un événement donné est un objet état-dépendant</li>
+</ul></li>
+<li>Les transitions peuvent avoir des <em>actions</em> et des <em>conditions de garde</em></li>
+<li>Dans la notation, il y a également la possibilité de faire les <em>états imbriqués</em></li>
+</ul>
+<p>La figure  est un exemple tiré du livre du cours et fait en PlantUML.</p>
+<figure>
+<embed src="build/images/DiagrammeEtat.pdf" id="DiagrammeEtat" /><figcaption aria-hidden="true">Diagramme d’états (figure A29.3/F25.10  du livre). <a href="http://www.plantuml.com/plantuml/uml/TL6xRiCm3Dpr5PmB6Dqz537QfKkdR4a6HQ9Z8HPbK7IGeEW7z5Fo7VwnqgbjzBbGrDtnT8HMMInB7rkJZu4wopP2bakBMZcu7ypUkkE1Kq_UfJOn25lAIY795zKJrhPlPOrdgTfmeAWqE2t8fWaU0MCd5_2O7OTEGYApkTj1KJp0CradeJRJ2GfLjwO4FrmT9zSWmpr88ji66Qwm9TZOVIBI_gIOnvsfvjdPfWIsRfeskh7WPFkwl3oynv2pPbdFrkOtT5E-z76uSb8NfTJQDQ6k6SrtV5G-QYmywwq4tJq6pVY7wZ-_PHgA_jFiX9mNrSYwCUQRMI5v_QWF">(PlantUML)</a></figcaption>
+</figure>
+<div id='package'/>
+<h1 id="conception-de-packages">Conception de packages</h1>
+<p>Le chapitre A36/F29  du livre du cours contient des directives pour la conception de packages.</p>
+<p>Les points importants sont les suivants (les détails se trouvent dans le livre):</p>
+<ul>
+<li>La notation UML des diagrammes de package</li>
+<li>Organiser les packages par <strong>cohésion</strong></li>
+<li>Organiser les packages une <strong>famille d’interface</strong> (convention Java)</li>
+<li>Créer un package par <strong>tâche</strong> et par <strong>groupe de classes instables</strong> (Branches)</li>
+<li>Les packages les plus responsables sont les plus stables</li>
+<li>Factoriser les types indépendants</li>
+<li>Utiliser <strong>fabrique</strong> (factory) pour limiter la dépendance aux packages concrets</li>
+<li>Comment rompre les cycles dans les packages</li>
+</ul>
+<p>La figure  est un exemple d’un diagramme de package.</p>
+<figure>
+<embed src="build/images/DiagrammePackage.pdf" id="DiagrammePackage" /><figcaption aria-hidden="true">Diagramme de packages (tiré de la figure F12.6  du livre du cours). <a href="http://www.plantuml.com/plantuml/uml/XPDHRzGm3CVVA-qxM9FGjeT9yC0BcgOXRaE3IKoqZ0V4WqbyhTNKEPoKku7sWVOvziLmji4Ac-wgo4tZN-A_xVGePTGy3g5AFSi25GT8-JAGMMLNF5iJrpTqVQjn5EzYY0fPKPAvIF9MjGEvumGs43eKlrJEcGJcKJAmm6SM7vV9m8S3FSrn3BaWWWF1U-LKzfmsRunhEae4CNUa2KACFRHAU7jOVV4MTWViJUYeP97fSiVUB9PG2EGjgiBhipFuL1z_h2VXuSNplMbA_oj8s1OZwtMUIW_lugY2OIstwfs7sYalybhkdAnKcgR2fYNCEb9bUSNbm2kMjbfO8uhGxPhq1pjAq93hXB-FbBO14zGD71oSnE193m_XLmNs_DbqRf6ip2YE7aDN_w3rpRKRJSJDzIRolXgSC7EKf-YhlwfdSK0MAZfdQsH-g3VAoz7rQHFLu8hIqugg6UpxBnrxJ_9rtwfMsJL-w46WbiINBYN-IV3Id7TBuEpAazht2GSgBNm5p-RtqzqzMo_G7LjLHsRjJ_eD">(PlantUML)</a></figcaption>
+</figure>
+<div id='deploiement'/>
+<h1 id="diagrammes-de-déploiement-et-de-composants">Diagrammes de déploiement et de composants</h1>
+<p>Ce chapitre  contient des informations sur les diagrammes de déploiement et de composants en UML. Les détails se trouvent dans le chapitre F31/A37  du livre du cours.</p>
+<h2 id="diagrammes-de-déploiement">Diagrammes de déploiement</h2>
+<p>Un diagramme de déploiement présente le déploiement sur l’<strong>architecture physique</strong>. Il sert à documenter:</p>
+<ol type="1">
+<li>comment les fichiers exécutables seront affectés sur les nœuds de traitement et</li>
+<li>la communication entre composants physiques</li>
+</ol>
+<p>Voici les éléments importants:</p>
+<ul>
+<li>Types de nœuds
+<ul>
+<li><strong>Nœud physique (équipement)</strong> : Ressource de traitement physique (ex. de l’électronique numérique), dotée de services de traitement et de mémoire destinés à exécuter un logiciel. Ordinateur classique, cellulaire, etc.</li>
+<li><strong>Nœud d’environnement d’exécution (EEN <em>execution environment node</em>)</strong> : Ressource de traitement logiciel qui s’exécute au sein d’un nœud externe (comme un ordinateur) et offrant lui-même un service pour héberger et exécuter d’autres logiciels, par exemple:
+<ul>
+<li>Système d’exploitation (OS) est un logiciel qui héberge et qui exécute des programmes</li>
+<li>Machine virtuelle (JVM ou .NET)</li>
+<li>Moteur de base de données (ex. PostgreSQL) exécute les requêtes SQL</li>
+<li>Navigateur Web héberge et exécute JavaScript, applets Flash/Java</li>
+<li>Moteur de workflow</li>
+<li>Conteneur de servlets ou conteneur d’EJB</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>La figure  est un exemple de diagramme de déploiement (laboratoire). La figure  est un exemple de diagramme de déploiement pour le logiciel iTunes d’Apple.</p>
+<figure>
+<embed src="build/images/DiagrammeDeploiement.pdf" id="DiagrammeDeploiement" /><figcaption aria-hidden="true">Diagramme de déploiement du système à développer pour le laboratoire. <a href="http://www.plantuml.com/plantuml/uml/ZLDHQnin37xthn0PZ1HwXUrj8uGcT8IECKPlUrhseDmfgPbFzcGxQHdzFLj-H_vOvRkaetsQuUuaMVxqwPFlCYQKb3jdua_B0GKxYEdUaRx5DYzs6jy5pyIfxbDqywqnx5k2qLpyBf90fvumZU2t0LrF9-3xB0Hd6qpMCwp5Sq97I-uismwTZOdEGQi0tL4NoewZg86DldUqWd4gOKmKpvPC2J93e0nQ-YDkiMx4XlG3CCBYsxLvEB6gxsCw_Esev2bIgRtaLY4n155MDiPIOSdZUZ4x6y5aSZendHuxi9n8rjWGtFYSDBiKAIQ9wHEUDTPuFlp9oZwIKzSXT8TzklMjTtvZDHx41nyFU-gR_OJI8VUy5MN0Qp7X2cDXxrqUA4TRD1cLlBeth-P7UW_m7zsklEXKCD_rZSxF1g35_7c_hzxrIu7P9pgcV5RJJ5wZw7ohnahZg7AqJbEeVHPL9UW7T5R6yjf7Y8EdGcI9vs2AhGharY8d3L1gBbxYYTtSAk1LeSo3Za-eSjZ7x1Ac2AMJNtdegpACLZIWLw6bhRSIBmnn2uLwKSJeFO2UQJK-ZWlUm-pBDTnygBy2sorXXZVck5MrViTLFmHzJkv9wo7MqwnwtVuXcKkjgZ_28m00">(PlantUML)</a></figcaption>
+</figure>
+<figure>
+<embed src="build/images/iTunesDeployment.pdf" id="iTunesDiagrammeDeploiement" /><figcaption aria-hidden="true">Diagramme de déploiement pour iTunes d’Apple, inspiré de <a href="https://www.uml-diagrams.org/apple-itunes-uml-deployment-diagram-example.html">ceci</a>. <a href="http://www.plantuml.com/plantuml/uml/ZLF9JkGm4BtxAqhXW3HIWfeZGX6RH1yQEb9wr9UvE4b1MtBiO3k4dX7_FbM91M4Hu9ENUlKMssS-I1VwLWkDTm621QVkTm4QvR0EoXfXR8EGd7UTHjXY1IMwHtG9d9us-AXgpFE3GchSzEwXjyeZ_1D0OuIfJM_GW_Gqsn9YmCghm90LivHIjzP400-Iekva7I8GImnzb-4J4bQI0bLBrfJd8-BvbIY9J6Mm3fE9iFm18PkKvfwi9JVOA0ahLJdfzaaaU1Q7h3njx61IxXdZMDeMuTAsNHyu2-9RNiuJ-SWsuM2i7Qf96bJE3XxTMu1uAsoUuViO3XmsuaiVZBjPBO08MhnsY8OynSYAdJLuf0hP766eiwdsYZXQMobgzQqRjIuZQCrXhyilZNogxFYzie1ySBiGKxKUgnK7u53ulQbtpXhrbtnN60P2HPaUghsOiX9e6k1EudO1MSR-NsR7uf2lwbUQZjjneLEw4q5Jthw24_XTNl3DGzPdEPLGOpxYDtL2HZjdWwsjplC_Plxme8W7r9VQZ2GKpMn5_7JvOwljXrRBpQOGOvOphe4-eaRluNlIC_9DF_a_">(PlantUML)</a></figcaption>
+</figure>
+<div id='laboratoire'/>
+<h1 id="Laboratoires">Laboratoires</h1>
+<p>Ce chapitre contient des informations sur le volet technique des laboratoires.</p>
+<h2 id="javascripttypescript">JavaScript/TypeScript</h2>
+<p>Pour la personne ayant déjà des connaissances Java (de LOG121), il est recommandé d’apprendre les choses dans cet ordre:</p>
+<ul>
+<li><strong>JavaScript</strong> - un tutoriel intéressant (et libre) est sur <a href="https://javascript.info/">javascript.info</a>. Je vous recommande de contribuer à des <a href="https://github.com/javascript-tutorial/fr.javascript.info#readme">traductions en français sur GitHub</a>.</li>
+<li><strong>TypeScript</strong> - <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-oop.html">ce tutoriel</a> est en anglais, mais il est adapté à des personnes ayant déjà une expérience en Java/C<img style="vertical-align:middle" src="https://latex.codecogs.com/png.latex?%5Ctextstyle%20%5Csharp" alt="\sharp" title="\sharp" class="math inline" />.</li>
+</ul>
+<p>Sinon, voici des points qui posent plus de problèmes pour quelqu’un ayant déjà des connaissances en Java:</p>
+<ul>
+<li>Fonctions flèche (<em>arrow functions</em> en anglais)</li>
+<li>Traitement asynchrone en JavaScript
+<ul>
+<li>Promesses et <code>async</code>/<code>await</code> : <a href="https://javascript.info/async">Tutoriel</a></li>
+</ul></li>
+<li>REST (GET vs PUT)</li>
+<li>Environnement de test (Mocha/Chai)</li>
+<li>Les templates PUG (anciennement Jade) : <a href="https://www.youtube.com/watch?v=DSp9ExFw3Ig">Tutoriel</a></li>
+</ul>
+<p>Le lab0 aborde plusieurs de ces aspects, mais certaines notions sont plus complexes. Le but de cette section est de donner des tutoriels plus spécifiques.</p>
+<p>Il y a un <a href="https://github.com/profcfuhrmanets/exemples-ts">dépôt d’exemples avec TypeScript (utilisant <code>ts-node</code> pour les voir facilement)</a> sur GitHub. Il y a un exemple qui montre comment faire des REST à partir de TypeScript avec le système SGB.</p>
+<h2 id="ContributionsEquipe">Contributions de l’équipe</h2>
+<p>Il existe un outil nommé <code>gitinspector</code> qui peut indiquer le niveau d’implication des membres de l’équipe dans un projet sur GitHub. Étant donné que LOG210 utilise un squelette avec les tests, les fichiers <code>src</code> de TypeScript, les modèles PlantUML et le README.md, il est possible d’utiliser <code>gitinspector</code> pour voir des rapports de contribution sur chacun des volets.</p>
+<p>Pour faciliter l’utilisation de l’outil, le professeur Fuhrman a créé un <a href="https://gist.github.com/fuhrmanator/b5b098470e7ec4536c35ca1ce3592853">script en bash</a>. Voici comment l’utiliser:</p>
+<ul>
+<li>Installer <code>gitinspector</code> dans npm avec la commande <code>npm install -g gitinspector</code></li>
+<li>Télécharger le script</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git clone https://gist.github.com/fuhrmanator/b5b098470e7ec4536c35ca1ce3592853 <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>contributions</span></code></pre></div>
+<pre><code>Cloning into &#39;contributions&#39;...
+remote: Enumerating objects: 10, done.
+remote: Counting objects: 100% (10/10), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 10 (delta 3), reused 7 (delta 2), pack-reused 0
+Unpacking objects: 100% (10/10), 2.02 KiB | 82.00 KiB/s, done.</code></pre>
+<ul>
+<li>Lancer le script sur un dépôt de code source, par exemple <code>sga-equipe-g02-equipe-4</code>:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd contributions</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./contributions.sh ../sga-equipe-g02-equipe-4/</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">gitinspector</span> running on ../sga-equipe-g02-equipe-4/ : patience...</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ContributionsÉquipeTest.html</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ContributionsÉquipeModèles.html</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ContributionsÉquipeDocs.html</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ContributionsÉquipeTypeScript.html</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ContributionsÉquipeViews.html</span></span></code></pre></div>
+<p>Les fichiers <code>.html</code> sont créés pour les contributions <code>Test</code>, <code>Modèles</code>, <code>Docs</code>, <code>TypeScript</code> et <code>Views</code>. Chaque rapport indique des contributions selon deux perspectives:</p>
+<ol type="1">
+<li>Le nombre de soumissions par auteur (activité git)</li>
+<li>Le nombre de lignes par auteur encore présentes et intactes dans la version HEAD</li>
+</ol>
+<p>Vous pouvez voir un exemple du rapport à la figure .</p>
+<figure>
+<img src="images/gitinspector_output.png" id="GitinspectorOutput" alt="Exemple de rapport généré par gitinspector." /><figcaption aria-hidden="true">Exemple de rapport généré par <code>gitinspector</code>.</figcaption>
+</figure>
+<h3 id="faire-le-bilan-de-la-contribution-de-chacun">Faire le bilan de la contribution de chacun</h3>
+<p>Après l’évaluation à la fin de chaque itération, il est important de considérer combien chacun a contribué au projet et de valider avec les responsabilités prévues dans le plan de l’itération. Il est normal d’avoir un écart entre le travail prévu et le travail effectué. Un des objectifs du bilan est d’essayer d’expliquer les gros écarts et de corriger ou mitiger les problèmes.</p>
+<p>Par exemple, on peut voir à la figure  que les deux coéquipiers Anne et Justin ont fait une contribution beaucoup plus importante que les autres coéquipiers Francis et Mélanie. Dans le bilan de l’itération, <strong>on peut indiquer explicitement ce fait, même avec des pourcentages</strong> en évitant d’écrire une phrase vague comme “certains ont travaillé plus que d’autres”. Ensuite, on se pose la question: pourquoi y a-t-il eu cet écart? Est-ce que Francis et Mélanie sont à l’aise avec les technologies, ont-ils besoin de coaching? Est-ce que tout le monde est à l’aise avec l’écart? Est-ce que Anne et Justin ont laissé suffisamment de place aux autres pour faire une contribution? Est-ce que tout le monde met au moins 6 heures de travail en dehors des séances encadrées? Est-ce que tout le monde est présent pendant les séances? Etc.</p>
+<p>Dans le bilan il faut <em>constater les faits</em> et <em>proposer des solutions</em> pour éviter des écarts importants dans les prochaines itérations. Ainsi, vous gérez les problèmes de manière plus proactive.</p>
+<h3 id="faq-pour-gitinspector">FAQ pour gitinspector</h3>
+<p><strong>Q: Comment fusionner le travail réalisé par le même coéquipier, mais avec plusieurs comptes (courriels) différents?</strong></p>
+<p><strong>R:</strong> La solution est avec le fichier <code>.mailmap</code>. Vous pouvez rapidement générer un fichier de base avec la commande:<br />
+  <code>git log --pretty="%an %ae" | sort | uniq &gt; .mailmap</code><br />
+Ensuite, vous modifiez le fichier <code>.mailmap</code> pour que les deux (ou plusieurs) courriels du même auteur aient le même nom. Le nom que vous mettez sera celui qui apparaît dans les rapports la prochaine fois qu’ils seront générés.</p>
+<p><strong>Q: Comment exclure le travail réalisé par un chargé de laboratoire (par exemple le clone initial dans GitHub Classroom)?</strong></p>
+<p><strong>R:</strong> La solution est d’ajouter le nom de l’auteur dans le tableau du script <code>contributions.sh</code> à la ligne suivante avec <code>authorsToExcludeArray</code>. Attention:</p>
+<ul>
+<li>Il n’y a pas de <code>,</code> entre les éléments des tableaux en bash.</li>
+<li>Le nom d’un auteur ayant un accent ne sera pas reconnu. Il faut changer le nom dans le <code>.mailmap</code> pour qu’il n’y ait pas d’accents, ou utiliser une chaîne partielle comme <code>"Benjamin Le"</code> pour exclure les contributions de <code>"Benjamin Le Dû"</code>.</li>
+</ul>
+<pre><code>authorsToExcludeArray=(&quot;Benjamin Le&quot; &quot;Yvan Ross&quot;)</code></pre>
+<p><strong>Q: J’ai une autre question…</strong></p>
+<p><strong>R:</strong> Il y a aussi une <a href="https://github.com/ejwa/gitinspector/wiki/FAQ">FAQ sur le dépôt de gitinspector</a>.</p>
+<h2 id="todo">TODO</h2>
+<ul>
+<li>modifier le squelette pour aussi utiliser <code>PUT</code> (REST)</li>
+<li>inclure exemples de <code>before</code> et <code>after</code> dans les tests, avec une référence à la doc</li>
+</ul>
+<div id='biblio'/>
+<h1 id="bibliographie">Bibliographie</h1>
+
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>By Val42 - <a href="http://en.wikipedia.org/wiki/Image:Risk-dice-example.jpg">https://en.wikipedia.org/wiki/Image:Risk-dice-example.jpg</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC By-SA 3.0</a> <a href="https://commons.wikimedia.org/w/index.php?curid=3272090">Link</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>
