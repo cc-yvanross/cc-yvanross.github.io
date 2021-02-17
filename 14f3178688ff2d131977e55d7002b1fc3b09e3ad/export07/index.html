@@ -266,7 +266,7 @@
 <body>
   
 <div id="logo" style="position: fixed; top: 20px; left: 20px; z-index: 1">
-    <img src="assets/01-chp0-intro_09.pptx/image3.png" />
+    <img src="./assets/logo_ets.svg" />
 </div>
 
 
@@ -303,13 +303,9 @@
 </li>
 <li>
 <p>Question concernant le laboratoire.</p>
-</li>
-<li>
-<p>« Évaluation chronométrée inclusive »</p>
 <ul>
-<li>Durée 1h45 (1h + 50% ESH + 15m pour surveillants)</li>
-<li>Toute documentation permise (!)</li>
-<li>Préparez feuilles de notes</li>
+<li>Durée 3h</li>
+<li>Toute documentation permise</li>
 </ul>
 </li>
 </ul>
@@ -357,7 +353,7 @@
         defaultTiming: 120,
         mouseWheel: true,
         hideAddressBar: true,
-        previewLinks: false,
+        previewLinks: true,
         transition: 'none',
         transitionSpeed: 'fast',
         backgroundTransition: 'default',
@@ -570,8 +566,10 @@
     },
     chalkboard: {
         toggleChalkboardButton: { left: "60px", bottom: "30px", top: "auto", right: "auto" },
-        toggleNotesButton: { left: "90px", bottom: "30px", top: "auto", right: "auto" },
-
+        toggleNotesButton: { left: "90px", bottom: "30px", top: "auto", right: "auto" },        
+        chalkWidth: 1,
+        chalkEffect: 1.0,
+        readOnly: false,
     }
     });
 
